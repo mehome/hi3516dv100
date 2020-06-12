@@ -1,0 +1,16 @@
+1¡¢Requirements for the operating environment
+Windows XP or Window 7(32bit/64bit£©£¬1G memory or above£»
+Please pre-installed jre version1.6 or above£¬to get jre file from this link£¨window offline installation£ºjre-6u1-windows-i586-p£©,otherwise HiTool may not be able to run¡£
+link£ºhttp://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase6-419409.html
+
+2¡¢Installation instructions£º
+Directly unzip,first,select the chip and the necessary tool you need.HiTool provides Quick Start video and detailed online help, you may need them. 
+
+3¡¢Versions match£º
+HiReg is dependent on the board program btools£¬version£ºver0.0.1_20120501 or above, and I2C register debug function relys on regtool board side program
+
+4¡¢FAQ
+Q1: How to confirm the version of the board-side program is available?
+A1£ºEnter the command: himd ,if himd prints ver0.0.1_20120501, it's a good match.
+Q2£ºHow to know our btool postition
+A2£ºEnter the command:which himd

@@ -1,0 +1,208 @@
+#============================================================================== 
+#   Project   :  Hi3516A
+#============================================================================== 
+
+memory 0x20000000 0x30000000 noverify
+
+# config pll timeout
+memory set 0x20050014 32 0x0fff8000
+
+# config apll
+memory set 0x20030000 32 0x12000000
+memory set 0x20030004 32 0x01501032
+
+# config soc clk
+memory set 0x20030030 32 0x000ae000
+
+# waiting ...
+pause 0.1s
+# read if 0x200300e8=0xd, then all pll locked
+
+#config sfc clk
+memory set 0x200300c0 32 0x66
+
+# set workmode from slow to normal
+# PS: 表格中写的是bit[2：0]，这里这么写32bit有没有问题？
+memory set 0x20050000 32 0x4
+
+pause 0.2s
+
+#============================================================================== 
+#   Project   :  Hi3516A V100 
+#   DDR3 type :  4Gbit
+#   DDR3 Width:  32bit 
+#   Work Freq :  DDRC clk freq =  297 MHz, prd = 3.333 ns
+#                DDR  clk freq =  594 MHz, prd = 1.683 ns
+#============================================================================== 
+
+#------ Config MDDRC --------------
+memory set 0x2011102c 32 0x0
+memory set 0x20111040 32 0x2001
+memory set 0x20111050 32 0x26
+memory set 0x20111060 32 0x142
+memory set 0x20111070 32 0x00421b50
+memory set 0x20111074 32 0x10
+memory set 0x20111080 32 0x23294f0b
+memory set 0x20111084 32 0x4127a05a
+memory set 0x20111088 32 0x23009000
+memory set 0x2011108c 32 0xffd01623
+memory set 0x20111090 32 0x00730d14
+memory set 0x20111094 32 0x00002005
+memory set 0x201110c0 32 0x1
+memory set 0x201110c4 32 0xc
+memory set 0x20111200 32 0x0
+memory set 0x20111020 32 0x8101
+
+#---- DDRPHY PLL Power-Down/Up ----
+memory set 0x20118018 32 0x7
+pause 0.1s
+memory set 0x20118018 32 0x0
+pause 0.1s
+
+#------ Config DDRPHY -------------
+memory set 0x2011801c 32 0x80000080
+memory set 0x20118010 32 0x00020020
+memory set 0x20118014 32 0xc800
+memory set 0x20118020 32 0x441
+memory set 0x20118080 32 0x0
+memory set 0x20118044 32 0x1
+memory set 0x201180d0 32 0xb036f026
+memory set 0x2011802c 32 0x22
+memory set 0x20118180 32 0xffff0770
+memory set 0x20118030 32 0x79559956
+memory set 0x20118034 32 0x08b424d4
+memory set 0x20118038 32 0x133310ba
+memory set 0x2011803c 32 0xa7100240
+memory set 0x20118040 32 0x00062a8
+memory set 0x20118064 32 0x00421b50
+memory set 0x20118068 32 0x10
+memory set 0x20118088 32 0x27a7b001
+memory set 0x201180b4 32 0x1
+memory set 0x20118070 32 0x00000406
+memory set 0x2011808c 32 0xff00ff00
+memory set 0x20118308 32 0x00
+memory set 0x20118388 32 0x00
+memory set 0x20118270 32 0x3f00
+memory set 0x20118370 32 0x3f00
+memory set 0x201182f0 32 0xff80
+memory set 0x201183f0 32 0xff80
+memory set 0x2011824c 32 0x0
+memory set 0x2011823c 32 0x0
+memory set 0x201182bc 32 0x0
+memory set 0x2011833c 32 0x0
+memory set 0x201183bc 32 0x0
+memory set 0x20118248 32 0x0
+memory set 0x201182c8 32 0x0
+memory set 0x20118348 32 0x0
+memory set 0x201183c8 32 0x0
+
+
+memory set 0x20118098 32 0x3
+memory set 0x2011809c 32 0x3
+memory set 0x20118090 32 0x00780000
+pause 0.1s
+memory set 0x20118090 32 0x00700000
+
+memory set 0x20118240 32 0x78
+memory set 0x201182c0 32 0x78
+memory set 0x20118340 32 0x78
+memory set 0x201183c0 32 0x78
+pause 0.1s
+memory set 0x20118240 32 0x70
+memory set 0x201182c0 32 0x70
+memory set 0x20118340 32 0x70
+memory set 0x201183c0 32 0x70
+memory set 0x20118168 32 0x0       
+memory set 0x2011818c 32 0xd80     
+memory set 0x20118120 32 0x15       
+memory set 0x201181a0 32 0x19       
+memory set 0x20118128 32 0x14      
+memory set 0x201181a8 32 0x19      
+memory set 0x20118130 32 0x00160014      
+memory set 0x20118134 32 0x0       
+memory set 0x20118138 32 0x000e000e       
+memory set 0x2011813c 32 0x000f000e      
+memory set 0x20118140 32 0x0012000e      
+memory set 0x20118144 32 0x00110011      
+memory set 0x20118148 32 0x00110015     
+memory set 0x2011814c 32 0x00110011       
+memory set 0x20118150 32 0x00100014      
+memory set 0x20118154 32 0x00110013       
+memory set 0x20118158 32 0x00100012      
+memory set 0x2011815c 32 0x00000010      
+memory set 0x20118160 32 0x0012000d       
+memory set 0x20118164 32 0x00000011     
+
+#------ DDRPHY Write De-Skew ------
+memory set 0x20118210 32 0x0
+memory set 0x20118214 32 0x0
+memory set 0x20118218 32 0x0
+memory set 0x20118290 32 0x0
+memory set 0x20118294 32 0x0
+memory set 0x20118298 32 0x0
+memory set 0x20118310 32 0x0
+memory set 0x20118314 32 0x0
+memory set 0x20118318 32 0x0
+memory set 0x20118390 32 0x0
+memory set 0x20118394 32 0x0
+memory set 0x20118398 32 0x0
+memory set 0x20118230 32 0x0
+memory set 0x201182b0 32 0x0
+memory set 0x20118330 32 0x0
+memory set 0x201183b0 32 0x0
+memory set 0x20118258 32 0x0
+memory set 0x201182d8 32 0x0
+memory set 0x20118358 32 0x0
+memory set 0x201183d8 32 0x0
+
+
+#------ DDRPHY Read De-Skew -------
+memory set 0x2011821c 32 0x0
+memory set 0x20118220 32 0x0
+memory set 0x20118224 32 0x0
+memory set 0x2011829c 32 0x0
+memory set 0x201182a0 32 0x0
+memory set 0x201182a4 32 0x0
+memory set 0x2011831c 32 0x0
+memory set 0x20118320 32 0x0
+memory set 0x20118324 32 0x0
+memory set 0x2011839c 32 0x0
+memory set 0x201183a0 32 0x0
+memory set 0x201183a4 32 0x0
+memory set 0x2011822c 32 0x0
+memory set 0x201182ac 32 0x0
+memory set 0x2011832c 32 0x0
+memory set 0x201183ac 32 0x0
+memory set 0x20118234 32 0xc00
+memory set 0x201182b4 32 0xc00
+memory set 0x20118334 32 0xc00
+memory set 0x201183b4 32 0xc00
+
+
+memory set 0x20118004 32 0xa000
+memory set 0x20118004 32 0x0000
+memory set 0x2011800c 32 0x80000f0f
+
+
+memory set 0x20110000 32 0x2000c
+memory set 0x20118004 32 0x17ff
+memory set 0x20111000 32 0x2
+memory set 0x20118004 32 0x0
+memory set 0x20111088 32 0x2300908c
+
+
+memory set 0x20118004 32 0x00008000
+memory set 0x20118004 32 0x0
+
+#------ Config DDRT ---------------
+memory set 0x20120004 32 0x00100004
+memory set 0x200300d8 32 0xa
+
+memory set 0x206d0010 32 0xffff
+memory set 0x206d0014 32 0xffffffff
+memory set 0x206d0018 32 0xf
+memory set 0x206d001c 32 0x80000000
+memory set 0x206d0020 32 0x82000000
+memory set 0x206d000c 32 0x1142
+memory set 0x206d0000 32 0x11
+

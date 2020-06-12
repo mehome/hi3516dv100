@@ -1,0 +1,39 @@
+#/bin/sh
+echo "Watchdog enabled, feeding dog^-^"
+himm 0x20110470 0x000f000f > /dev/null
+himm 0x20110500 0x0  > /dev/null
+himm 0x20110510 0xff000000 > /dev/null
+himm 0x20110514 0xff000000 > /dev/null
+himm 0x20110518 0xff000000 > /dev/null
+himm 0x2011051c 0xff000000 > /dev/null
+
+himm 0x20110504 0x0 > /dev/null
+himm 0x20110540 0xff000000 > /dev/null
+himm 0x20110544 0xff000000 > /dev/null
+himm 0x20110548 0xff000000 > /dev/null
+himm 0x2011054c 0xff000000 > /dev/null
+
+himm 0x20120470 0x000f000f > /dev/null
+himm 0x20120500 0x0  > /dev/null
+himm 0x20120510 0xff000000 > /dev/null
+himm 0x20120514 0xff000000 > /dev/null
+himm 0x20120518 0xff000000 > /dev/null
+himm 0x2012051c 0xff000000 > /dev/null
+
+himm 0x20120504 0x0 > /dev/null
+himm 0x20120540 0xff000000 > /dev/null
+himm 0x20120544 0xff000000 > /dev/null
+himm 0x20120548 0xff000000 > /dev/null
+himm 0x2012054c 0xff000000 > /dev/null
+
+
+himm 0x20040c00 0x1acce551 > /dev/null
+himm 0x20040000 0x895440 > /dev/null
+himm 0x20040008 0x3 > /dev/null
+
+
+
+while true
+do
+	himm 0x2004000c 0x1 > /dev/null
+done 

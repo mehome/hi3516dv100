@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<training>
+   <commands>
+         <command value="sh watchdog.bin&amp;"/>
+   </commands>
+   <loops>
+	   <loop description="read ddrc1,rdqs3,rdq24,rdq25,rdq26,rdq27,rdq28,rdq29,rdq30,rdq31">
+           <group>
+      	     <registergroup sequence="false" maxvalue="7">
+                <register name="rdqs3" address="0x20110504"  start="9" end="11"/>
+			 </registergroup>	
+  			<registergroup initvalue="true">
+			</registergroup>
+             <registergroup sequence="true" maxvalue="7" >
+			  <register name="rdq24" address="0x2011054c"  start="0" end="2"/>
+			  <register name="rdq25" address="0x2011054c"  start="3" end="5"/>
+			  <register name="rdq26" address="0x2011054c"  start="6" end="8"/>
+			  <register name="rdq27" address="0x2011054c"  start="9" end="11"/>
+			  <register name="rdq28" address="0x2011054c"  start="12" end="14"/>
+			  <register name="rdq29" address="0x2011054c"  start="15" end="17"/>
+			  <register name="rdq30" address="0x2011054c"  start="18" end="20"/>
+			  <register name="rdq31" address="0x2011054c"  start="21" end="23"/>
+			 </registergroup>	
+           </group>
+       </loop>
+   </loops>
+</training>   

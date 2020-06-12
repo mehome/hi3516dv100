@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HiDDRTool>
+	<!---全局配置，配置ddr phy的个数，ddr phy的封装类型，电压的参数包括电压最大值和最小值以及pwm_period,电压公式：Vout 
+		= Vmax - (寄存器值+1) *(Vmax-Vmin)/(freqN+1) -->
+	<Globle phynum="2" type="28nm" />
+
+	<!---chipid配置跟芯片id有关的寄存器，用以识别芯片类型，包括systemid寄存器以及可能的soc fuse寄存器，每一个以<reg开头的行表示一个寄存器 -->
+	<ChipId>
+		<reg baseaddr="0x12050000" offset="0xee4" bit="0-7" value="0x01" />
+		<reg baseaddr="0x12050000" offset="0xee8" bit="0-7" value="0x00" />
+		<reg baseaddr="0x12050000" offset="0xeec" bit="0-7" value="0xf1" />
+	</ChipId>
+	<!---DDR频率寄存器，freq用于后面计算ac training的hold time和setup time -->
+	<DDRFreq fref="24" pllpin="1">
+	        <refdiv  baseaddr="0x12040000" offset="0x2ac" bit="12-17" />
+	        <fbdiv   baseaddr="0x12040000" offset="0x2ac" bit="0-11" />
+	        <frac    baseaddr="0x12040000" offset="0x2a8" bit="0-23" />
+	        <pstdiv1 baseaddr="0x12040000" offset="0x2a8" bit="24-26" />
+	        <pstdiv2 baseaddr="0x12040000" offset="0x2a8" bit="28-30" />
+	</DDRFreq>
+
+	<COREHPM>
+		<!---要获取HPM的状态寄存器的有效的值，首先要配置相应的控制寄存器的值，使HPM的频率为50M) -->
+		<before cmd="mw 0x120e0028 0x05000003" />
+		<!---读取如下四个寄存器的相应bit，对结果求平均 -->
+		<reg baseaddr="0x120e0000" offset="0x2c" bit="0-9" count="5" />
+		<reg baseaddr="0x120e0000" offset="0x2c" bit="12-21" count="5" />
+		<reg baseaddr="0x120e0000" offset="0x30" bit="0-9" count="5" />
+		<reg baseaddr="0x120e0000" offset="0x30" bit="12-21" count="5" />
+	</COREHPM>
+	<!---单板外围电路支持pwm供电方式，boot起来也必须选择了pwm的供电方式，boot在初始化的时候需配置一下相关的寄存器 -->
+	<!--delay表示写完寄存器之后需要等待10ms，读则不需要 -->
+	<Vcore baseaddr="0x120e0000" offset="4" bit="16-31" delay="10" voutmax="1140" voutmin="740" period="120"/>
+	<!---ddr3固定1.5v，故省略ddrio节点- -->
+       <!-- <VddrIO baseaddr="0x20270000" offset="0x8" bit="16-31" delay="10"/> -->
+	<!---温度值0~255,对应了-40~140度的温度值，before描述了在读取tsensor前需要发送的命令，delay表示执行完该命令需要等待的时间 -->
+	<!-- type="2": temperature=((average - 125) * 165 / 806) - 40; -->
+	<!-- type="3": temperature=(average * 180) / 255 - 40 -->
+	<TSensor baseaddr="0x120E0000" offset="0x118" bit="0-9" type="2">
+		<before cmd="mw 0x120e0110 0x60200000" delay="100" />
+	</TSensor>
+	<!---每一对DDRVCfg中的内容配置ddr颗粒端和soc端的驱动及odt配置，如果有多种类型的ddr，则需再拷贝一对DDRVCfg中的内容,多个phy时，baseaddr内写多个phy基地址，用英文逗号分隔 -->
+	<DDRCfg type="DDR3">
+		<DqDrvPhy baseaddr="0x1211c000,0x1211e000" offset="0x1204;0x1304"
+			bit="11-13">
+			<!---list的每一行对应了该配置项下拉菜单中的一个选项，value对应寄存器中的实际值，display是在工具中显示的名称 -->
+			<list value="7" display="34ohm" />
+			<list value="6" display="40ohm" />
+			<list value="5" display="48ohm" />
+			<list value="4" display="60ohm" />
+			<list value="2" display="80ohm" />
+			<list value="1" display="120ohm" />
+			<list value="0" display="240ohm" />
+		</DqDrvPhy>
+		<DqsDrvPhy baseaddr="0x1211c000,0x1211e000" offset="0x1204;0x1304"
+			bit="14-16">
+			<list value="7" display="34ohm" />
+			<list value="6" display="40ohm" />
+			<list value="5" display="48ohm" />
+			<list value="4" display="60ohm" />
+			<list value="2" display="80ohm" />
+			<list value="1" display="120ohm" />
+			<list value="0" display="240ohm" />
+		</DqsDrvPhy>
+		<ClkDrvPhy baseaddr="0x1211c000,0x1211e000" offset="0x1018"
+			bit="23-25">
+			<list value="7" display="34ohm" />
+			<list value="6" display="40ohm" />
+			<list value="5" display="48ohm" />
+			<list value="4" display="60ohm" />
+			<list value="2" display="80ohm" />
+			<list value="1" display="120ohm" />
+			<list value="0" display="240ohm" />
+		</ClkDrvPhy>
+		<Ac1TDrvPhy baseaddr="0x1211c000,0x1211e000" offset="0x1018"
+			bit="17-19">
+			<list value="7" display="34ohm" />
+			<list value="6" display="40ohm" />
+			<list value="5" display="48ohm" />
+			<list value="4" display="60ohm" />
+			<list value="2" display="80ohm" />
+			<list value="1" display="120ohm" />
+			<list value="0" display="240ohm" />
+		</Ac1TDrvPhy>
+		<Ac2TDrvPhy baseaddr="0x1211c000,0x1211e000" offset="0x1018"
+			bit="20-22">
+			<list value="7" display="34ohm" />
+			<list value="6" display="40ohm" />
+			<list value="5" display="48ohm" />
+			<list value="4" display="60ohm" />
+			<list value="2" display="80ohm" />
+			<list value="1" display="120ohm" />
+			<list value="0" display="240ohm" />
+		</Ac2TDrvPhy>
+		<DqDrvDram>
+			<!---由于dram测的控制器的特殊性，读和写是不同的寄存器，需要分别配置 -->
+			<reg baseaddr="0x1211c000,0x1211e000" offset="0x64" bit="17,21"
+				type="read">
+				<list value="0,0" display="40ohm" />
+				<list value="1,0" display="34ohm" />
+			</reg>
+			<reg baseaddr="0x12118000,0x12119000" offset="0x210" bit="0-11,13,17"
+				type="write">
+				<list value="0x012,0,0" display="40ohm" />
+				<list value="0x012,1,0" display="34ohm" />
+			</reg>
+			<reg baseaddr="0x12118000,0x12119000" offset="0x218" bit="0"
+				type="write" value="1" />
+			<reg baseaddr="0x12118000,0x12119000" offset="0x00c" bit="0"
+				type="write" value="1" />
+		</DqDrvDram>
+		<DqOdtPhy baseaddr="0x1211c000,0x1211e000" offset="0x1204;0x1304"
+			bit="26-28">
+			<list value="7" display="20ohm" />
+			<list value="6" display="24ohm" />
+			<list value="5" display="30ohm" />
+			<list value="4" display="40ohm" />
+			<list value="2" display="60ohm" />
+			<list value="1" display="120ohm" />
+			<list value="0" display="Disable" />
+		</DqOdtPhy>
+		<DqsOdtPhy baseaddr="0x1211c000,0x1211e000" offset="0x1204;0x1304"
+			bit="26-28">
+			<list value="7" display="20ohm" />
+			<list value="6" display="24ohm" />
+			<list value="5" display="30ohm" />
+			<list value="4" display="40ohm" />
+			<list value="2" display="60ohm" />
+			<list value="1" display="120ohm" />
+			<list value="0" display="Disable" />
+		</DqsOdtPhy>
+		<DqDQSOdtDram>
+			<!---由于dram测的控制器的特殊性，读和写是不同的寄存器，需要分别配置,设置参数时，需要读取读寄存器，把读到值的的指定bit换为要写的值，然后低16bit写为固定值 -->
+			<reg baseaddr="0x1211c000,0x1211e000" offset="0x64" bit="18,22,25"
+				type="read">
+				<list value="0,0,0" display="Disable" />
+				<list value="1,0,0" display="60ohm" />
+				<list value="0,1,0" display="120ohm" />
+				<list value="1,1,0" display="40ohm" />
+			</reg>
+			<reg baseaddr="0x12118000,0x12119000" offset="0x210" bit="0-11,14,18,21"
+				type="write">
+				<list value="0x012,0,0,0" display="Disable" />
+				<list value="0x012,1,0,0" display="60ohm" />
+				<list value="0x012,0,1,0" display="120ohm" />
+				<list value="0x012,1,1,0" display="40ohm" />
+			</reg>
+			<reg baseaddr="0x12118000,0x12119000" offset="0x218" bit="0"
+				type="write" value="1" />
+			<reg baseaddr="0x12118000,0x12119000" offset="0x00c" bit="0"
+				type="write" value="1" />
+		</DqDQSOdtDram>
+
+		<VrefPhy baseaddr="0x1211c000,0x1211e000" offset="0x274;0x2f4;0x374;0x3f4"
+			bit="0-4">
+			<list value="0x0" display="40%*VDDIO" />
+			<list value="0x1" display="41.25%*VDDIO" />
+			<list value="0x2" display="42.5%*VDDIO" />
+			<list value="0x3" display="43.75%*VDDIO" />
+			<list value="0x4" display="45%*VDDIO" />
+			<list value="0x5" display="46.25%*VDDIO" />
+			<list value="0x6" display="47.5%*VDDIO" />
+			<list value="0x7" display="48.75%*VDDIO" />
+
+			<list value="0x8" display="50%*VDDIO" />
+			<list value="0x9" display="51.25%*VDDIO" />
+			<list value="0xa" display="52.5%*VDDIO" />
+			<list value="0xb" display="53.75%*VDDIO" />
+			<list value="0xc" display="55%*VDDIO" />
+			<list value="0xd" display="56.25%*VDDIO" />
+			<list value="0xe" display="57.5%*VDDIO" />
+			<list value="0xf" display="58.75%*VDDIO" />
+
+			<list value="0x10" display="60%*VDDIO" />
+			<list value="0x11" display="61.25%*VDDIO" />
+			<list value="0x12" display="62.5%*VDDIO" />
+			<list value="0x13" display="63.75%*VDDIO" />
+			<list value="0x14" display="65%*VDDIO" />
+			<list value="0x15" display="66.25%*VDDIO" />
+			<list value="0x16" display="67.5%*VDDIO" />
+			<list value="0x17" display="68.75%*VDDIO" />
+
+			<list value="0x18" display="70%*VDDIO" />
+			<list value="0x19" display="71.25%*VDDIO" />
+			<list value="0x1a" display="72.5%*VDDIO" />
+			<list value="0x1b" display="73.75%*VDDIO" />
+			<list value="0x1c" display="75%*VDDIO" />
+			<list value="0x1d" display="76.25%*VDDIO" />
+			<list value="0x1e" display="77.5%*VDDIO" />
+			<list value="0x1f" display="78.75%*VDDIO" />
+		</VrefPhy>
+		<TimingCfg>
+			<TimingDDRC>
+				<tmrd baseaddr="0x12118000,12119000" offset="0x100" bit="28-31" />
+				<trrd baseaddr="0x12118000,12119000" offset="0x100" bit="24-27" />
+				<trp baseaddr="0x12118000,12119000" offset="0x100" bit="19-23" />
+				<trcd baseaddr="0x12118000,12119000" offset="0x100" bit="14-18" />
+				<trc baseaddr="0x12118000,12119000" offset="0x100" bit="8-13" />
+				<tras baseaddr="0x12118000,12119000" offset="0x100" bit="0-5" />
+
+				<tsre baseaddr="0x12118000,12119000" offset="0x104" bit="24-31" />
+				<trtw baseaddr="0x12118000,12119000" offset="0x104" bit="20-23" />
+				<twl baseaddr="0x12118000,12119000" offset="0x104" bit="15-19" />
+				<tcl baseaddr="0x12118000,12119000" offset="0x104" bit="10-14" />
+				<trfc baseaddr="0x12118000,12119000" offset="0x104" bit="0-8" />
+
+				<tcke baseaddr="0x12118000,12119000" offset="0x108" bit="28-31" />
+				<twtr baseaddr="0x12118000,12119000" offset="0x108" bit="24-27" />
+				<tfaw baseaddr="0x12118000,12119000" offset="0x108" bit="12-17" />
+				<taref baseaddr="0x12118000,12119000" offset="0x108" bit="0-10" />
+
+				<tzq_prd baseaddr="0x12118000,12119000" offset="0x10c" bit="22-31" />
+				<tzqinit baseaddr="0x12118000,12119000" offset="0x10c" bit="13-21" />
+				<taond baseaddr="0x12118000,12119000" offset="0x10c" bit="8-12" />
+				<txard baseaddr="0x12118000,12119000" offset="0x10c" bit="4-7" />
+				<trtp baseaddr="0x12118000,12119000" offset="0x10c" bit="0-3" />
+
+				<tmod baseaddr="0x12118000,12119000" offset="0x110" bit="20-24" />
+				<twlo baseaddr="0x12118000,12119000" offset="0x110" bit="16-19" />
+				<twldqsen baseaddr="0x12118000,12119000" offset="0x110"
+					bit="8-13" />
+				<twlmrd baseaddr="0x12118000,12119000" offset="0x110" bit="0-5" />
+
+				<tzqcs baseaddr="0x12118000,12119000" offset="0x114" bit="8-15" />
+				<twr baseaddr="0x12118000,12119000" offset="0x114" bit="0-4" />
+
+				<tcksrx baseaddr="0x12118000,12119000" offset="0x118" bit="4-7" />
+				<tcksre baseaddr="0x12118000,12119000" offset="0x118" bit="0-3" />
+			</TimingDDRC>
+			<TimingPHY>
+				<trc baseaddr="0x1211c000,0x1211e000" offset="0x30" bit="26-31" />
+				<trrd baseaddr="0x1211c000,0x1211e000" offset="0x30" bit="22-25" />
+				<tras baseaddr="0x1211c000,0x1211e000" offset="0x30" bit="16-21" />
+				<trcd baseaddr="0x1211c000,0x1211e000" offset="0x30" bit="12-15" />
+				<trp baseaddr="0x1211c000,0x1211e000" offset="0x30" bit="8-11" />
+				<twtr baseaddr="0x1211c000,0x1211e000" offset="0x30" bit="4-7" />
+				<trtp baseaddr="0x1211c000,0x1211e000" offset="0x30" bit="0-3" />
+
+				<trtw baseaddr="0x1211c000,0x1211e000" offset="0x34" bit="25-29" />
+				<trfc baseaddr="0x1211c000,0x1211e000" offset="0x34" bit="16-24" />
+				<tfaw baseaddr="0x1211c000,0x1211e000" offset="0x34" bit="9-14" />
+				<tmod baseaddr="0x1211c000,0x1211e000" offset="0x34" bit="4-8" />
+				<tmrd baseaddr="0x1211c000,0x1211e000" offset="0x34" bit="0-3" />
+
+				<tccd baseaddr="0x1211c000,0x1211e000" offset="0x38" bit="31" />
+				<tdllk baseaddr="0x1211c000,0x1211e000" offset="0x38" bit="20-29" />
+				<tcke baseaddr="0x1211c000,0x1211e000" offset="0x38" bit="16-19" />
+				<txp baseaddr="0x1211c000,0x1211e000" offset="0x38" bit="10-14" />
+				<txs baseaddr="0x1211c000,0x1211e000" offset="0x38" bit="0-9" />
+
+				<twr baseaddr="0x1211c000,0x1211e000" offset="0x3c" bit="28-31" />
+				<tini5 baseaddr="0x1211c000,0x1211e000" offset="0x3c" bit="10-23" />
+				<zcal baseaddr="0x1211c000,0x1211e000" offset="0x3c" bit="0-9" />
+
+				<todton baseaddr="0x1211c000,0x1211e000" offset="0x40" bit="24-27" />
+				<todt baseaddr="0x1211c000,0x1211e000" offset="0x40" bit="12-15" />
+				<twlo baseaddr="0x1211c000,0x1211e000" offset="0x40" bit="7-11" />
+				<twlmrd baseaddr="0x1211c000,0x1211e000" offset="0x40" bit="0-5" />
+			</TimingPHY>
+
+			<!--- 以TimingStd开头一行配置某个频率下的timing参考值 -->
+			<TimingStd freq="1600" tmrd="4" trrd="4" trp="5" trcd="6"
+				trc="5" tras="6" tsre="5" twl="7" tcl="7" trfc="5" tcke="4" twtr="4"
+				tfaw="3" taref="4" txard="21" trtp="1" tmod="21" twr="12" trtw="2"
+				tccd="3" tdllk="4" txp="5" txs="5" tini5="4" todton="32" todt="32"
+				twlmrd="23" tzq_prd="22" tzqinit="2" taond="2" twlo="8" twldqsen="4"
+				tzqcs="2" tcksrx="2" tcksre="3" zcal="4" />
+			<TimingStd freq="1700" tmrd="3" trrd="5" trp="5" trcd="6"
+				trc="5" tras="6" tsre="5" twl="7" tcl="7" trfc="5" tcke="4" twtr="4"
+				tfaw="3" taref="4" txard="21" trtp="1" tmod="21" twr="12" trtw="2"
+				tccd="3" tdllk="4" txp="5" txs="5" tini5="4" todton="32" todt="32"
+				twlmrd="23" tzq_prd="22" tzqinit="2" taond="2" twlo="8" twldqsen="4"
+				tzqcs="2" tcksrx="2" tcksre="3" zcal="4" />
+			<TimingStd freq="1800" tmrd="2" trrd="6" trp="5" trcd="6"
+				trc="5" tras="6" tsre="5" twl="7" tcl="7" trfc="5" tcke="4" twtr="4"
+				tfaw="3" taref="4" txard="21" trtp="1" tmod="21" twr="12" trtw="2"
+				tccd="3" tdllk="4" txp="5" txs="5" tini5="4" todton="32" todt="32"
+				twlmrd="23" tzq_prd="22" tzqinit="2" taond="2" twlo="8" twldqsen="4"
+				tzqcs="2" tcksrx="2" tcksre="3" zcal="4" />
+			<TimingStd freq="1900" tmrd="1" trrd="7" trp="5" trcd="6"
+				trc="5" tras="6" tsre="5" twl="7" tcl="7" trfc="5" tcke="4" twtr="4"
+				tfaw="3" taref="4" txard="21" trtp="1" tmod="21" twr="12" trtw="2"
+				tccd="3" tdllk="4" txp="5" txs="5" tini5="4" todton="32" todt="32"
+				twlmrd="23" tzq_prd="22" tzqinit="2" taond="2" twlo="8" twldqsen="4"
+				tzqcs="2" tcksrx="2" tcksre="3" zcal="4" />
+		</TimingCfg>
+	</DDRCfg>
+	<!--- 每一对DDRVCfg中的内容配置ddr颗粒端和soc端的驱动及odt配置，如果有多种类型的ddr，则需再拷贝一对DDRVCfg中的内容 -->
+
+	<DDRTCfg>
+		<reg name="Pattern" baseaddr="0x12100000" offset="0x0" bit="12-13"
+			default="0">
+			<list value="0" display="PRBS9" />
+			<list value="1" display="PRBS7" />
+			<list value="2" display="PRBS11" />
+			<list value="3" display="K28.5" />
+		</reg>
+		<reg name="Testtype" baseaddr="0x12100000" offset="0x0" bit="4"
+			default="1">
+			<list value="0" display="Datalane test" />
+			<list value="1" display="Address line test" />
+		</reg>
+		<reg name="Burstsize" baseaddr="0x12100000" offset="0x8" bit="4-6"
+			default="4">
+			<list value="0" display="AXI_burst=1" />
+			<list value="1" display="AXI_burst=2" />
+			<list value="2" display="AXI_burst=4" />
+			<list value="3" display="AXI_burst=8" />
+			<list value="4" display="AXI_burst=16" />
+		</reg>
+		<reg name="Burstlen" baseaddr="0x12100000" offset="0x8" bit="0-3"
+			default="15" />
+		<reg name="AddrCtrlEn" baseaddr="0x12100000" offset="0xc" bit="16"
+			default="0">
+			<list value="0" display="Disable" />
+			<list value="1" display="Enable" />
+		</reg>
+		<reg name="Memwidth" baseaddr="0x12100000" offset="0xc" bit="12-13"
+			default="1">
+			<list value="0" display="16bit" />
+			<list value="1" display="32bit" />
+		</reg>
+		<reg name="Bankwidth" baseaddr="0x12100000" offset="0xc" bit="8"
+			default="1">
+			<list value="0" display="4 Bank" />
+			<list value="1" display="8 Bank" />
+		</reg>
+		<reg name="Rowwidth" baseaddr="0x12100000" offset="0xc" bit="4-6"
+			default="5">
+			<list value="0" display="Row=11bit" />
+			<list value="1" display="Row=12bit" />
+			<list value="2" display="Row=13bit" />
+			<list value="3" display="Row=14bit" />
+			<list value="4" display="Row=15bit" />
+			<list value="5" display="Row=16bit" />
+		</reg>
+		<reg name="Colwidth" baseaddr="0x12100000" offset="0xc" bit="0-2"
+			default="2">
+			<list value="0" display="Col=8bit" />
+			<list value="1" display="Col=9bit" />
+			<list value="2" display="Col=10bit" />
+			<list value="3" display="Col=11bit" />
+			<list value="4" display="Col=12bit" />
+		</reg>
+		<reg name="Burstnum" baseaddr="0x12100000" offset="0x10" bit="0-31"
+			default="1000" radix="dec" />
+		<reg name="ADDRnum" baseaddr="0x12100000" offset="0x14" bit="0-31"
+			default="1000" radix="dec" />
+		<reg name="Loopnum" baseaddr="0x12100000" offset="0x18" bit="0-31"
+			default="1000" radix="dec" />
+		<reg name="Baseaddr" baseaddr="0x12100000" offset="0x1c" bit="0-31"
+			default="0x40000000" radix="hex" />
+		<reg name="DDRTaddr" baseaddr="0x12100000" offset="0x20" bit="0-31"
+			default="0x48000000" radix="hex" />
+		<reg name="Addroffset0" baseaddr="0x12100000" offset="0x24" bit="0-31"
+			default="0x100" radix="hex" />
+		<reg name="Addroffset1" baseaddr="0x12100000" offset="0x28" bit="0-31"
+			default="0x4000" radix="hex" />
+		<reg name="DDRspace" baseaddr="0x12100000" offset="0x2c" bit="0-31"
+			default="0" radix="hex" />
+		<reg name="reverseddq" baseaddr="0x12100000" offset="0x30" bit="0-31"
+			default="0" radix="hex" />
+		<reg name="outputctrldq" baseaddr="0x12100000" offset="0x34" bit="0-31"
+			default="0xffffffff" radix="hex" />
+		<reg name="Seed" baseaddr="0x12100000" offset="0x38" bit="0-31"
+			default="0x11251986" radix="hex" />
+		<reg name="kdata" baseaddr="0x12100000" offset="0x3c" bit="0-31"
+			default="0xbc3eb053" radix="hex" />
+		<reg name="Data0" baseaddr="0x12100000" offset="0x40" bit="0-31"
+			default="0x73656BEF" radix="hex" />
+		<reg name="Data1" baseaddr="0x12100000" offset="0x44" bit="0-31"
+			default="0x0C4533D5" radix="hex" />
+		<reg name="Data2" baseaddr="0x12100000" offset="0x48" bit="0-31"
+			default="0x1FC8160E" radix="hex" />
+		<reg name="Data3" baseaddr="0x12100000" offset="0x4c" bit="0-31"
+			default="0x84E34976" radix="hex" />
+		<!--- pll training和ac training均不开放此寄存器 -->
+		<reg name="Testmode" baseaddr="0x12100000" offset="0x0" bit="8-9"
+			default="0">
+			<list value="0" display="Read and write compare mode" />
+			<list value="1" display="Write only mode" />
+			<list value="2" display="Read only mode" />
+		</reg>
+		<!---当点Run的时候，需要先执行写操作，然后执行读操作，每个操作是否完成需要判断status是否完成 -->
+		<StartWrite baseaddr="0x12100000" offset="0x0" bit="0,8-9"
+			value="1,1" />
+		<StartRead baseaddr="0x12100000" offset="0x0" bit="0,8-9"
+			value="1,2" />
+		<!---当需要知道读写比对是否正确的时候，需要读以下寄存器 -->
+		<Status baseaddr="0x12100000" offset="0x4" bit="0-1">
+			<list value="0" status="Running" />
+			<list value="1" status="Fail" />
+			<list value="3" status="Pass" />
+		</Status>
+	</DDRTCfg>
+	<PLLCfg>
+		<!--范围按位宽计算,例如位宽为5，则是2的5次方=32 -->
+		<AcFbBdl baseaddr="0x1211c000,0x1211e000" offset="0x1050" bit="24-28" />
+		<AcRefBdl baseaddr="0x1211c000,0x1211e000" offset="0x1050"
+			bit="16-20" />
+		<DxFbBdl baseaddr="0x1211c000,0x1211e000" offset="0x1230;0x1330"
+			bit="0-4" />
+		<DxRefBdl baseaddr="0x1211c000,0x1211e000" offset="0x1230;0x1330"
+			bit="16-20" />
+	</PLLCfg>
+	<ACTraining>
+		<!--setp为每次递增的值 -->
+		<CSNCfg baseaddr="0x1211c000,0x1211e000" offset="0x1040" bit="0-6" step="1">
+			<reg name="CSN1" baseaddr="0x1211c000,0x1211e000" offset="0x1040" bit="16-22"/>
+			<reg name="ODT0" baseaddr="0x1211c000,0x1211e000" offset="0x1038"
+				bit="0-6" />
+			<reg name="ODT1" baseaddr="0x1211c000,0x1211e000" offset="0x1038"
+				bit="16-22" />
+			<reg name="CKE0" baseaddr="0x1211c000,0x1211e000" offset="0x1048"
+				bit="0-6" />
+			<reg name="CKE1" baseaddr="0x1211c000,0x1211e000" offset="0x1048"
+				bit="16-22" />
+			<reg name="WE" baseaddr="0x1211c000,0x1211e000" offset="0x10ac"
+				bit="0-6" />
+			<reg name="CAS" baseaddr="0x1211c000,0x1211e000" offset="0x10ac"
+				bit="16-22" />
+			<reg name="RAS" baseaddr="0x1211c000,0x1211e000" offset="0x10b0"
+				bit="0-6" />
+			<reg name="RESET" baseaddr="0x1211c000,0x1211e000" offset="0x10b0"
+				bit="16-22" />
+			<reg name="A0" baseaddr="0x1211c000,0x1211e000" offset="0x140"
+				bit="0-6" />
+			<reg name="A1" baseaddr="0x1211c000,0x1211e000" offset="0x140"
+				bit="16-22" />
+			<reg name="A2" baseaddr="0x1211c000,0x1211e000" offset="0x144"
+				bit="0-6" />
+			<reg name="A3" baseaddr="0x1211c000,0x1211e000" offset="0x144"
+				bit="16-22" />
+			<reg name="A4" baseaddr="0x1211c000,0x1211e000" offset="0x148"
+				bit="0-6" />
+			<reg name="A5" baseaddr="0x1211c000,0x1211e000" offset="0x148"
+				bit="16-22" />
+			<reg name="A6" baseaddr="0x1211c000,0x1211e000" offset="0x14C"
+				bit="0-6" />
+			<reg name="A7" baseaddr="0x1211c000,0x1211e000" offset="0x14C"
+				bit="16-22" />
+			<reg name="A8" baseaddr="0x1211c000,0x1211e000" offset="0x150"
+				bit="0-6" />
+			<reg name="A9" baseaddr="0x1211c000,0x1211e000" offset="0x150"
+				bit="16-22" />
+			<reg name="A10" baseaddr="0x1211c000,0x1211e000" offset="0x10bc"
+				bit="0-6" />
+			<reg name="A11" baseaddr="0x1211c000,0x1211e000" offset="0x10bc"
+				bit="16-22" />
+			<reg name="A12" baseaddr="0x1211c000,0x1211e000" offset="0x10c0"
+				bit="0-6" />
+			<reg name="A13" baseaddr="0x1211c000,0x1211e000" offset="0x10c0"
+				bit="16-22" />
+			<reg name="A14" baseaddr="0x1211c000,0x1211e000" offset="0x10c4"
+				bit="0-6" />
+			<reg name="A15" baseaddr="0x1211c000,0x1211e000" offset="0x10c4"
+				bit="16-22" />
+			<reg name="BA0" baseaddr="0x1211c000,0x1211e000" offset="0x10b4"
+				bit="0-6" />
+			<reg name="BA1" baseaddr="0x1211c000,0x1211e000" offset="0x10b4"
+				bit="16-22" />
+			<reg name="BA2" baseaddr="0x1211c000,0x1211e000" offset="0x10b8"
+				bit="0-6" />
+		</CSNCfg>
+		<CLKCfg baseaddr="0x1211c000,0x1211e000" offset="0x1070" bit="6-8,25"  step="1" >
+			<reg name="CLK1"  baseaddr="0x1211c000,0x1211e000"  offset="0x1070" bit="9-11,24"/>
+			<reg name="WDQS0" baseaddr="0x1211c000,0x1211e000" offset="0x230"
+				bit="8-11" />
+			<reg name="WDQS1" baseaddr="0x1211c000,0x1211e000" offset="0x2B0"
+				bit="8-11" />
+			<reg name="WDQS2" baseaddr="0x1211c000,0x1211e000" offset="0x330"
+				bit="8-11" />
+			<reg name="WDQS3" baseaddr="0x1211c000,0x1211e000" offset="0x3B0"
+				bit="8-11" />
+			<reg name="WDQ0" baseaddr="0x1211c000,0x1211e000" offset="0x234"
+				bit="8-12" />
+			<reg name="WDQ1" baseaddr="0x1211c000,0x1211e000" offset="0x2B4"
+				bit="8-12" />
+			<reg name="WDQ2" baseaddr="0x1211c000,0x1211e000" offset="0x334"
+				bit="8-12" />
+			<reg name="WDQ3" baseaddr="0x1211c000,0x1211e000" offset="0x3B4"
+				bit="8-12" />
+		</CLKCfg>
+	</ACTraining>
+	<DDRTraining>
+		<before cmd="mw 0x12050090 0xEFFEFFFC" delay="1000"/> <!--0xfffefffc -->
+	</DDRTraining>
+</HiDDRTool>

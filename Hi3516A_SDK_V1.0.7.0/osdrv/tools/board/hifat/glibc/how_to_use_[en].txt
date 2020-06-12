@@ -1,0 +1,87 @@
+1. Components of the HIFAT File System
+1) himount: mounts partitions. 
+	Note:	If the himount is compiled by using the arm-hisiv300-linux, it must run in the software development kit (SDK) that is also compiled by using the arm-hisiv300-linux.
+		If the himount is compiled by using the arm-hisiv400-linux, it must run in the SDK that is also compiled by using the arm-hisiv400-linux.
+		In addition, the himount applies only to HiSilicon BVT chips.
+2) himount_api.h: provides an API to implement the himount function.
+   libhimount_api.a: indicates a corresponding static library file.
+   libhimount_api.a: indicates a corresponding dynamic library file.
+3) {libfs_lib.so, libfuse.so, libfuse.so.2, libfuse.so.2.8.3, libsdparm.so, libulockmgr.so, libulockmgr.so.1, libulockmgr.so.1.0.1}:
+	If the himount is dynamically compiled, the preceding dynamic library files are the ones the himount depends on.
+
+2. Usage
+To use the himount, perform the following steps:
+(1) Download the himount to the /sbin directory.
+(2) Use the fdisk to partition the memory medium and then use the mkdosfs to convert a desired partition into the FAT format.
+(3) Run a command such as himount /dev/sda1 /tmp to mount the formatted partition.
+(4) Run a command such as umount /tmp to unmount the partition.
+
+3. Using the Himount by Running Shell Commands
+To use the himount by running Shell commands, perform the following steps:
+(1) Run the following command to mount a partition to a specified directory:
+   #himount  /dev/sda1  /tmp
+   Note: The mounted-on directory needs to be an empty one, which is required by Fuse filesystem.
+(2) After the partition is mounted, operate files in the /tmp directory.
+(3) Run the following command to unmount the partition:
+   #umount /tmp   
+
+4. Using the Himount by Calling APIs
+To use the himount by calling APIs, perform the following steps:
+(1) Mount a partition by calling the interfaces provided by the libhimount as follows:
+   himount("/dev/sda1","/tmp/");
+(2) Perform read or write operations by calling interfaces.
+(3) Unmount the partition by calling the standard interface as follows:
+   umount("/tmp");
+   
+5. Fast Creating Large Files
+You can fast create large files by using appropriate read and write methods in the himount file system, avoiding fragments in the FAT table.
+The following is a sample program for creating a 100 MB file:
+   void file_create(void)
+   {
+	int file=-1;
+	char buf[1];
+	unsigned long long  len=0,writelen=0;
+	off_t ret=0;
+	int i=0;
+	file = open("/tmp/0303/rec_v370_a371.ts.idx",O_RDWR | O_CREAT | O_LARGEFILE);
+
+	if(file < 0)
+	{
+		printf("can not open file\r\n");
+		return 0;
+	}
+
+	len = 0x6400000;	
+	printf("file offset =%lu ,writing......\r\n",len);
+
+	ret = lseek64(file,len-1,SEEK_SET);
+
+	if(ret < 0)
+		printf("lseek fail ,ret :%ld \r\n",ret);
+	else
+		printf("lseek success ,ret :%ld\r\n",ret);
+
+	writelen = write(file,buf,1);
+	if(writelen > 0)
+		printf("write success:%ld\r\n",writelen);
+	else	
+		printf("write fail %ld \r\n",writelen);
+		printf(" counter:%d\r\n\r\n",i);
+	close(file);
+	printf("fclose\r\n");
+	return 0;
+} 
+ 
+6. Key Parameters
+1) Percentage of the memory capacity occupied by dirty data
+     You can adjust the frequency for refreshing dirty pages based on the system memory capacity, allowing data to be smoothly refreshed. The system memory capacity is specified by mem=xxM in the bootargs.
+     The following is the sample command: echo xx >/proc/sys/vm/dirty_ratio   // xx indicates the percentage of the system memory capacity occupied by dirty pages.
+     For example, if the system memory capacity is 100 MB and xx is set to 3, the size of the system memory capacity occupied by dirty data is calculated as follows: 100 MB x 3% = 3 MB.     
+
+     Note: If the size of dirty data is set to about 3 MB, data can be smoothly refreshed.
+
+     It is appropriate that the percentage of the system memory capacity occupied by dirty data is set to 3% because the default system memory capacity is 96 MB (mem = 96 MB) in the SDK.
+     The following is the reference command: echo 3 > /proc/sys/vm/dirty_ratio
+
+2) Read or write granularity
+      The recommended write or write granularity for the HIFAT file system ranges from 64 KB to 128 KB.

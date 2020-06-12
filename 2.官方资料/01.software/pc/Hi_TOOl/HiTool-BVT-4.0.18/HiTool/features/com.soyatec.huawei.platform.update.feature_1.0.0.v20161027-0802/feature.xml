@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- contextQualifierLength=14 -->
+<feature
+      id="com.soyatec.huawei.platform.update.feature"
+      label="Platform Core"
+      version="1.0.0.v20161027-0802"
+      provider-name="HiSilicon Technologies Co., Ltd."
+      os="linux,win32"
+      ws="gtk,win32"
+      arch="x86,x86_64">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <includes
+         id="org.soyatec.huawei.platform.update.contents.feature"
+         version="1.0.0.v20161027-0802"/>
+
+</feature>

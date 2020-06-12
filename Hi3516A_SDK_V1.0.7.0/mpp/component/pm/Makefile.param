@@ -1,0 +1,12 @@
+# parameter ctrl
+CPU_EN ?= y
+CPU_VOLTAGE_MODE ?= PWM
+CPU_AVS_EN ?= y
+CPU_AVS_HPM ?= y
+CPU_AVS_HW  ?= n
+
+MEDIA_EN ?= y
+MEDIA_VOLTAGE_MODE ?= PWM
+MEDIA_AVS_EN ?= y
+MEDIA_AVS_HPM ?= y
+MEDIA_AVS_HW  ?= n

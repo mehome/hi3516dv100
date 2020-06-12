@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- contextQualifierLength=14 -->
+<feature
+      id="org.soyatec.fastboot.feature"
+      label="HiBurn"
+      version="4.0.17.v20161027-0802"
+      provider-name="HiSilicon Technologies Co., Ltd.">
+
+   <description url="http://www.example.com/description">
+      HiBurn is for burning files to devices.
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      Fastboot is for burning files to devices.
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      Change History
+HiBurn-v3.0.0 (2014-08-01)
+[New Features]
+1.The module status can be monitored in each phase and related information is displayed (only for Hi3798M V100 currently).
+2.The network interface selection option is added to Preference.
+
+[Resolved Issues]
+1. A display exception occurs when the HiTool runs on a small screen.
+2. The length of the last partition is not automatically calculated.
+   </license>
+
+   <plugin
+         id="com.hisilicon.fastboot"
+         download-size="0"
+         install-size="0"
+         version="4.0.17.v20161027-0802"
+         unpack="false"/>
+
+</feature>

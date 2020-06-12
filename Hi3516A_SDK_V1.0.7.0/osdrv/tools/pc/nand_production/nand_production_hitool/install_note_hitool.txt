@@ -1,0 +1,16 @@
+1、运行环境要求：
+windowsXP/window7(32位/64位），内存1G以上；
+需预装jre1.6及其以上版本，可在preinstall目录下获取jre执行程序（windows环境预安装：jre-6u1-windows-i586-p-s.rar），否则无法运行。
+链接：http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase6-419409.html
+2、安装使用说明：
+本工具无需安装，直接解压使用；
+根据芯片列表，选择芯片及所需的工具，本工具提供快速入门视频及详细的在线帮助，详细使用说明见工具在线帮助。
+
+3、版本匹配关系：
+HiReg依赖板端程序btools，该板端程序的最低版本要求为ver0.0.1_20120501,HiReg中I2C寄存器读写依赖板端程序regtool。
+
+4、FAQ
+Q1:如何确认板端程序的版本是否可用？
+A1：输入命令：himd，如果打印的版本号为ver0.0.1_20120501，则该版本可以与本工具配合使用。
+Q2：如何确定btools工具位置？
+A2：输入命令：which himd

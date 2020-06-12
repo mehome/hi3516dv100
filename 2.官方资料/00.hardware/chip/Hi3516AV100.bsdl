@@ -1,0 +1,1434 @@
+--CmdLine : chk_bsdl HI3516AV100.bsdl HI3516AV100_out.bsdl -f Hi3516A_pinmap_20140605.txt
+--    HI3516AV100.bsdl : mtime=2014-08-12,18:29:16; md5code=964b15585ea87581cefff2fb5ac9473d
+--    Hi3516A_pinmap_20140605.txt : mtime=2014-08-12,15:29:50; md5code=a5bfa1cbc04b44a14ee5ada5498f9345
+
+--******************************************************
+--
+--Copyright(c) 2014,Huawei Technologies Co., Ltd.
+--All Rights Reserved
+--
+--Project Name            : 
+--File Name               : ../data/jtag.bsdl
+--Date                    : 2014-05-19  19:49:26
+--JtagBuilder    version  : 2013-04-28 No.1 V1.4
+--PadOrderReader version  : 2010-11-21 No.1
+--vParser version         : 2013-02-04 No.1 v1.4
+--ioParser version        : 2012-06-03 No.1 v1.4
+--CommonCfgParser version  : 2011-09-08 No.1
+--CommonCfgParser2 version : 2010-12-17 No.1
+--Author           : 
+--Email            : 
+--
+--Module Name      : HI3516A_TOP
+--Abstract         : 
+--Called By        : 
+--
+--Modification History
+--------------------------------------------------------
+--$Log: $
+--
+--
+--
+--******************************************************
+
+
+entity HI3516A_TOP is
+
+    generic (PHYSICAL_PIN_MAP : string := "DW");
+
+port (
+    USB_REXT            : linkage  bit;
+    MIPI0_CKM           : linkage  bit;
+    MIPI0_CKP           : linkage  bit;
+    MIPI0_D0M           : linkage  bit;
+    MIPI0_D1M           : linkage  bit;
+    MIPI0_D2M           : linkage  bit;
+    MIPI0_D3M           : linkage  bit;
+    MIPI0_D0P           : linkage  bit;
+    MIPI0_D1P           : linkage  bit;
+    MIPI0_D2P           : linkage  bit;
+    MIPI0_D3P           : linkage  bit;
+    MIPI1_CKM           : linkage  bit;
+    MIPI1_CKP           : linkage  bit;
+    MIPI1_D0M           : linkage  bit;
+    MIPI1_D1M           : linkage  bit;
+    MIPI1_D2M           : linkage  bit;
+    MIPI1_D3M           : linkage  bit;
+    MIPI1_D0P           : linkage  bit;
+    MIPI1_D1P           : linkage  bit;
+    MIPI1_D2P           : linkage  bit;
+    MIPI1_D3P           : linkage  bit;
+    XIN                 : linkage  bit;
+    XOUT                : linkage  bit;
+    DDR3_RESET_N        : inout    bit;
+    DDR3_CLK1_P         : inout    bit;
+    DDR3_CLK0_P         : inout    bit;
+    DDR3_CLK1_N         : linkage  bit;
+    DDR3_CLK0_N         : linkage  bit;
+    DDR3_CKE            : inout    bit;
+    DDR3_ODT_1          : inout    bit;
+    DDR3_ODT_0          : inout    bit;
+    DDR3_CS1_N          : inout    bit;
+    DDR3_CS0_N          : inout    bit;
+    DDR3_RAS_N          : inout    bit;
+    DDR3_CAS_N          : inout    bit;
+    DDR3_WE_N           : inout    bit;
+    DDR3_BA2            : inout    bit;
+    DDR3_BA1            : inout    bit;
+    DDR3_BA0            : inout    bit;
+    DDR3_DQS3_P         : inout    bit;
+    DDR3_DQS2_P         : inout    bit;
+    DDR3_DQS1_P         : inout    bit;
+    DDR3_DQS0_P         : inout    bit;
+    DDR3_DQS3_N         : linkage  bit;
+    DDR3_DQS2_N         : linkage  bit;
+    DDR3_DQS1_N         : linkage  bit;
+    DDR3_DQS0_N         : linkage  bit;
+    DDR3_DM3            : inout    bit;
+    DDR3_DM2            : inout    bit;
+    DDR3_DM1            : inout    bit;
+    DDR3_DM0            : inout    bit;
+    DDR3_ZQ             : linkage  bit;
+    DDR3_A14            : inout    bit;
+    DDR3_A13            : inout    bit;
+    DDR3_A12            : inout    bit;
+    DDR3_A11            : inout    bit;
+    DDR3_A10            : inout    bit;
+    DDR3_A9             : inout    bit;
+    DDR3_A8             : inout    bit;
+    DDR3_A7             : inout    bit;
+    DDR3_A6             : inout    bit;
+    DDR3_A5             : inout    bit;
+    DDR3_A4             : inout    bit;
+    DDR3_A3             : inout    bit;
+    DDR3_A2             : inout    bit;
+    DDR3_A1             : inout    bit;
+    DDR3_A0             : inout    bit;
+    DDR3_DQ31           : inout    bit;
+    DDR3_DQ30           : inout    bit;
+    DDR3_DQ29           : inout    bit;
+    DDR3_DQ28           : inout    bit;
+    DDR3_DQ27           : inout    bit;
+    DDR3_DQ26           : inout    bit;
+    DDR3_DQ25           : inout    bit;
+    DDR3_DQ24           : inout    bit;
+    DDR3_DQ23           : inout    bit;
+    DDR3_DQ22           : inout    bit;
+    DDR3_DQ21           : inout    bit;
+    DDR3_DQ20           : inout    bit;
+    DDR3_DQ19           : inout    bit;
+    DDR3_DQ18           : inout    bit;
+    DDR3_DQ17           : inout    bit;
+    DDR3_DQ16           : inout    bit;
+    DDR3_DQ15           : inout    bit;
+    DDR3_DQ14           : inout    bit;
+    DDR3_DQ13           : inout    bit;
+    DDR3_DQ12           : inout    bit;
+    DDR3_DQ11           : inout    bit;
+    DDR3_DQ10           : inout    bit;
+    DDR3_DQ9            : inout    bit;
+    DDR3_DQ8            : inout    bit;
+    DDR3_DQ7            : inout    bit;
+    DDR3_DQ6            : inout    bit;
+    DDR3_DQ5            : inout    bit;
+    DDR3_DQ4            : inout    bit;
+    DDR3_DQ3            : inout    bit;
+    DDR3_DQ2            : inout    bit;
+    DDR3_DQ1            : inout    bit;
+    DDR3_DQ0            : inout    bit;
+    RTC_XIN             : linkage  bit;
+    RTC_XOUT            : linkage  bit;
+    USB_DP              : linkage  bit;
+    USB_DM              : linkage  bit;
+    AC_LINEL            : linkage  bit;
+    AC_LINER            : linkage  bit;
+    AC_OUTR             : linkage  bit;
+    AC_VREF             : linkage  bit;
+    AC_MICBIAS          : linkage  bit;
+    AC_OUTL             : linkage  bit;
+    VDAC_IREF           : linkage  bit;
+    VDAC_CVBS           : linkage  bit;
+    SENSOR_CLK          : inout    bit;
+    FLASH_TRIG          : inout    bit;
+    SHUTTER_TRIG        : inout    bit;
+    VO_CLK              : inout    bit;
+    VO_DAT15            : inout    bit;
+    VO_DAT14            : inout    bit;
+    VO_DAT13            : inout    bit;
+    VO_DAT12            : inout    bit;
+    VO_DAT11            : inout    bit;
+    VO_DAT10            : inout    bit;
+    VO_DAT9             : inout    bit;
+    VO_DAT8             : inout    bit;
+    VO_DAT7             : inout    bit;
+    VO_DAT6             : inout    bit;
+    VO_DAT5             : inout    bit;
+    VO_DAT4             : inout    bit;
+    VO_DAT3             : inout    bit;
+    VO_DAT2             : inout    bit;
+    VO_DAT1             : inout    bit;
+    VO_DAT0             : inout    bit;
+    SPI0_SCLK           : inout    bit;
+    SPI0_SDO            : inout    bit;
+    SPI0_SDI            : inout    bit;
+    SPI0_CSN            : inout    bit;
+    SPI1_SCLK           : inout    bit;
+    SPI1_SDO            : inout    bit;
+    SPI1_SDI            : inout    bit;
+    SPI1_CSN0           : inout    bit;
+    I2C2_SDA            : inout    bit;
+    I2C2_SCL            : inout    bit;
+    UART0_RXD           : inout    bit;
+    UART0_TXD           : inout    bit;
+    UART1_RTSN          : inout    bit;
+    UART1_RXD           : inout    bit;
+    UART1_CTSN          : inout    bit;
+    UART1_TXD           : inout    bit;
+    UART2_RXD           : inout    bit;
+    UART2_TXD           : inout    bit;
+    JTAG_EN             : inout    bit;
+    JTAG_TRSTN          : in       bit;
+    JTAG_TCK            : in       bit;
+    JTAG_TMS            : in       bit;
+    JTAG_TDO            : out      bit;
+    JTAG_TDI            : in       bit;
+    IR_IN               : inout    bit;
+    POR_SEL             : inout    bit;
+    RSTN                : inout    bit;
+    WDG_RSTN            : inout    bit;
+    TEST_MODE           : in       bit;
+    USB_OVRCUR          : inout    bit;
+    USB_PWREN           : inout    bit;
+    SDIO0_CCLK_OUT      : inout    bit;
+    SDIO0_CARD_POWER_EN : inout    bit;
+    SDIO0_CARD_DETECT   : inout    bit;
+    SDIO0_CWPR          : inout    bit;
+    SDIO0_CCMD          : inout    bit;
+    SDIO0_CDATA0        : inout    bit;
+    SDIO0_CDATA1        : inout    bit;
+    SDIO0_CDATA2        : inout    bit;
+    SDIO0_CDATA3        : inout    bit;
+    GPIO0_0             : inout    bit;
+    GPIO0_1             : inout    bit;
+    GPIO0_2             : inout    bit;
+    GPIO0_3             : inout    bit;
+    GPIO0_4             : inout    bit;
+    SDIO1_CCLK_OUT      : inout    bit;
+    SDIO1_CARD_POWER_EN : inout    bit;
+    SDIO1_CARD_DETECT   : inout    bit;
+    SDIO1_CWPR          : inout    bit;
+    SDIO1_CCMD          : inout    bit;
+    SDIO1_CDATA0        : inout    bit;
+    SDIO1_CDATA1        : inout    bit;
+    SDIO1_CDATA2        : inout    bit;
+    SDIO1_CDATA3        : inout    bit;
+    SFC_SIO_IO0         : inout    bit;
+    SFC_WP_IO2          : inout    bit;
+    SFC_CLK             : inout    bit;
+    SFC_SOI_IO1         : inout    bit;
+    SFC_HOLD_IO3        : inout    bit;
+    SFC_CSN1            : inout    bit;
+    NF_DQ0              : inout    bit;
+    NF_DQ1              : inout    bit;
+    NF_DQ2              : inout    bit;
+    NF_DQ3              : inout    bit;
+    NF_DQ4              : inout    bit;
+    NF_DQ5              : inout    bit;
+    NF_DQ6              : inout    bit;
+    NF_DQ7              : inout    bit;
+    NF_RDY0             : inout    bit;
+    NF_RDY1             : inout    bit;
+    NF_REN              : inout    bit;
+    NF_CSN0             : inout    bit;
+    NF_CSN1             : inout    bit;
+    NF_CLE              : inout    bit;
+    NF_ALE              : inout    bit;
+    NF_WEN              : inout    bit;
+    PWM0                : inout    bit;
+    PWM1                : inout    bit;
+    PWM2                : inout    bit;
+    PWM3                : inout    bit;
+    SAR_ADC_CH0         : linkage  bit;
+    SAR_ADC_CH1         : linkage  bit;
+    EPHY_CLK            : inout    bit;
+    MDCK                : inout    bit;
+    MDIO                : inout    bit;
+    RGMII_TX_EN         : inout    bit;
+    RGMII_TX_CLK        : inout    bit;
+    RGMII_TXD0          : inout    bit;
+    RGMII_TXD1          : inout    bit;
+    RGMII_TXD2          : inout    bit;
+    RGMII_TXD3          : inout    bit;
+    RGMII_RX_CLK        : inout    bit;
+    RGMII_RX_DV         : inout    bit;
+    RGMII_RXD0          : inout    bit;
+    RGMII_RXD1          : inout    bit;
+    RGMII_RXD2          : inout    bit;
+    RGMII_RXD3          : inout    bit;
+    VI_CLK              : inout    bit;
+    VI_HS               : inout    bit;
+    VI_VS               : inout    bit;
+    VI_DAT15            : inout    bit;
+    VI_DAT14            : inout    bit;
+    VI_DAT13            : inout    bit;
+    VI_DAT12            : inout    bit;
+    VI_DAT11            : inout    bit;
+    VI_DAT10            : inout    bit;
+    VI_DAT9             : inout    bit;
+    VI_DAT8             : inout    bit;
+    VI_DAT7             : inout    bit;
+    VI_DAT6             : inout    bit;
+    VI_DAT5             : inout    bit;
+    VI_DAT4             : inout    bit;
+    VI_DAT3             : inout    bit;
+    VI_DAT2             : inout    bit;
+    VI_DAT1             : inout    bit;
+    VI_DAT0             : inout    bit;
+    VSS                 : linkage  bit_vector(0 to 71);
+    VDDIO_DDR           : linkage  bit_vector(0 to 5);
+    AVDD_DDRPLL2        : linkage  bit;
+    VDDIO_CK_DDR        : linkage  bit;
+    AVDD_DDRPLL3        : linkage  bit;
+    DVDDIO_RGMII        : linkage  bit;
+    DVDD33              : linkage  bit_vector(0 to 5);
+    VDD_DDR             : linkage  bit_vector(0 to 3);
+    VDD                 : linkage  bit_vector(0 to 9);
+    VDD_MEDIA           : linkage  bit_vector(0 to 5);
+    AVDD_DDRPLL1        : linkage  bit;
+    SDIO1_VOUT          : linkage  bit;
+    DVDD18_SDIO         : linkage  bit;
+    SDIO0_VOUT          : linkage  bit;
+    AVDD33_AC           : linkage  bit;
+    AVSS_AC             : linkage  bit_vector(0 to 3);
+    AVDD_EFUSE          : linkage  bit;
+    VDD_CPU             : linkage  bit_vector(0 to 2);
+    AVDD33_VDAC         : linkage  bit;
+    AVDD11_PLL          : linkage  bit;
+    AVSS_VDAC           : linkage  bit;
+    AVSS_PLL            : linkage  bit;
+    AVDD33_USB          : linkage  bit;
+    AVSS_USB            : linkage  bit_vector(0 to 2);
+    AVDD_BAT            : linkage  bit;
+    AVDD33_RTC          : linkage  bit;
+    AVDD33_PLL          : linkage  bit;
+    AVSS_RTC            : linkage  bit;
+    DVDD3318_SENSOR     : linkage  bit;
+    DVDD3318_VI         : linkage  bit;
+    AVSS_MIPI           : linkage  bit_vector(0 to 9);
+    AVDD18_MIPI         : linkage  bit_vector(0 to 1)
+);
+
+    use STD_1149_1_2001.all;
+    attribute COMPONENT_CONFORMANCE of HI3516A_TOP: entity
+        is "STD_1149_1_2001";
+
+    attribute PIN_MAP of HI3516A_TOP: entity is PHYSICAL_PIN_MAP;
+constant dw : PIN_MAP_STRING :=
+    " VSS : ( A9," &
+             "A11," & 
+             "A14," & 
+             "A22," & 
+             "B9," & 
+             "B11," & 
+             "B14," & 
+             "B17," & 
+             "B20," & 
+             "D17," & 
+             "E5," & 
+             "E7," & 
+             "E14," & 
+             "E18," & 
+             "F1," & 
+             "F2," & 
+             "H9," & 
+             "H12," & 
+             "H18," & 
+             "H22," & 
+             "J9," & 
+             "J10," & 
+             "J11," & 
+             "J12," & 
+             "J13," & 
+             "J14," & 
+             "K5," & 
+             "K8," & 
+             "K9," & 
+             "K10," & 
+             "K11," & 
+             "K12," & 
+             "K13," & 
+             "K14," & 
+             "L9," & 
+             "L10," & 
+             "L11," & 
+             "L12," & 
+             "L13," & 
+             "L14," & 
+             "L15," & 
+             "M9," & 
+             "M10," & 
+             "M11," & 
+             "M12," & 
+             "M13," & 
+             "M14," & 
+             "N5," & 
+             "N9," & 
+             "N10," & 
+             "N11," & 
+             "N12," & 
+             "N13," & 
+             "N14," & 
+             "P9," & 
+             "P10," & 
+             "P11," & 
+             "P12," & 
+             "P13," & 
+             "P14," & 
+             "R1," & 
+             "R12," & 
+             "V1," & 
+             "V2," & 
+             "V15," & 
+             "V18," & 
+             "W3," & 
+             "W17," & 
+             "AA6," & 
+             "AA18," & 
+             "AB1," & 
+             "AB22)," &
+    " VDDIO_DDR : ( E6," &
+                   "E9," & 
+                   "E12," & 
+                   "E13," & 
+                   "F5," & 
+                   "G5)," &
+    " AVDD_DDRPLL2 : E8," &
+    " VDDIO_CK_DDR : E10," &
+    " AVDD_DDRPLL3 : E11," &
+    " DVDDIO_RGMII : E17," &
+    " DVDD33 : ( F18," &
+                "G18," & 
+                "L5," & 
+                "M5," & 
+                "V16," & 
+                "V17)," &
+    " VDD_DDR : ( H8," &
+                 "H10," & 
+                 "H11," & 
+                 "J8)," &
+    " VDD : ( H13," &
+             "H14," & 
+             "K15," & 
+             "L8," & 
+             "M8," & 
+             "N8," & 
+             "P15," & 
+             "R10," & 
+             "R11," & 
+             "R15)," &
+    " VDD_MEDIA : ( H15," &
+                   "J15," & 
+                   "M15," & 
+                   "N15," & 
+                   "R13," & 
+                   "R14)," &
+    " AVDD_DDRPLL1 : J5," &
+    " SDIO1_VOUT : K18," &
+    " DVDD18_SDIO : L18," &
+    " SDIO0_VOUT : M18," &
+    " AVDD33_AC : N18," &
+    " AVSS_AC : ( N21," &
+                 "N22," & 
+                 "P19," & 
+                 "P20)," &
+    " AVDD_EFUSE : P5," &
+    " VDD_CPU : ( P8," &
+                 "R8," & 
+                 "R9)," &
+    " AVDD33_VDAC : P18," &
+    " AVDD11_PLL : R5," &
+    " AVSS_VDAC : R18," &
+    " AVSS_PLL : T5," &
+    " AVDD33_USB : T18," &
+    " AVSS_USB : ( T21," &
+                  "T22," & 
+                  "U19)," &
+    " AVDD_BAT : U3," &
+    " AVDD33_RTC : U4," &
+    " AVDD33_PLL : U5," &
+    " AVSS_RTC : V5," &
+    " DVDD3318_SENSOR : V6," &
+    " DVDD3318_VI : V8," &
+    " AVSS_MIPI : ( V10," &
+                   "V13," & 
+                   "W11," & 
+                   "W14," & 
+                   "Y8," & 
+                   "Y11," & 
+                   "Y14," & 
+                   "AA8," & 
+                   "AA15," & 
+                   "AB15)," &
+    " AVDD18_MIPI : ( V11," &
+                     "V12)," &
+    " DDR3_CAS_N : A2," &
+    " DDR3_BA0 : A3," &
+    " DDR3_A5 : A4," &
+    " DDR3_A7 : A5," &
+    " DDR3_A9 : A6," &
+    " DDR3_A0 : A7," &
+    " DDR3_CLK1_P : A8," &
+    " DDR3_CLK0_N : A10," &
+    " DDR3_DQ10 : A12," &
+    " DDR3_DQS1_N : A13," &
+    " DDR3_DQS0_N : A15," &
+    " DDR3_DQ0 : A16," &
+    " DDR3_DQ6 : A17," &
+    " RGMII_RXD0 : A18," &
+    " RGMII_RXD2 : A19," &
+    " RGMII_RXD3 : A20," &
+    " RGMII_RX_CLK : A21," &
+    " DDR3_CS1_N : B1," &
+    " DDR3_ODT_1 : B2," &
+    " DDR3_RAS_N : B3," &
+    " DDR3_A3 : B4," &
+    " DDR3_A2 : B5," &
+    " DDR3_RESET_N : B6," &
+    " DDR3_A13 : B7," &
+    " DDR3_CLK1_N : B8," &
+    " DDR3_CLK0_P : B10," &
+    " DDR3_DM0 : B12," &
+    " DDR3_DQS1_P : B13," &
+    " DDR3_DQS0_P : B15," &
+    " DDR3_DQ12 : B16," &
+    " RGMII_RX_DV : B18," &
+    " MDCK : B19," &
+    " RGMII_TXD0 : B21," &
+    " RGMII_TX_CLK : B22," &
+    " DDR3_DQ22 : C1," &
+    " DDR3_DQ20 : C2," &
+    " DDR3_A6 : C3," &
+    " DDR3_WE_N : C4," &
+    " DDR3_A1 : C5," &
+    " DDR3_A10 : C6," &
+    " DDR3_A12 : C7," &
+    " DDR3_CS0_N : C8," &
+    " DDR3_A4 : C9," &
+    " DDR3_DQ5 : C10," &
+    " DDR3_DQ3 : C11," &
+    " DDR3_DQ8 : C12," &
+    " DDR3_DQ2 : C13," &
+    " DDR3_DQ4 : C14," &
+    " DDR3_DQ9 : C15," &
+    " DDR3_DQ13 : C16," &
+    " RGMII_RXD1 : C18," &
+    " RGMII_TX_EN : C19," &
+    " RGMII_TXD2 : C20," &
+    " RGMII_TXD1 : C21," &
+    " VO_DAT15 : C22," &
+    " DDR3_DQ25 : D1," &
+    " DDR3_DQ23 : D2," &
+    " DDR3_DQ17 : D3," &
+    " DDR3_A8 : D4," &
+    " DDR3_A14 : D5," &
+    " DDR3_A11 : D6," &
+    " DDR3_CKE : D7," &
+    " DDR3_BA2 : D8," &
+    " DDR3_BA1 : D9," &
+    " DDR3_ODT_0 : D10," &
+    " DDR3_DQ7 : D11," &
+    " DDR3_DQ1 : D12," &
+    " DDR3_DM1 : D13," &
+    " DDR3_DQ14 : D14," &
+    " DDR3_DQ11 : D15," &
+    " DDR3_DQ15 : D16," &
+    " MDIO : D18," &
+    " RGMII_TXD3 : D19," &
+    " GPIO0_1 : D20," &
+    " VO_DAT13 : D21," &
+    " VO_DAT12 : D22," &
+    " DDR3_DQS2_P : E1," &
+    " DDR3_DQS2_N : E2," &
+    " DDR3_DQ21 : E3," &
+    " DDR3_DQ19 : E4," &
+    " EPHY_CLK : E19," &
+    " VO_DAT14 : E20," &
+    " VO_DAT11 : E21," &
+    " VO_DAT9 : E22," &
+    " DDR3_DQ18 : F3," &
+    " DDR3_DM3 : F4," &
+    " VO_DAT8 : F19," &
+    " VO_DAT10 : F20," &
+    " VO_DAT7 : F21," &
+    " VO_DAT5 : F22," &
+    " DDR3_DQS3_N : G1," &
+    " DDR3_DQS3_P : G2," &
+    " DDR3_DQ16 : G3," &
+    " DDR3_DQ31 : G4," &
+    " VO_DAT3 : G19," &
+    " VO_DAT6 : G20," &
+    " VO_DAT4 : G21," &
+    " VO_CLK : G22," &
+    " DDR3_DQ30 : H1," &
+    " DDR3_DQ28 : H2," &
+    " DDR3_DM2 : H3," &
+    " DDR3_DQ27 : H4," &
+    " VO_DAT1 : H19," &
+    " VO_DAT0 : H20," &
+    " VO_DAT2 : H21," &
+    " DDR3_DQ26 : J1," &
+    " DDR3_ZQ : J2," &
+    " DDR3_DQ24 : J3," &
+    " DDR3_DQ29 : J4," &
+    " SDIO1_CWPR : J19," &
+    " SDIO1_CARD_DETECT : J20," &
+    " SDIO1_CARD_POWER_EN : J21," &
+    " SDIO1_CDATA1 : J22," &
+    " NF_RDY0 : K1," &
+    " NF_RDY1 : K2," &
+    " NF_DQ3 : K3," &
+    " NF_DQ2 : K4," &
+    " SDIO1_CDATA3 : K19," &
+    " SDIO1_CDATA0 : K20," &
+    " SDIO1_CCMD : K21," &
+    " SDIO1_CCLK_OUT : K22," &
+    " NF_CSN0 : L1," &
+    " NF_REN : L2," &
+    " NF_DQ4 : L3," &
+    " NF_DQ1 : L4," &
+    " SDIO1_CDATA2 : L19," &
+    " SDIO0_CDATA2 : L20," &
+    " SDIO0_CDATA1 : L21," &
+    " SDIO0_CCLK_OUT : L22," &
+    " NF_CLE : M1," &
+    " NF_CSN1 : M2," &
+    " NF_DQ5 : M3," &
+    " NF_DQ6 : M4," &
+    " SDIO0_CDATA0 : M19," &
+    " SDIO0_CCMD : M20," &
+    " SDIO0_CDATA3 : M21," &
+    " SDIO0_CWPR : M22," &
+    " NF_WEN : N1," &
+    " NF_ALE : N2," &
+    " NF_DQ0 : N3," &
+    " NF_DQ7 : N4," &
+    " SDIO0_CARD_DETECT : N19," &
+    " SDIO0_CARD_POWER_EN : N20," &
+    " SFC_CLK : P1," &
+    " SFC_WP_IO2 : P2," &
+    " SFC_SOI_IO1 : P3," &
+    " RSTN : P4," &
+    " AC_LINER : P21," &
+    " AC_LINEL : P22," &
+    " SFC_SIO_IO0 : R2," &
+    " SFC_CSN1 : R3," &
+    " SFC_HOLD_IO3 : R4," &
+    " AC_OUTL : R19," &
+    " AC_OUTR : R20," &
+    " AC_VREF : R21," &
+    " AC_MICBIAS : R22," &
+    " TEST_MODE : T1," &
+    " JTAG_EN : T2," &
+    " POR_SEL : T3," &
+    " WDG_RSTN : T4," &
+    " VDAC_IREF : T19," &
+    " VDAC_CVBS : T20," &
+    " XIN : U1," &
+    " XOUT : U2," &
+    " USB_REXT : U20," &
+    " USB_DM : U21," &
+    " USB_DP : U22," &
+    " SAR_ADC_CH0 : V3," &
+    " SAR_ADC_CH1 : V4," &
+    " USB_PWREN : V19," &
+    " PWM0 : V20," &
+    " USB_OVRCUR : V21," &
+    " UART2_TXD : V22," &
+    " RTC_XOUT : W1," &
+    " RTC_XIN : W2," &
+    " VI_HS : W4," &
+    " VI_DAT13 : W5," &
+    " VI_DAT15 : W6," &
+    " VI_DAT7 : W7," &
+    " VI_DAT11 : W8," &
+    " MIPI0_D3M : W9," &
+    " MIPI0_CKP : W10," &
+    " MIPI1_D1P : W12," &
+    " MIPI1_CKM : W13," &
+    " SHUTTER_TRIG : W15," &
+    " SPI1_SDI : W16," &
+    " JTAG_TDO : W18," &
+    " PWM1 : W19," &
+    " UART1_CTSN : W20," &
+    " UART0_RXD : W21," &
+    " UART1_TXD : W22," &
+    " GPIO0_0 : Y1," &
+    " SPI0_SDO : Y2," &
+    " SPI0_CSN : Y3," &
+    " VI_DAT10 : Y4," &
+    " VI_DAT12 : Y5," &
+    " VI_DAT14 : Y6," &
+    " VI_DAT9 : Y7," &
+    " MIPI0_D3P : Y9," &
+    " MIPI0_CKM : Y10," &
+    " MIPI1_D1M : Y12," &
+    " MIPI1_CKP : Y13," &
+    " FLASH_TRIG : Y15," &
+    " SPI1_SDO : Y16," &
+    " SPI1_CSN0 : Y17," &
+    " JTAG_TCK : Y18," &
+    " UART1_RTSN : Y19," &
+    " GPIO0_4 : Y20," &
+    " UART0_TXD : Y21," &
+    " UART1_RXD : Y22," &
+    " SENSOR_CLK : AA1," &
+    " SPI0_SDI : AA2," &
+    " VI_DAT0 : AA3," &
+    " VI_DAT2 : AA4," &
+    " VI_DAT4 : AA5," &
+    " VI_CLK : AA7," &
+    " MIPI0_D1P : AA9," &
+    " MIPI0_D0P : AA10," &
+    " MIPI0_D2P : AA11," &
+    " MIPI1_D3M : AA12," &
+    " MIPI1_D0M : AA13," &
+    " MIPI1_D2M : AA14," &
+    " SPI1_SCLK : AA16," &
+    " UART2_RXD : AA17," &
+    " JTAG_TDI : AA19," &
+    " I2C2_SDA : AA20," &
+    " PWM3 : AA21," &
+    " PWM2 : AA22," &
+    " SPI0_SCLK : AB2," &
+    " VI_VS : AB3," &
+    " VI_DAT1 : AB4," &
+    " VI_DAT3 : AB5," &
+    " VI_DAT5 : AB6," &
+    " VI_DAT6 : AB7," &
+    " VI_DAT8 : AB8," &
+    " MIPI0_D1M : AB9," &
+    " MIPI0_D0M : AB10," &
+    " MIPI0_D2M : AB11," &
+    " MIPI1_D3P : AB12," &
+    " MIPI1_D0P : AB13," &
+    " MIPI1_D2P : AB14," &
+    " GPIO0_3 : AB16," &
+    " JTAG_TRSTN : AB17," &
+    " GPIO0_2 : AB18," &
+    " JTAG_TMS : AB19," &
+    " IR_IN : AB20," &
+    " I2C2_SCL : AB21";
+
+    attribute TAP_SCAN_CLOCK of JTAG_TCK : signal is (25000000,BOTH);
+    attribute TAP_SCAN_MODE of JTAG_TMS : signal is true;
+    attribute TAP_SCAN_IN of JTAG_TDI : signal is true;
+    attribute TAP_SCAN_OUT of JTAG_TDO : signal is true;
+    attribute TAP_SCAN_RESET of JTAG_TRSTN : signal is true;
+
+    attribute compliance_patterns of HI3516A_TOP: entity is
+        "(TEST_MODE) (1)";
+
+    attribute INSTRUCTION_LENGTH of HI3516A_TOP: entity is 8;
+    attribute INSTRUCTION_OPCODE of HI3516A_TOP: entity is
+        "clamp (00000010)," &
+        "highz (00000011)," &
+        "idcode (00000100)," &
+        "a7_mbist_tdre (00010110)," &
+        "a7_diagnose (00010111)," &
+        "ip_test_ctrl (00001010)," &
+        "pmc_hpm_ctrl (00101000)," &
+        "cpu_iso_ctrl (00100010)," &
+        "rtc_ctrl (00010010)," &
+        "pll_ctrl (00001011)," &
+        "ddr_pll_ctrl (00010011)," &
+        "mddrc_iso_ctrl (00100011)," &
+        "cpu_mem_adjust_ctrl (00100001)," &
+        "ddr_io_ctrl (00010100)," &
+        "vedu_hpm_ctrl (00100111)," &
+        "cpu_hpm_ctrl (00011010)," &
+        "mipi_phy1_ctrl (00011111)," &
+        "ddrt_apb_ctrl (00100000)," &
+        "usb_phy_ctrl (00001100)," &
+        "mipi_apb_ctrl (00100101)," &
+        "dft_reserved_ctrl (00101001)," &
+        "mipi_phy0_ctrl (00011110)," &
+        "power_switch0_ctrl (00010000)," &
+        "power_switch1_ctrl (00010001)," &
+        "mipi_compare_result_ctrl (00100110)," &
+        "vdac_ctrl (00001110)," &
+        "ddr_apb_ctrl (00010101)," &
+        "media0_hpm_ctrl (00011101)," &
+        "mddrc_hpm_ctrl (00011100)," &
+        "lsadc_ctrl (00001111)," &
+        "media0_iso_ctrl (00100100)," &
+        "codec_test_ctrl (00001101)," &
+        "cpu_scan_ctrl (00011001)," &
+        "a7_mbist_ctrl (00011000)," &
+        "sel_wr (10011100)," &
+        "mode_ctrl (10000000)," &
+        "reserve (11111000)," &
+        "selectwdr (10011000)," &
+        "selectwir (10010100)," &
+        "extest (00000000)," &
+        "bypass (11111111)," &
+        "sample (00000001)," &
+        "preload (00000001)," &
+        "set_scan_mode (00000111)," &
+        "clear_scan_mode (00001000)," &
+        "io_ctrlport_ctrlr_cfg (00001001)";
+    attribute INSTRUCTION_CAPTURE of HI3516A_TOP: entity is "00000001";
+    attribute INSTRUCTION_PRIVATE of HI3516A_TOP: entity is
+        "set_scan_mode," &
+	"a7_mbist_tdre," &
+	"a7_diagnose," &
+	"selectwdr," &
+	"selectwir," &	
+        "clear_scan_mode";
+
+    attribute IDCODE_REGISTER of HI3516A_TOP: entity is
+        "0001" &             --version
+        "0011010100010110" & --Part number
+        "01011001010" &      --Identity of the manufacturer
+        "1";                 --Required by IEEE Std 1149.1-1990
+
+    attribute REGISTER_ACCESS of HI3516A_TOP : entity is
+        "bypass(clear_scan_mode)," &
+        "a7_mbist_tdre[1](a7_mbist_tdre)," &
+        "a7_diagnose[1](a7_diagnose)," &
+        "ip_test_ctrl[26](ip_test_ctrl)," &
+        "pmc_hpm_ctrl[11](pmc_hpm_ctrl)," &
+        "cpu_iso_ctrl[1](cpu_iso_ctrl)," &
+        "rtc_ctrl[22](rtc_ctrl)," &
+        "pll_ctrl[232](pll_ctrl)," &
+        "ddr_pll_ctrl[72](ddr_pll_ctrl)," &
+        "mddrc_iso_ctrl[1](mddrc_iso_ctrl)," &
+        "cpu_mem_adjust_ctrl[20](cpu_mem_adjust_ctrl)," &
+        "ddr_io_ctrl[36](ddr_io_ctrl)," &
+        "vedu_hpm_ctrl[11](vedu_hpm_ctrl)," &
+        "cpu_hpm_ctrl[11](cpu_hpm_ctrl)," &
+        "mipi_phy1_ctrl[28](mipi_phy1_ctrl)," &
+        "ddrt_apb_ctrl[51](ddrt_apb_ctrl)," &
+        "usb_phy_ctrl[17](usb_phy_ctrl)," &
+        "mipi_apb_ctrl[67](mipi_apb_ctrl)," &
+        "dft_reserved_ctrl[64](dft_reserved_ctrl)," &
+        "mipi_phy0_ctrl[28](mipi_phy0_ctrl)," &
+        "power_switch0_ctrl[2](power_switch0_ctrl)," &
+        "power_switch1_ctrl[2](power_switch1_ctrl)," &
+        "mipi_compare_result_ctrl[24](mipi_compare_result_ctrl)," &
+        "vdac_ctrl[13](vdac_ctrl)," &
+        "ddr_apb_ctrl[55](ddr_apb_ctrl)," &
+        "media0_hpm_ctrl[11](media0_hpm_ctrl)," &
+        "mddrc_hpm_ctrl[11](mddrc_hpm_ctrl)," &
+        "lsadc_ctrl[24](lsadc_ctrl)," &
+        "media0_iso_ctrl[1](media0_iso_ctrl)," &
+        "CODEC_test_ctrl[40](codec_test_ctrl)," &
+        "cpu_scan_ctrl[2](cpu_scan_ctrl)," &
+        "a7_mbist_ctrl[9](a7_mbist_ctrl)," &
+        "sel_wr[10](sel_wr)," &
+        "mode_ctrl[10](mode_ctrl)," &
+        "reserve[32](reserve)," &
+        "selectwdr[1](selectwdr)," &
+        "selectwir[1](selectwir)," &
+        "oe_chain_reg[197](set_scan_mode)," &
+        "HI3516A_TOP_Io_CtrlPort_Ctrlr_Reg[707](io_ctrlport_ctrlr_cfg)";
+
+    attribute BOUNDARY_LENGTH of HI3516A_TOP : entity is 394;
+attribute BOUNDARY_REGISTER of HI3516A_TOP : entity is
+    "393 (bc_7, DDR3_DQ0, bidir, x, 392, 0, weak0)," &
+    "392 (bc_2, *, control, 0)," &
+    "391 (bc_7, DDR3_DQ1, bidir, x, 390, 0, weak0)," &
+    "390 (bc_2, *, control, 0)," &
+    "389 (bc_7, DDR3_DQ2, bidir, x, 388, 0, weak0)," &
+    "388 (bc_2, *, control, 0)," &
+    "387 (bc_7, DDR3_DQ3, bidir, x, 386, 0, weak0)," &
+    "386 (bc_2, *, control, 0)," &
+    "385 (bc_7, DDR3_DQ4, bidir, x, 384, 0, weak0)," &
+    "384 (bc_2, *, control, 0)," &
+    "383 (bc_7, DDR3_DQ5, bidir, x, 382, 0, weak0)," &
+    "382 (bc_2, *, control, 0)," &
+    "381 (bc_7, DDR3_DQ6, bidir, x, 380, 0, weak0)," &
+    "380 (bc_2, *, control, 0)," &
+    "379 (bc_7, DDR3_DQ7, bidir, x, 378, 0, weak0)," &
+    "378 (bc_2, *, control, 0)," &
+    "377 (bc_7, DDR3_DQ8, bidir, x, 376, 0, weak0)," &
+    "376 (bc_2, *, control, 0)," &
+    "375 (bc_7, DDR3_DQ9, bidir, x, 374, 0, weak0)," &
+    "374 (bc_2, *, control, 0)," &
+    "373 (bc_7, DDR3_DQ10, bidir, x, 372, 0, weak0)," &
+    "372 (bc_2, *, control, 0)," &
+    "371 (bc_7, DDR3_DQ11, bidir, x, 370, 0, weak0)," &
+    "370 (bc_2, *, control, 0)," &
+    "369 (bc_7, DDR3_DQ12, bidir, x, 368, 0, weak0)," &
+    "368 (bc_2, *, control, 0)," &
+    "367 (bc_7, DDR3_DQ13, bidir, x, 366, 0, weak0)," &
+    "366 (bc_2, *, control, 0)," &
+    "365 (bc_7, DDR3_DQ14, bidir, x, 364, 0, weak0)," &
+    "364 (bc_2, *, control, 0)," &
+    "363 (bc_7, DDR3_DQ15, bidir, x, 362, 0, weak0)," &
+    "362 (bc_2, *, control, 0)," &
+    "361 (bc_7, DDR3_DQ16, bidir, x, 360, 0, weak0)," &
+    "360 (bc_2, *, control, 0)," &
+    "359 (bc_7, DDR3_DQ17, bidir, x, 358, 0, weak0)," &
+    "358 (bc_2, *, control, 0)," &
+    "357 (bc_7, DDR3_DQ18, bidir, x, 356, 0, weak0)," &
+    "356 (bc_2, *, control, 0)," &
+    "355 (bc_7, DDR3_DQ19, bidir, x, 354, 0, weak0)," &
+    "354 (bc_2, *, control, 0)," &
+    "353 (bc_7, DDR3_DQ20, bidir, x, 352, 0, weak0)," &
+    "352 (bc_2, *, control, 0)," &
+    "351 (bc_7, DDR3_DQ21, bidir, x, 350, 0, weak0)," &
+    "350 (bc_2, *, control, 0)," &
+    "349 (bc_7, DDR3_DQ22, bidir, x, 348, 0, weak0)," &
+    "348 (bc_2, *, control, 0)," &
+    "347 (bc_7, DDR3_DQ23, bidir, x, 346, 0, weak0)," &
+    "346 (bc_2, *, control, 0)," &
+    "345 (bc_7, DDR3_DQ24, bidir, x, 344, 0, weak0)," &
+    "344 (bc_2, *, control, 0)," &
+    "343 (bc_7, DDR3_DQ25, bidir, x, 342, 0, weak0)," &
+    "342 (bc_2, *, control, 0)," &
+    "341 (bc_7, DDR3_DQ26, bidir, x, 340, 0, weak0)," &
+    "340 (bc_2, *, control, 0)," &
+    "339 (bc_7, DDR3_DQ27, bidir, x, 338, 0, weak0)," &
+    "338 (bc_2, *, control, 0)," &
+    "337 (bc_7, DDR3_DQ28, bidir, x, 336, 0, weak0)," &
+    "336 (bc_2, *, control, 0)," &
+    "335 (bc_7, DDR3_DQ29, bidir, x, 334, 0, weak0)," &
+    "334 (bc_2, *, control, 0)," &
+    "333 (bc_7, DDR3_DQ30, bidir, x, 332, 0, weak0)," &
+    "332 (bc_2, *, control, 0)," &
+    "331 (bc_7, DDR3_DQ31, bidir, x, 330, 0, weak0)," &
+    "330 (bc_2, *, control, 0)," &
+    "329 (bc_7, DDR3_A0, bidir, x, 328, 0, weak0)," &
+    "328 (bc_2, *, control, 0)," &
+    "327 (bc_7, DDR3_A1, bidir, x, 326, 0, weak0)," &
+    "326 (bc_2, *, control, 0)," &
+    "325 (bc_7, DDR3_A2, bidir, x, 324, 0, weak0)," &
+    "324 (bc_2, *, control, 0)," &
+    "323 (bc_7, DDR3_A3, bidir, x, 322, 0, weak0)," &
+    "322 (bc_2, *, control, 0)," &
+    "321 (bc_7, DDR3_A4, bidir, x, 320, 0, weak0)," &
+    "320 (bc_2, *, control, 0)," &
+    "319 (bc_7, DDR3_A5, bidir, x, 318, 0, weak0)," &
+    "318 (bc_2, *, control, 0)," &
+    "317 (bc_7, DDR3_A6, bidir, x, 316, 0, weak0)," &
+    "316 (bc_2, *, control, 0)," &
+    "315 (bc_7, DDR3_A7, bidir, x, 314, 0, weak0)," &
+    "314 (bc_2, *, control, 0)," &
+    "313 (bc_7, DDR3_A8, bidir, x, 312, 0, weak0)," &
+    "312 (bc_2, *, control, 0)," &
+    "311 (bc_7, DDR3_A9, bidir, x, 310, 0, weak0)," &
+    "310 (bc_2, *, control, 0)," &
+    "309 (bc_7, DDR3_A10, bidir, x, 308, 0, weak0)," &
+    "308 (bc_2, *, control, 0)," &
+    "307 (bc_7, DDR3_A11, bidir, x, 306, 0, weak0)," &
+    "306 (bc_2, *, control, 0)," &
+    "305 (bc_7, DDR3_A12, bidir, x, 304, 0, weak0)," &
+    "304 (bc_2, *, control, 0)," &
+    "303 (bc_7, DDR3_A13, bidir, x, 302, 0, weak0)," &
+    "302 (bc_2, *, control, 0)," &
+    "301 (bc_7, DDR3_A14, bidir, x, 300, 0, weak0)," &
+    "300 (bc_2, *, control, 0)," &
+    "299 (bc_7, DDR3_DM0, bidir, x, 298, 0, weak0)," &
+    "298 (bc_2, *, control, 0)," &
+    "297 (bc_7, DDR3_DM1, bidir, x, 296, 0, weak0)," &
+    "296 (bc_2, *, control, 0)," &
+    "295 (bc_7, DDR3_DM2, bidir, x, 294, 0, weak0)," &
+    "294 (bc_2, *, control, 0)," &
+    "293 (bc_7, DDR3_DM3, bidir, x, 292, 0, weak0)," &
+    "292 (bc_2, *, control, 0)," &
+    "291 (bc_7, DDR3_DQS0_P, bidir, x, 290, 0, weak0)," &
+    "290 (bc_2, *, control, 0)," &
+    "289 (bc_7, DDR3_DQS1_P, bidir, x, 288, 0, weak0)," &
+    "288 (bc_2, *, control, 0)," &
+    "287 (bc_7, DDR3_DQS2_P, bidir, x, 286, 0, weak0)," &
+    "286 (bc_2, *, control, 0)," &
+    "285 (bc_7, DDR3_DQS3_P, bidir, x, 284, 0, weak0)," &
+    "284 (bc_2, *, control, 0)," &
+    "283 (bc_7, DDR3_BA0, bidir, x, 282, 0, weak0)," &
+    "282 (bc_2, *, control, 0)," &
+    "281 (bc_7, DDR3_BA1, bidir, x, 280, 0, weak0)," &
+    "280 (bc_2, *, control, 0)," &
+    "279 (bc_7, DDR3_BA2, bidir, x, 278, 0, weak0)," &
+    "278 (bc_2, *, control, 0)," &
+    "277 (bc_7, DDR3_WE_N, bidir, x, 276, 0, weak0)," &
+    "276 (bc_2, *, control, 0)," &
+    "275 (bc_7, DDR3_CAS_N, bidir, x, 274, 0, weak0)," &
+    "274 (bc_2, *, control, 0)," &
+    "273 (bc_7, DDR3_RAS_N, bidir, x, 272, 0, weak0)," &
+    "272 (bc_2, *, control, 0)," &
+    "271 (bc_7, DDR3_CS0_N, bidir, x, 270, 0, weak0)," &
+    "270 (bc_2, *, control, 0)," &
+    "269 (bc_7, DDR3_CS1_N, bidir, x, 268, 0, weak0)," &
+    "268 (bc_2, *, control, 0)," &
+    "267 (bc_7, DDR3_ODT_0, bidir, x, 266, 0, weak0)," &
+    "266 (bc_2, *, control, 0)," &
+    "265 (bc_7, DDR3_ODT_1, bidir, x, 264, 0, weak0)," &
+    "264 (bc_2, *, control, 0)," &
+    "263 (bc_7, DDR3_CKE, bidir, x, 262, 0, weak0)," &
+    "262 (bc_2, *, control, 0)," &
+    "261 (bc_7, DDR3_CLK0_P, bidir, x, 260, 0, weak0)," &
+    "260 (bc_2, *, control, 0)," &
+    "259 (bc_7, DDR3_CLK1_P, bidir, x, 258, 0, weak0)," &
+    "258 (bc_2, *, control, 0)," &
+    "257 (bc_7, DDR3_RESET_N, bidir, x, 256, 0, weak0)," &
+    "256 (bc_2, *, control, 0)," &
+    "255 (bc_7, GPIO0_2, bidir, x, 254, 1, z)," &
+    "254 (bc_2, *, control, 1)," &
+    "253 (bc_7, UART2_RXD, bidir, x, 252, 1, z)," &
+    "252 (bc_2, *, control, 1)," &
+    "251 (bc_7, SPI1_CSN0, bidir, x, 250, 1, z)," &
+    "250 (bc_2, *, control, 1)," &
+    "249 (bc_7, SPI1_SDI, bidir, x, 248, 1, z)," &
+    "248 (bc_2, *, control, 1)," &
+    "247 (bc_7, SPI1_SCLK, bidir, x, 246, 1, z)," &
+    "246 (bc_2, *, control, 1)," &
+    "245 (bc_7, SPI1_SDO, bidir, x, 244, 1, z)," &
+    "244 (bc_2, *, control, 1)," &
+    "243 (bc_7, GPIO0_3, bidir, x, 242, 1, z)," &
+    "242 (bc_2, *, control, 1)," &
+    "241 (bc_7, FLASH_TRIG, bidir, x, 240, 1, z)," &
+    "240 (bc_2, *, control, 1)," &
+    "239 (bc_7, SHUTTER_TRIG, bidir, x, 238, 1, z)," &
+    "238 (bc_2, *, control, 1)," &
+    "237 (bc_7, VI_DAT8, bidir, x, 236, 1, z)," &
+    "236 (bc_2, *, control, 1)," &
+    "235 (bc_7, VI_CLK, bidir, x, 234, 1, z)," &
+    "234 (bc_2, *, control, 1)," &
+    "233 (bc_7, VI_DAT11, bidir, x, 232, 1, z)," &
+    "232 (bc_2, *, control, 1)," &
+    "231 (bc_7, VI_DAT9, bidir, x, 230, 1, z)," &
+    "230 (bc_2, *, control, 1)," &
+    "229 (bc_7, VI_DAT6, bidir, x, 228, 1, z)," &
+    "228 (bc_2, *, control, 1)," &
+    "227 (bc_7, VI_DAT7, bidir, x, 226, 1, z)," &
+    "226 (bc_2, *, control, 1)," &
+    "225 (bc_7, VI_DAT5, bidir, x, 224, 1, z)," &
+    "224 (bc_2, *, control, 1)," &
+    "223 (bc_7, VI_DAT14, bidir, x, 222, 1, z)," &
+    "222 (bc_2, *, control, 1)," &
+    "221 (bc_7, VI_DAT3, bidir, x, 220, 1, z)," &
+    "220 (bc_2, *, control, 1)," &
+    "219 (bc_7, VI_DAT4, bidir, x, 218, 1, z)," &
+    "218 (bc_2, *, control, 1)," &
+    "217 (bc_7, VI_DAT15, bidir, x, 216, 1, z)," &
+    "216 (bc_2, *, control, 1)," &
+    "215 (bc_7, VI_DAT12, bidir, x, 214, 1, z)," &
+    "214 (bc_2, *, control, 1)," &
+    "213 (bc_7, VI_DAT1, bidir, x, 212, 1, z)," &
+    "212 (bc_2, *, control, 1)," &
+    "211 (bc_7, VI_DAT10, bidir, x, 210, 1, z)," &
+    "210 (bc_2, *, control, 1)," &
+    "209 (bc_7, VI_DAT13, bidir, x, 208, 1, z)," &
+    "208 (bc_2, *, control, 1)," &
+    "207 (bc_7, VI_VS, bidir, x, 206, 1, z)," &
+    "206 (bc_2, *, control, 1)," &
+    "205 (bc_7, VI_DAT2, bidir, x, 204, 1, z)," &
+    "204 (bc_2, *, control, 1)," &
+    "203 (bc_7, VI_HS, bidir, x, 202, 1, z)," &
+    "202 (bc_2, *, control, 1)," &
+    "201 (bc_7, VI_DAT0, bidir, x, 200, 1, z)," &
+    "200 (bc_2, *, control, 1)," &
+    "199 (bc_7, SPI0_CSN, bidir, x, 198, 1, z)," &
+    "198 (bc_2, *, control, 1)," &
+    "197 (bc_7, SPI0_SDI, bidir, x, 196, 1, z)," &
+    "196 (bc_2, *, control, 1)," &
+    "195 (bc_7, SPI0_SCLK, bidir, x, 194, 1, z)," &
+    "194 (bc_2, *, control, 1)," &
+    "193 (bc_7, SPI0_SDO, bidir, x, 192, 1, z)," &
+    "192 (bc_2, *, control, 1)," &
+    "191 (bc_7, SENSOR_CLK, bidir, x, 190, 1, z)," &
+    "190 (bc_2, *, control, 1)," &
+    "189 (bc_7, GPIO0_0, bidir, x, 188, 1, z)," &
+    "188 (bc_2, *, control, 1)," &
+    "187 (bc_7, WDG_RSTN, bidir, x, 186, 1, z)," &
+    "186 (bc_2, *, control, 1)," &
+    "185 (bc_7, POR_SEL, bidir, x, 184, 1, z)," &
+    "184 (bc_2, *, control, 1)," &
+    "183 (bc_7, JTAG_EN, bidir, x, 182, 1, z)," &
+    "182 (bc_2, *, control, 1)," &
+    "181 (bc_7, SFC_SIO_IO0, bidir, x, 180, 1, z)," &
+    "180 (bc_2, *, control, 1)," &
+    "179 (bc_7, RSTN, bidir, x, 178, 1, z)," &
+    "178 (bc_2, *, control, 1)," &
+    "177 (bc_7, SFC_CSN1, bidir, x, 176, 1, z)," &
+    "176 (bc_2, *, control, 1)," &
+    "175 (bc_7, SFC_HOLD_IO3, bidir, x, 174, 1, z)," &
+    "174 (bc_2, *, control, 1)," &
+    "173 (bc_7, SFC_CLK, bidir, x, 172, 1, z)," &
+    "172 (bc_2, *, control, 1)," &
+    "171 (bc_7, SFC_WP_IO2, bidir, x, 170, 1, z)," &
+    "170 (bc_2, *, control, 1)," &
+    "169 (bc_7, SFC_SOI_IO1, bidir, x, 168, 1, z)," &
+    "168 (bc_2, *, control, 1)," &
+    "167 (bc_7, NF_WEN, bidir, x, 166, 1, z)," &
+    "166 (bc_2, *, control, 1)," &
+    "165 (bc_7, NF_ALE, bidir, x, 164, 1, z)," &
+    "164 (bc_2, *, control, 1)," &
+    "163 (bc_7, NF_DQ0, bidir, x, 162, 1, z)," &
+    "162 (bc_2, *, control, 1)," &
+    "161 (bc_7, NF_DQ7, bidir, x, 160, 1, z)," &
+    "160 (bc_2, *, control, 1)," &
+    "159 (bc_7, NF_CLE, bidir, x, 158, 1, z)," &
+    "158 (bc_2, *, control, 1)," &
+    "157 (bc_7, NF_CSN1, bidir, x, 156, 1, z)," &
+    "156 (bc_2, *, control, 1)," &
+    "155 (bc_7, NF_DQ5, bidir, x, 154, 1, z)," &
+    "154 (bc_2, *, control, 1)," &
+    "153 (bc_7, NF_DQ6, bidir, x, 152, 1, z)," &
+    "152 (bc_2, *, control, 1)," &
+    "151 (bc_7, NF_CSN0, bidir, x, 150, 1, z)," &
+    "150 (bc_2, *, control, 1)," &
+    "149 (bc_7, NF_REN, bidir, x, 148, 1, z)," &
+    "148 (bc_2, *, control, 1)," &
+    "147 (bc_7, NF_DQ4, bidir, x, 146, 1, z)," &
+    "146 (bc_2, *, control, 1)," &
+    "145 (bc_7, NF_DQ1, bidir, x, 144, 1, z)," &
+    "144 (bc_2, *, control, 1)," &
+    "143 (bc_7, NF_RDY0, bidir, x, 142, 1, z)," &
+    "142 (bc_2, *, control, 1)," &
+    "141 (bc_7, NF_RDY1, bidir, x, 140, 1, z)," &
+    "140 (bc_2, *, control, 1)," &
+    "139 (bc_7, NF_DQ3, bidir, x, 138, 1, z)," &
+    "138 (bc_2, *, control, 1)," &
+    "137 (bc_7, NF_DQ2, bidir, x, 136, 1, z)," &
+    "136 (bc_2, *, control, 1)," &
+    "135 (bc_7, RGMII_RX_DV, bidir, x, 134, 1, z)," &
+    "134 (bc_2, *, control, 1)," &
+    "133 (bc_7, RGMII_RXD0, bidir, x, 132, 1, z)," &
+    "132 (bc_2, *, control, 1)," &
+    "131 (bc_7, RGMII_RXD1, bidir, x, 130, 1, z)," &
+    "130 (bc_2, *, control, 1)," &
+    "129 (bc_7, MDIO, bidir, x, 128, 1, z)," &
+    "128 (bc_2, *, control, 1)," &
+    "127 (bc_7, RGMII_RXD2, bidir, x, 126, 1, z)," &
+    "126 (bc_2, *, control, 1)," &
+    "125 (bc_7, MDCK, bidir, x, 124, 1, z)," &
+    "124 (bc_2, *, control, 1)," &
+    "123 (bc_7, RGMII_TX_EN, bidir, x, 122, 1, z)," &
+    "122 (bc_2, *, control, 1)," &
+    "121 (bc_7, RGMII_RXD3, bidir, x, 120, 1, z)," &
+    "120 (bc_2, *, control, 1)," &
+    "119 (bc_7, RGMII_RX_CLK, bidir, x, 118, 1, z)," &
+    "118 (bc_2, *, control, 1)," &
+    "117 (bc_7, RGMII_TXD3, bidir, x, 116, 1, z)," &
+    "116 (bc_2, *, control, 1)," &
+    "115 (bc_7, RGMII_TXD0, bidir, x, 114, 1, z)," &
+    "114 (bc_2, *, control, 1)," &
+    "113 (bc_7, RGMII_TXD2, bidir, x, 112, 1, z)," &
+    "112 (bc_2, *, control, 1)," &
+    "111 (bc_7, RGMII_TX_CLK, bidir, x, 110, 1, z)," &
+    "110 (bc_2, *, control, 1)," &
+    "109 (bc_7, RGMII_TXD1, bidir, x, 108, 1, z)," &
+    "108 (bc_2, *, control, 1)," &
+    "107 (bc_7, GPIO0_1, bidir, x, 106, 1, z)," &
+    "106 (bc_2, *, control, 1)," &
+    "105 (bc_7, EPHY_CLK, bidir, x, 104, 1, z)," &
+    "104 (bc_2, *, control, 1)," &
+    "103 (bc_7, VO_DAT13, bidir, x, 102, 1, z)," &
+    "102 (bc_2, *, control, 1)," &
+    "101 (bc_7, VO_DAT15, bidir, x, 100, 1, z)," &
+    "100 (bc_2, *, control, 1)," &
+    "99 (bc_7, VO_DAT14, bidir, x, 98, 1, z)," &
+    "98 (bc_2, *, control, 1)," &
+    "97 (bc_7, VO_DAT12, bidir, x, 96, 1, z)," &
+    "96 (bc_2, *, control, 1)," &
+    "95 (bc_7, VO_DAT8, bidir, x, 94, 1, z)," &
+    "94 (bc_2, *, control, 1)," &
+    "93 (bc_7, VO_DAT11, bidir, x, 92, 1, z)," &
+    "92 (bc_2, *, control, 1)," &
+    "91 (bc_7, VO_DAT9, bidir, x, 90, 1, z)," &
+    "90 (bc_2, *, control, 1)," &
+    "89 (bc_7, VO_DAT10, bidir, x, 88, 1, z)," &
+    "88 (bc_2, *, control, 1)," &
+    "87 (bc_7, VO_DAT7, bidir, x, 86, 1, z)," &
+    "86 (bc_2, *, control, 1)," &
+    "85 (bc_7, VO_DAT5, bidir, x, 84, 1, z)," &
+    "84 (bc_2, *, control, 1)," &
+    "83 (bc_7, VO_DAT3, bidir, x, 82, 1, z)," &
+    "82 (bc_2, *, control, 1)," &
+    "81 (bc_7, VO_DAT6, bidir, x, 80, 1, z)," &
+    "80 (bc_2, *, control, 1)," &
+    "79 (bc_7, VO_DAT4, bidir, x, 78, 1, z)," &
+    "78 (bc_2, *, control, 1)," &
+    "77 (bc_7, VO_CLK, bidir, x, 76, 1, z)," &
+    "76 (bc_2, *, control, 1)," &
+    "75 (bc_7, VO_DAT1, bidir, x, 74, 1, z)," &
+    "74 (bc_2, *, control, 1)," &
+    "73 (bc_7, VO_DAT0, bidir, x, 72, 1, z)," &
+    "72 (bc_2, *, control, 1)," &
+    "71 (bc_7, VO_DAT2, bidir, x, 70, 1, z)," &
+    "70 (bc_2, *, control, 1)," &
+    "69 (bc_7, SDIO1_CWPR, bidir, x, 68, 1, z)," &
+    "68 (bc_2, *, control, 1)," &
+    "67 (bc_7, SDIO1_CARD_DETECT, bidir, x, 66, 1, z)," &
+    "66 (bc_2, *, control, 1)," &
+    "65 (bc_7, SDIO1_CARD_POWER_EN, bidir, x, 64, 1, z)," &
+    "64 (bc_2, *, control, 1)," &
+    "63 (bc_7, SDIO1_CDATA1, bidir, x, 62, 1, z)," &
+    "62 (bc_2, *, control, 1)," &
+    "61 (bc_7, SDIO1_CDATA3, bidir, x, 60, 1, z)," &
+    "60 (bc_2, *, control, 1)," &
+    "59 (bc_7, SDIO1_CDATA0, bidir, x, 58, 1, z)," &
+    "58 (bc_2, *, control, 1)," &
+    "57 (bc_7, SDIO1_CCMD, bidir, x, 56, 1, z)," &
+    "56 (bc_2, *, control, 1)," &
+    "55 (bc_7, SDIO1_CCLK_OUT, bidir, x, 54, 1, z)," &
+    "54 (bc_2, *, control, 1)," &
+    "53 (bc_7, SDIO1_CDATA2, bidir, x, 52, 1, z)," &
+    "52 (bc_2, *, control, 1)," &
+    "51 (bc_7, SDIO0_CDATA2, bidir, x, 50, 1, z)," &
+    "50 (bc_2, *, control, 1)," &
+    "49 (bc_7, SDIO0_CDATA1, bidir, x, 48, 1, z)," &
+    "48 (bc_2, *, control, 1)," &
+    "47 (bc_7, SDIO0_CCLK_OUT, bidir, x, 46, 1, z)," &
+    "46 (bc_2, *, control, 1)," &
+    "45 (bc_7, SDIO0_CCMD, bidir, x, 44, 1, z)," &
+    "44 (bc_2, *, control, 1)," &
+    "43 (bc_7, SDIO0_CDATA0, bidir, x, 42, 1, z)," &
+    "42 (bc_2, *, control, 1)," &
+    "41 (bc_7, SDIO0_CDATA3, bidir, x, 40, 1, z)," &
+    "40 (bc_2, *, control, 1)," &
+    "39 (bc_7, SDIO0_CWPR, bidir, x, 38, 1, z)," &
+    "38 (bc_2, *, control, 1)," &
+    "37 (bc_7, SDIO0_CARD_POWER_EN, bidir, x, 36, 1, z)," &
+    "36 (bc_2, *, control, 1)," &
+    "35 (bc_7, SDIO0_CARD_DETECT, bidir, x, 34, 1, z)," &
+    "34 (bc_2, *, control, 1)," &
+    "33 (bc_7, USB_PWREN, bidir, x, 32, 1, z)," &
+    "32 (bc_2, *, control, 1)," &
+    "31 (bc_7, USB_OVRCUR, bidir, x, 30, 1, z)," &
+    "30 (bc_2, *, control, 1)," &
+    "29 (bc_7, UART2_TXD, bidir, x, 28, 1, z)," &
+    "28 (bc_2, *, control, 1)," &
+    "27 (bc_7, PWM0, bidir, x, 26, 1, z)," &
+    "26 (bc_2, *, control, 1)," &
+    "25 (bc_7, UART0_RXD, bidir, x, 24, 1, z)," &
+    "24 (bc_2, *, control, 1)," &
+    "23 (bc_7, UART1_CTSN, bidir, x, 22, 1, z)," &
+    "22 (bc_2, *, control, 1)," &
+    "21 (bc_7, UART1_TXD, bidir, x, 20, 1, z)," &
+    "20 (bc_2, *, control, 1)," &
+    "19 (bc_7, PWM1, bidir, x, 18, 1, z)," &
+    "18 (bc_2, *, control, 1)," &
+    "17 (bc_7, UART1_RXD, bidir, x, 16, 1, z)," &
+    "16 (bc_2, *, control, 1)," &
+    "15 (bc_7, UART0_TXD, bidir, x, 14, 1, z)," &
+    "14 (bc_2, *, control, 1)," &
+    "13 (bc_7, GPIO0_4, bidir, x, 12, 1, z)," &
+    "12 (bc_2, *, control, 1)," &
+    "11 (bc_7, PWM2, bidir, x, 10, 1, z)," &
+    "10 (bc_2, *, control, 1)," &
+    "9 (bc_7, PWM3, bidir, x, 8, 1, z)," &
+    "8 (bc_2, *, control, 1)," &
+    "7 (bc_7, I2C2_SCL, bidir, x, 6, 1, z)," &
+    "6 (bc_2, *, control, 1)," &
+    "5 (bc_7, I2C2_SDA, bidir, x, 4, 1, z)," &
+    "4 (bc_2, *, control, 1)," &
+    "3 (bc_7, UART1_RTSN, bidir, x, 2, 1, z)," &
+    "2 (bc_2, *, control, 1)," &
+    "1 (bc_7, IR_IN, bidir, x, 0, 1, z)," &
+    "0 (bc_2, *, control, 1)" ;
+
+    attribute oe_chain_info: BSDL_extension;
+    attribute oe_chain_info of HI3516A_TOP : entity is
+        --No.0 cell is most closed to TDO
+        --idx (pin, disable_value)
+        "0 (IR_IN, 1)," &
+        "1 (UART1_RTSN, 1)," &
+        "2 (I2C2_SDA, 1)," &
+        "3 (I2C2_SCL, 1)," &
+        "4 (PWM3, 1)," &
+        "5 (PWM2, 1)," &
+        "6 (GPIO0_4, 1)," &
+        "7 (UART0_TXD, 1)," &
+        "8 (UART1_RXD, 1)," &
+        "9 (PWM1, 1)," &
+        "10 (UART1_TXD, 1)," &
+        "11 (UART1_CTSN, 1)," &
+        "12 (UART0_RXD, 1)," &
+        "13 (PWM0, 1)," &
+        "14 (UART2_TXD, 1)," &
+        "15 (USB_OVRCUR, 1)," &
+        "16 (USB_PWREN, 1)," &
+        "17 (SDIO0_CARD_DETECT, 1)," &
+        "18 (SDIO0_CARD_POWER_EN, 1)," &
+        "19 (SDIO0_CWPR, 1)," &
+        "20 (SDIO0_CDATA3, 1)," &
+        "21 (SDIO0_CDATA0, 1)," &
+        "22 (SDIO0_CCMD, 1)," &
+        "23 (SDIO0_CCLK_OUT, 1)," &
+        "24 (SDIO0_CDATA1, 1)," &
+        "25 (SDIO0_CDATA2, 1)," &
+        "26 (SDIO1_CDATA2, 1)," &
+        "27 (SDIO1_CCLK_OUT, 1)," &
+        "28 (SDIO1_CCMD, 1)," &
+        "29 (SDIO1_CDATA0, 1)," &
+        "30 (SDIO1_CDATA3, 1)," &
+        "31 (SDIO1_CDATA1, 1)," &
+        "32 (SDIO1_CARD_POWER_EN, 1)," &
+        "33 (SDIO1_CARD_DETECT, 1)," &
+        "34 (SDIO1_CWPR, 1)," &
+        "35 (VO_DAT2, 1)," &
+        "36 (VO_DAT0, 1)," &
+        "37 (VO_DAT1, 1)," &
+        "38 (VO_CLK, 1)," &
+        "39 (VO_DAT4, 1)," &
+        "40 (VO_DAT6, 1)," &
+        "41 (VO_DAT3, 1)," &
+        "42 (VO_DAT5, 1)," &
+        "43 (VO_DAT7, 1)," &
+        "44 (VO_DAT10, 1)," &
+        "45 (VO_DAT9, 1)," &
+        "46 (VO_DAT11, 1)," &
+        "47 (VO_DAT8, 1)," &
+        "48 (VO_DAT12, 1)," &
+        "49 (VO_DAT14, 1)," &
+        "50 (VO_DAT15, 1)," &
+        "51 (VO_DAT13, 1)," &
+        "52 (EPHY_CLK, 1)," &
+        "53 (GPIO0_1, 1)," &
+        "54 (RGMII_TXD1, 1)," &
+        "55 (RGMII_TX_CLK, 1)," &
+        "56 (RGMII_TXD2, 1)," &
+        "57 (RGMII_TXD0, 1)," &
+        "58 (RGMII_TXD3, 1)," &
+        "59 (RGMII_RX_CLK, 1)," &
+        "60 (RGMII_RXD3, 1)," &
+        "61 (RGMII_TX_EN, 1)," &
+        "62 (MDCK, 1)," &
+        "63 (RGMII_RXD2, 1)," &
+        "64 (MDIO, 1)," &
+        "65 (RGMII_RXD1, 1)," &
+        "66 (RGMII_RXD0, 1)," &
+        "67 (RGMII_RX_DV, 1)," &
+        "68 (NF_DQ2, 1)," &
+        "69 (NF_DQ3, 1)," &
+        "70 (NF_RDY1, 1)," &
+        "71 (NF_RDY0, 1)," &
+        "72 (NF_DQ1, 1)," &
+        "73 (NF_DQ4, 1)," &
+        "74 (NF_REN, 1)," &
+        "75 (NF_CSN0, 1)," &
+        "76 (NF_DQ6, 1)," &
+        "77 (NF_DQ5, 1)," &
+        "78 (NF_CSN1, 1)," &
+        "79 (NF_CLE, 1)," &
+        "80 (NF_DQ7, 1)," &
+        "81 (NF_DQ0, 1)," &
+        "82 (NF_ALE, 1)," &
+        "83 (NF_WEN, 1)," &
+        "84 (SFC_SOI_IO1, 1)," &
+        "85 (SFC_WP_IO2, 1)," &
+        "86 (SFC_CLK, 1)," &
+        "87 (SFC_HOLD_IO3, 1)," &
+        "88 (SFC_CSN1, 1)," &
+        "89 (RSTN, 1)," &
+        "90 (SFC_SIO_IO0, 1)," &
+        "91 (JTAG_EN, 1)," &
+        "92 (POR_SEL, 1)," &
+        "93 (WDG_RSTN, 1)," &
+        "94 (GPIO0_0, 1)," &
+        "95 (SENSOR_CLK, 1)," &
+        "96 (SPI0_SDO, 1)," &
+        "97 (SPI0_SCLK, 1)," &
+        "98 (SPI0_SDI, 1)," &
+        "99 (SPI0_CSN, 1)," &
+        "100 (VI_DAT0, 1)," &
+        "101 (VI_HS, 1)," &
+        "102 (VI_DAT2, 1)," &
+        "103 (VI_VS, 1)," &
+        "104 (VI_DAT13, 1)," &
+        "105 (VI_DAT10, 1)," &
+        "106 (VI_DAT1, 1)," &
+        "107 (VI_DAT12, 1)," &
+        "108 (VI_DAT15, 1)," &
+        "109 (VI_DAT4, 1)," &
+        "110 (VI_DAT3, 1)," &
+        "111 (VI_DAT14, 1)," &
+        "112 (VI_DAT5, 1)," &
+        "113 (VI_DAT7, 1)," &
+        "114 (VI_DAT6, 1)," &
+        "115 (VI_DAT9, 1)," &
+        "116 (VI_DAT11, 1)," &
+        "117 (VI_CLK, 1)," &
+        "118 (VI_DAT8, 1)," &
+        "119 (SHUTTER_TRIG, 1)," &
+        "120 (FLASH_TRIG, 1)," &
+        "121 (GPIO0_3, 1)," &
+        "122 (SPI1_SDO, 1)," &
+        "123 (SPI1_SCLK, 1)," &
+        "124 (SPI1_SDI, 1)," &
+        "125 (SPI1_CSN0, 1)," &
+        "126 (UART2_RXD, 1)," &
+        "127 (GPIO0_2, 1)," &
+        "128 (DDR3_RESET_N, 0)," &
+        "129 (DDR3_CLK1_P, 0)," &
+        "130 (DDR3_CLK0_P, 0)," &
+        "131 (DDR3_CKE, 0)," &
+        "132 (DDR3_ODT_1, 0)," &
+        "133 (DDR3_ODT_0, 0)," &
+        "134 (DDR3_CS1_N, 0)," &
+        "135 (DDR3_CS0_N, 0)," &
+        "136 (DDR3_RAS_N, 0)," &
+        "137 (DDR3_CAS_N, 0)," &
+        "138 (DDR3_WE_N, 0)," &
+        "139 (DDR3_BA2, 0)," &
+        "140 (DDR3_BA1, 0)," &
+        "141 (DDR3_BA0, 0)," &
+        "142 (DDR3_DQS3_P, 0)," &
+        "143 (DDR3_DQS2_P, 0)," &
+        "144 (DDR3_DQS1_P, 0)," &
+        "145 (DDR3_DQS0_P, 0)," &
+        "146 (DDR3_DM3, 0)," &
+        "147 (DDR3_DM2, 0)," &
+        "148 (DDR3_DM1, 0)," &
+        "149 (DDR3_DM0, 0)," &
+        "150 (DDR3_A14, 0)," &
+        "151 (DDR3_A13, 0)," &
+        "152 (DDR3_A12, 0)," &
+        "153 (DDR3_A11, 0)," &
+        "154 (DDR3_A10, 0)," &
+        "155 (DDR3_A9, 0)," &
+        "156 (DDR3_A8, 0)," &
+        "157 (DDR3_A7, 0)," &
+        "158 (DDR3_A6, 0)," &
+        "159 (DDR3_A5, 0)," &
+        "160 (DDR3_A4, 0)," &
+        "161 (DDR3_A3, 0)," &
+        "162 (DDR3_A2, 0)," &
+        "163 (DDR3_A1, 0)," &
+        "164 (DDR3_A0, 0)," &
+        "165 (DDR3_DQ31, 0)," &
+        "166 (DDR3_DQ30, 0)," &
+        "167 (DDR3_DQ29, 0)," &
+        "168 (DDR3_DQ28, 0)," &
+        "169 (DDR3_DQ27, 0)," &
+        "170 (DDR3_DQ26, 0)," &
+        "171 (DDR3_DQ25, 0)," &
+        "172 (DDR3_DQ24, 0)," &
+        "173 (DDR3_DQ23, 0)," &
+        "174 (DDR3_DQ22, 0)," &
+        "175 (DDR3_DQ21, 0)," &
+        "176 (DDR3_DQ20, 0)," &
+        "177 (DDR3_DQ19, 0)," &
+        "178 (DDR3_DQ18, 0)," &
+        "179 (DDR3_DQ17, 0)," &
+        "180 (DDR3_DQ16, 0)," &
+        "181 (DDR3_DQ15, 0)," &
+        "182 (DDR3_DQ14, 0)," &
+        "183 (DDR3_DQ13, 0)," &
+        "184 (DDR3_DQ12, 0)," &
+        "185 (DDR3_DQ11, 0)," &
+        "186 (DDR3_DQ10, 0)," &
+        "187 (DDR3_DQ9, 0)," &
+        "188 (DDR3_DQ8, 0)," &
+        "189 (DDR3_DQ7, 0)," &
+        "190 (DDR3_DQ6, 0)," &
+        "191 (DDR3_DQ5, 0)," &
+        "192 (DDR3_DQ4, 0)," &
+        "193 (DDR3_DQ3, 0)," &
+        "194 (DDR3_DQ2, 0)," &
+        "195 (DDR3_DQ1, 0)," &
+        "196 (DDR3_DQ0, 0)";
+
+end HI3516A_TOP;

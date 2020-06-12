@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- contextQualifierLength=14 -->
+<feature
+      id="com.soyatec.huawei.ddrtraining.feature"
+      label="HiDdrTraining"
+      version="4.0.1.v20161027-0802"
+      provider-name="HiSilicon Technologies Co., Ltd.">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <plugin
+         id="com.soyatec.huawei.ddrtraining"
+         download-size="0"
+         install-size="0"
+         version="4.0.1.v20161027-0802"
+         unpack="false"/>
+
+   <plugin
+         id="org.soyatec.tftp.tftp4java"
+         download-size="0"
+         install-size="0"
+         version="1.1.4"
+         unpack="false"/>
+
+</feature>

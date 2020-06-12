@@ -1,0 +1,204 @@
+Description of the Installation and Upgrade of the Hi3516A/Hi3516D SDK
+
+Note: This document uses the Hi3516A as an example. Unless otherwise stated, Hi3516D and Hi3516A contents are consistent.
+
+
+Chapter 1 Description of the Upgrade of the Hi3516A_SDK_Vx.x.x.x
+   If you install the Hi3516A software development kit (SDK) for the first time, see chapter 2 "Initially Installing the Hi3516A SDK."
+    
+Chapter 2 Initially Installing the Hi3516A SDK
+1. Locate the Hi3516A SDK.
+    In Hi3516A_V100R001***/01.software/board, you can find the file Hi3516A_SDK_Vx.x.x.x.tgz. This file is the Hi3516A SDK.
+2. Decompress the SDK.
+    On a Linux server or a PC running a mainstream Linux operating system (OS), run the tar -zxf Hi3516A_SDK_Vx.x.x.x.tgz command to decompress the SDK. Then the Hi3516A_SDK_Vx.x.x.x folder is created.
+
+3. Expand the SDK.
+   Before executing the installation script, you are advised to set the default shell to bash.
+    Open the Hi3516A_SDK_Vx.x.x.x folder, run source sdk.unpack as the sudo or root user to display other compressed contents of the SDK by following instructions.
+To copy the SDK on Windows, run source sdk.cleanup to compress the SDK, copy the SDK to a new directory, and expand the SDK.
+
+4. Install the cross compiler on a Linux server.
+    1) Install the uclibc cross compiler (Note that you must have the sudo or root permission.)
+       Go to the Hi3516A_SDK_Vx.x.x.x/osdrv/opensource/toolchain/arm-hisiv300nptl-linux directory, run chmod +x cross.install, and run ./cross.install. 
+    2) Install the glibc cross compiler (Note that you must have the sudo or root permission.)
+       Go to the Hi3516A_SDK_Vx.x.x.x/osdrv/opensource/toolchain/arm-hisiv400-linux directory, run chmod +x cross.install, and run ./cross.install. 
+    3) Run source /etc/profile or log in to the server again for the environment variables to take effect. The environment variables are configured through the scripts that are used to install the cross compiler.
+
+5. Compile osdrv
+   Please read the <readme> in osdrv directory.
+
+6. Description of the SDK directory
+The structure of the Hi3516A_SDK_Vx.x.x.x folder is as follows:    
+    |-- sdk.cleanup                 #Cleanup scripts of the SDK.
+    |-- sdk.unpack                  #Expansion scripts of the SDK.
+    |-- osdrv                       #OS and related drivers
+    |   |-- opensource              # Source code of Opensource
+    |   |   |-- busybox             # Source code of BusyBox
+    |   |   |-- kernel              # Source code of the Linux kernel
+    |   |   |-- toolchain           # Cross compiler
+    |   |   |-- uboot               # U-boot source code
+    |   |-- pub                     # compiled images/tools/drivers
+    |   |-- tools                   # Source code of the Linux tools
+    |   |-- readme_cn.txt           # osdrv Application Notes (Chinese version)
+    |   |-- readme_en.txt           # osdrv Application Notes (English version)
+    |   |-- ......                  #
+    |   |-- Makefile                # osdrv Makefile
+    |-- package                     #Compressed packages of the SDK
+    |   |-- osdrv.tgz               #Compressed package of Linux and driver
+    |   |-- mpp.tgz                 #Compressed package of the media processing platform (MPP) software
+    |   |-- drv.tgz                 # drive compressed package
+    |   |-- rootfs_*.tgz            # rootfs compressed package
+    |   |-- image *                 #Images that can be burnt to the flash memory, such as the kernel or root file system
+    | 
+    |-- scripts                     #Shell scripts
+    |-- drv                         # drive directory
+    |-- mpp                         #MPP
+        |-- component               #Component source code 
+        |-- extdrv                  #Source code of the drivers of board-level peripherals
+        |-- include                 #External header files
+        |-- ko                      #Kernel driver
+        |-- lib                     #Audio library and the library of the release version
+        |-- Makefile.param          # Some global compilation options for the MPP
+        |-- tools                   #Tools used for media processing
+        `-- sample                  #Source code samples
+
+
+Chapter 3 Development Environment for Installing and Upgrading the U-boot on the Hi3516A Demo Board
+    #If you use the Hi3516A demo board, perform the following steps to burn the U-boot, kernel, and file system. The items such as U-boot, kernel, and file system described in the following steps are updated in network mode.
+    #Generally, the U-boot already exists on the board. If the U-boot does not exist in the board, you can to burn the U-boot to the board by using an emulator.
+    #For details, see the Linux Development Environment User Guide in 01.software\board\documents.
+    #In the following sections, it is assumed that the U-boot already exists on the board. The following describes how to burn the U-boot, kernel and rootfs to a flash memory over the Ethernet port.
+    #The demo board boots from the NAND flash by default.
+1. Configure the Trivial File Transfer Protocol (TFTP) server.
+    # Any TFTP server can be used.copy the related files in package/image_uclibc or package/image_glibc to the TFTP server directory
+    
+2. Set parameters.
+    After the board is powered on, press any key to start the U-boot. Set serverip (IP address of the FTFP server), ipaddr (IP address of the board), and ethaddr (media access control (MAC) address of the board) by running the following commands:
+    setenv serverip xx.xx.xx.xx
+    setenv ipaddr xx.xx.xx.xx 
+    setenv ethaddr xx:xx:xx:xx:xx:xx
+    setenv netmask xx.xx.xx.xx
+    setenv gatewayip xx.xx.xx.xx
+    Ping the IP address of the FTFP server to ensure that the network connection is normal.
+
+3. Burn images to the SPI flash.
+   In this section, a 16 MB SPI flash is used as an example.
+1) Address space
+        |      1M       |      3M       |     12M       |
+        |---------------|---------------|---------------|
+        |     boot      |     kernel    |     rootfs    |
+        The following operations are performed based on the allocated address space. You can change the address space as required.
+    2) Burn the U-boot.
+        sf probe 0
+        mw.b 82000000 ff 100000
+        tftp 0x82000000 u-boot-hi3516a.bin
+        sf probe 0
+        sf erase 0 100000
+        sf write 82000000 0 100000	
+        reset    
+　  3) Burn the kernel.
+		mw.b 82000000 ff 300000
+                tftp 82000000 uImage_hi3516a
+                sf probe 0
+                sf erase 100000 300000
+                sf write 82000000 100000 300000
+　  4) Burn the file system.
+		mw.b 82000000 ff C00000
+                tftp 0x82000000 rootfs_hi3516a_64k.jffs2
+                sf probe 0
+                sf erase 400000 C00000
+                sf write 82000000 400000 C00000
+     5) Set boot parameters.
+		setenv bootargs 'mem=64M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=jffs2 mtdparts=hi_sfc:1M(boot),3M(kernel),12M(rootfs)'
+		setenv bootcmd 'sf probe 0;sf read 0x82000000 0x100000 0x300000;bootm 0x82000000'
+                sa
+4. Burn images to the NAND flash.   		
+ In this section, a 64 MB Nand flash[h1] is used as an example.
+  1) Address space
+        |     1M     |      3M       |      32M              |      28M              |
+        |------------|---------------|-----------------------|-----------------------|
+        |    boot    |     kernel    |     rootfs            |     others            |
+        The following operations are performed based on the allocated address space. You can change the address space as required.
+  2) Burn the U-boot. 
+        mw.b 82000000 ff 100000
+        tftp 82000000 u-boot-hi3516a.bin
+        nand erase 0 100000
+        nand write 82000000 0 100000
+        reset
+　3) Burn the kernel.
+        mw.b 82000000 ff 300000
+        tftp 82000000 uImage_hi3516a
+        nand erase 100000 300000
+        nand write 82000000 100000 300000
+　4) Burn the file system.
+        mw.b 82000000 ff 2000000
+        tftp 82000000 rootfs_Hi3516a_2k_4bit.yaffs2
+        nand erase 400000 2000000
+        nand write.yaffs 82000000 400000 96d200    Note: 96d200 is the actual size of the rootfs file in hexadecimal.    
+  5) Set boot parameters.
+	setenv bootargs 'mem=64M console=ttyAMA0,115200 root=/dev/mtdblock2 rootfstype=yaffs2 mtdparts=hinand:1M(boot),3M(kernel),32M(rootfs),28M(test)'
+        setenv bootcmd 'nand read 0x82000000 0x100000 0x300000;bootm 0x82000000'
+        sa
+5 Start the new system.
+    reset	#Restart to enter the new system.
+
+Chapter 4 Preparing the Development Environment
+Pin multiplexing
+    #The .sh script in mpp/ko is used to configure the multiplexing relationships between the pins related to media services. You can change the multiplexing relationships as required. The script is called by load3516a, and is executed before the MPP kernel driver is loaded.
+    #The multiplexing relationships of other pins are configured in the U-boot. For details, see the U-boot Porting Development Guide.
+    
+Chapter 5 Using the SDK and Demo Board for Development
+1. Enable the network on Linux.
+    # Set network parameters.
+    ifconfig eth0 hw ether xx:xx:xx:xx:xx:xx;
+    ifconfig eth0 xx.xx.xx.xx netmask xx.xx.xx.xx;
+    route add default gw xx.xx.xx.xx
+    #Ping another machine. If the ping operation is successful, the network works properly.
+
+2. Use the network file system (NFS) for development.
+    #You are advised to use the NFS as the development environment. This ensures that you do not need to create and burn the root file system again.
+    #Mount the NFS by running the following command:
+    mount -t nfs -o nolock -o tcp -o rsize=32768,wsize=32768 xx.xx.xx.xx:/your-nfs-path /mnt
+    #Access the files in the server under /mnt, and develop related products or solution.
+
+3. Enable the telnet service.
+    # After the network works properly, run the telnetd& command to enable the telnet service of the board, and connect to the board over telnet.
+
+4. Run the MPP services.
+    #On the board running the Linux OS, go to the mpp/ko directory, and load the .ko file. Note that the sensor name such as ar0130 sensor must be added when the load3516a script is executed.
+    cd mpp/ko
+    # default online
+    ./load3516a -a -sensor mn34220 -osmem 64
+    # vi_vpss offline
+    ./load3516a -a -sensor mn34220 -osmem 64 -offline
+
+    #Go to the sample directories, run the samples that are compiled successfully on the server.
+    cd mpp/sample/vio
+    ./sample_vio 0
+    
+Chapter 6 Allocating and Using the Address Space
+1. Double-data rate (DDR) memory management
+    1) The DDR memory is classified into the OS memory and media memory zone (MMZ) memory. The OS memory is managed by the OS, and the MMZ memory is managed by the MMZ kernel module (mmz.ko in mpp/ko_hi35xx), and is available only for media services.
+    2) The start address of the OS memory is 0x80000000. The memory size can be changed by setting bootargs. For example, the parameter "setenv bootargs 'mem=64M ... " described in chapter 3 indicates that the OS memory is 64 MB. You can change the OS memory as required.
+    3) When the MMZ kernel module is loaded, the start address and size of the MMZ memory can be specified by setting parameters. For example:
+    ./load3516a -a -sensor mn34220 -osmem 64
+    You can change the start address and memory size by specifying the MMZ parameters in the load3516a script in mpp/ko.
+    4) The address ranges of the MMZ memory and OS memory cannot overlap.
+
+2. Memory management for the DDR on the demo board
+    The following is an example using the 512 MB DDR. The default memory configurations are as follows:
+    DDR:                                                           
+    
+    -----|-------|  0x80000000   # Memory managed by OS.              
+    64M  | OS    |                                                 
+         |       |                                                 
+    -----|-------|  0x84000000   # Memory managed by MMZ block anonymous.          
+    448M | MMZ   |                                                 
+         |       |                                                 
+    -----|-------|  0xA0000000   # Memory managed by MMZ block jpeg.                       
+                     
+                                                                                                                          
+Note:                                                                                                                     
+	(1) Set the size of the memory managed by the OS to 64 MB by running setenv bootargs 'mem=64M ...' when setting boot parameters.
+	(2) After the system starts, set the total memory size to 512 MB (mem_total = 512) in the load3516a script, and set the osmem to 64 MB (-osmem 64) when running the load3516a script. In this way, the size of the memory managed by the MMZ is 448 MB.
+	(3) If special applications are required, the load3516a script can be modified to divide the MMZ. For example, "insmod mmz.ko mmz=anonymous,0,0x84000000,442M:jpeg,0,0x9fa00000,5M anony=1".

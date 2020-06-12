@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<training>
+   <commands>
+         <command value="sh watchdog.bin&amp;"/>
+   </commands>
+   <loops>
+     <loop description="write ,dqsenable,wdqs2,wdq16,wdq17,wdq18,wdq19,wdq20,wdq21,wdq22,wdq23,dqenable">
+           <group>
+      	     <registergroup sequence="false"  defaultvalue="0">
+                <register name="dqenable" address="0x20110518"  start="24" end="31"/>
+			 </registergroup>	
+			 <registergroup sequence="false" maxvalue="7" >
+			    <register name="wdqs2" address="0x20110500"  start="6" end="8"/> 
+			 </registergroup>
+		   </group>
+		   <group>
+		  	 <registergroup sequence="false" maxvalue="7" >
+			    <register name="wdqs2" address="0x20110500"  start="6" end="8"/> 
+			 </registergroup> 
+			<registergroup initvalue="true">
+			</registergroup>
+             <registergroup sequence="true" maxvalue="7" >
+			  <register name="wdq16" address="0x20110518"  start="0" end="2"/>
+			  <register name="wdq17" address="0x20110518"  start="3" end="5"/>
+			  <register name="wdq18" address="0x20110518"  start="6" end="8"/>
+			  <register name="wdq19" address="0x20110518"  start="9" end="11"/>
+			  <register name="wdq20" address="0x20110518"  start="12" end="14"/>
+			  <register name="wdq21" address="0x20110518"  start="15" end="17"/>
+			  <register name="wdq22" address="0x20110518"  start="18" end="20"/>
+			  <register name="wdq23" address="0x20110518"  start="21" end="23"/>
+			 </registergroup>	
+           </group>
+		   <group>
+		     <registergroup sequence="false" defaultvalue="0">
+                <register name="dqsenable" address="0x20110470"  start="2" end="2" />
+			 </registergroup>
+			 <registergroup sequence="true" maxvalue="7" >
+			  <register name="wdq16" address="0x20110518"  start="0" end="2"/>
+			  <register name="wdq17" address="0x20110518"  start="3" end="5"/>
+			  <register name="wdq18" address="0x20110518"  start="6" end="8"/>
+			  <register name="wdq19" address="0x20110518"  start="9" end="11"/>
+			  <register name="wdq20" address="0x20110518"  start="12" end="14"/>
+			  <register name="wdq21" address="0x20110518"  start="15" end="17"/>
+			  <register name="wdq22" address="0x20110518"  start="18" end="20"/>
+			  <register name="wdq23" address="0x20110518"  start="21" end="23"/>
+			 </registergroup>			
+		   </group>
+       </loop>   
+   </loops>
+</training>   

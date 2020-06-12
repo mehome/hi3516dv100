@@ -1,0 +1,25 @@
+#/bin/sh
+
+echo "Watchdog enabled, feeding dog^-^"
+
+himm 0x1020301C 0x2 > /dev/null
+himm 0x10203030 0x1 > /dev/null
+himm 0x10203034 0x1 > /dev/null
+himm 0x1020304C 0x1 > /dev/null
+himm 0x10203050 0x1 > /dev/null
+himm 0x1020306C 0x1 > /dev/null
+himm 0x10203074 0x3 > /dev/null
+
+himm 0x10201c00 0x1acce551 > /dev/null
+himm 0x10201000 0x44AA200 > /dev/null
+himm 0x10201008 0x3 > /dev/null
+
+
+while true
+do
+	himm 0x1020100c 0x1 > /dev/null
+done 
+
+
+
+

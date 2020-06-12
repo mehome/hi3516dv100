@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- contextQualifierLength=14 -->
+<feature
+      id="org.soyatec.huawei.platform.update.contents.feature"
+      label="Contents"
+      version="1.0.0.v20161027-0802"
+      provider-name="HiSilicon Technologies Co., Ltd."
+      os="linux,win32"
+      ws="gtk,win32"
+      arch="x86,x86_64">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <plugin
+         id="org.soyatec.connector.api"
+         download-size="0"
+         install-size="0"
+         version="1.0.7"
+         unpack="false"/>
+
+   <plugin
+         id="org.soyatec.connector.api.serial"
+         download-size="0"
+         install-size="0"
+         version="1.0.7"
+         unpack="false"/>
+
+   <plugin
+         id="org.soyatec.connector.api.telnet"
+         download-size="0"
+         install-size="0"
+         version="1.0.8"
+         unpack="false"/>
+
+   <plugin
+         id="org.soyatec.connector.api.i2c"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.v20161027-0802"
+         unpack="false"/>
+
+   <plugin
+         id="org.soyatec.connector.api.ui.config.i2c"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.v20161027-0802"
+         unpack="false"/>
+
+   <plugin
+         id="org.soyatec.connector.api.ui.config.serial"
+         download-size="0"
+         install-size="0"
+         version="1.0.7"
+         unpack="false"/>
+
+   <plugin
+         id="org.soyatec.connector.api.ui.config.telnet"
+         download-size="0"
+         install-size="0"
+         version="1.0.7"
+         unpack="false"/>
+
+   <plugin
+         id="org.soyatec.connector.manager"
+         download-size="0"
+         install-size="0"
+         version="1.0.10"
+         unpack="false"/>
+
+   <plugin
+         id="org.soyatec.exceptions"
+         download-size="0"
+         install-size="0"
+         version="1.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.soyatec.libs"
+         download-size="0"
+         install-size="0"
+         version="1.0.1"
+         unpack="false"/>
+
+   <plugin
+         id="com.jcraft.jsch"
+         download-size="0"
+         install-size="0"
+         version="0.1.50.v201310081430"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jsch.core"
+         download-size="0"
+         install-size="0"
+         version="1.1.402.v20131127-1657"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.tm.terminal"
+         download-size="0"
+         install-size="0"
+         version="3.3.0.201501281007"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.tm.terminal.ssh"
+         download-size="0"
+         install-size="0"
+         version="2.1.400.201412161015"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.tm.terminal.nl_zh"
+         download-size="0"
+         install-size="0"
+         version="4.3.0.v20150804115356"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.tm.terminal.ssh.nl_zh"
+         download-size="0"
+         install-size="0"
+         version="4.3.0.v20150804115356"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="org.soyatec.tftp.tftp4java"
+         download-size="0"
+         install-size="0"
+         version="1.1.4"
+         unpack="false"/>
+
+   <plugin
+         id="com.hisilicon.terminal.prototype"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.201305241655"
+         unpack="false"/>
+
+   <plugin
+         id="com.hisilicon.terminal.telnet"
+         download-size="0"
+         install-size="0"
+         version="2.1.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.soyatec.console.tools"
+         download-size="0"
+         install-size="0"
+         version="1.0.1"
+         unpack="false"/>
+
+   <plugin
+         id="org.soyatec.preferences"
+         download-size="0"
+         install-size="0"
+         version="1.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.hisilicon.terminal.serial"
+         download-size="0"
+         install-size="0"
+         version="2.1.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.soyatec.huawei.platform.ui"
+         download-size="0"
+         install-size="0"
+         version="1.0.1"
+         unpack="false"/>
+
+   <plugin
+         id="com.soyatec.huawei.platform.doc"
+         download-size="0"
+         install-size="0"
+         version="1.0.1"
+         unpack="false"/>
+
+   <plugin
+         id="com.soyatec.huawei.platform.api"
+         download-size="0"
+         install-size="0"
+         version="1.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.soyatec.huawei.platform.core"
+         download-size="0"
+         install-size="0"
+         version="1.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.soyatec.libs.win32.x86"
+         download-size="0"
+         install-size="0"
+         version="1.0.1"
+         fragment="true"
+         unpack="false"/>
+
+</feature>

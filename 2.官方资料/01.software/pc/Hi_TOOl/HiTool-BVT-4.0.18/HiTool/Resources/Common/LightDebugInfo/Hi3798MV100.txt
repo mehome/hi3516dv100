@@ -1,0 +1,142 @@
+[Serial]
+
+红灯表示：工具与单板进行交互失败，请检查串口连接情况
+
+[CPU/Board Power-On]
+
+红灯请检查：
+1.  串口连接是否正常   
+请检查HiBurn中是否选择了正确的串口。串口应设置为：115200bps，数据位8，停止位1，奇偶位和校验位为0.
+
+2.  单板是否上电
+请确认点击烧写后，是否在15秒内给单板重新上电。
+
+3.  CPU 供电是否正常   
+要求各个供电电源（3.3V_standby、3.3V_MOS、1.1V_CORE、1.1V_CPU）供电正常；   注意：CPU上电后是否有过热的现象，如果存在该现象则立即关闭电源，测量4路供电对地的阻抗，检查电源问题。
+
+4. 系统24M时钟是否起振 
+使用万用表DC测量晶体的两端，电压应该为1.65V左右，两端略有差异；使用示波器观测晶体两端波形应看到完整的、幅度约3.3Vp-p的24M正弦波；
+
+5. 检查串口电路  
+芯片串口是CMOS电平（3.3V）、PC端是RS232电平，注意电平转换电路设计；
+
+6. 检查CPU是否焊接良好，不能出现焊反、虚焊等情况；
+
+[BOOTROM]
+
+红灯：请更换单板或者更换主芯片
+
+[Read EMMC/SD]
+
+红灯表示：读 eMMC/SD 状态出错，请检查：
+1.eMMC/SD卡座焊接是否有问题、连锡情况，SD卡是否插上；
+2.检查eMMC/SD供电是否正常，要求供电3.3V±5%；
+3.检查eMMC/SD卡接口串联电阻、上拉电阻是否正常上件，电阻/排阻阻值是否正确；
+4.更换一块新eMMC/SD器件（烧录好boot后）；
+
+[DDR Init]
+
+红灯请检查：
+1. 单板上芯片型号与工具所选芯片是否一致。可直接查看单板标记型号或通过串口查看当前单板型号；
+
+2. 制作boot时使用的*.reg文件和当前单板是否完全匹配，表格对应关系的详细说明请参考：
+linux版本目录/source/boot/sysreg/read_cn.xls；
+android 版本目录device/hisilicon/bigfish/sdk/source/boot/sysreg/read_cn.xls；
+
+3. 测量DDR 1V5是否供电，测量DDR 1V5电容对地阻抗，看电源是否短路；
+
+4. DDR的参考电压是否正常，要求0.5VDD±1%；
+
+5. 查看DDR颗粒是否焊接正常，颗粒是否焊接错误；
+
+6. 测量主芯片CORE电源是否供电正常，要求VDD±5%。
+
+7. 若存在VTT匹配，则需测量VTT电压是否正常，要求0.5VDD±5%；
+
+8. 所使用的DDR颗粒不在兼容器件列表中；
+[DDR Training]
+
+红灯表示：DDR部分信号存在问题，请根据控制台的打印进一步排查问题：
+
+DDR training V1错误说明：
+1.软件write leveling错误,打印: SWL + 0000000X，X表示对应的byte； 
+2.软件dqs gating错误,打印: SGA + 0000000X，X表示对应的byte； 
+3.硬件dqs gating错误,打印: HGA + 00000000
+4.硬件read dataeye错误,打印: HRD + 00000000
+5.软件read dataeye错误,打印: SRD + 0000000X,X表示第一个错误的DQ; 
+6.软件write dataeye错误,打印: SWD + 0000000X，X表示第一个错误的DQ; 
+
+DDR training V2错误说明：
+1.软件write leveling错误打印：DDRTR WL Err: PhyXXXXXXXXByteXXXXXXXX
+2.硬件gate错误打印：DDRTR HWG Err: PhyXXXXXXXX
+3.软件gate错误打印：DDRTR Gate Err: PhyXXXXXXXXByteXXXXXXXX	
+4.软件DDRT错误打印：DDRTR DDRT Err: PhyXXXXXXXX
+5.硬件读dataeye错误打印：DDRTR HWRD Err: PhyXXXXXXXX
+6.软件mpr错误打印：DDRTR Dataeye Err: PhyXXXXXXXXByteXXXXXXXXDQXXXXXXXX
+7.软件dataeye错误打印：DDRTR Dataeye Err: PhyXXXXXXXXByteXXXXXXXXDQXXXXXXXX
+8.软件Lowpower command addresss错误打印：DDRTR LPCA Err: PhyXXXXXXXX
+
+DDR training V2 精简错误说明：
+DDREXXXXXXXXPXXXXXXXXBXXXXXXXXDXXXXXXXX
+1.字母E为Error缩写，表示错误码，后面的8位数字为十六进制：
+0x00000001 Write Leveling error
+0x00000002 Hardware Gating error
+0x00000004 Software Gating error
+0x00000008 DDRT test time out
+0x00000010 Hardware read dataeye error
+0x00000020 MPR error
+0x00000040 Dataeye error
+0x00000080 LPDDR CA error
+2.字母P表示DDR PHY基址，后面的8位数字为十六进制。
+3.字母B表示Byte 序号，后面的8位数字为十六进制。
+4.字母D表示DQ 序号，后面的8位数字为十六进制。	
+
+系统打印DDR问题，定位方法为：
+1.检查单板硬件，包括CORE和DDR电源、DDR和主芯片的焊接、BOM物料；
+2.确认串口打印，确认出问题的DDR颗粒；
+3.降频排查通断问题，还是信号质量问题；
+4.更换DDR和主芯片，排查焊接、PCB板设计或者加工质量问题。
+如果在产线需要快速定位，推荐通过打印判断出问题的DDR颗粒，直接更换DDR颗粒。
+
+
+
+[Fastboot Start]
+
+红灯请检查：
+1、Fastboot版本是否和单板匹配，*.reg文件是否和单板配，包括PCB板层、DDR颗粒数等；
+
+2、检查VDD_CPU、VDD_CORE的电压值是否正常；
+
+3、下载DDR降频版本，检查是否和DDR相关，如果相关则参考DDR的检查方法。
+
+[Image-Flash Match]
+
+红灯表示：当前fastboot镜像与Flash不匹配
+
+[eMMC/SD Flash]
+
+红灯表示：硬件SDIO_CARD_DETECT 管脚连接有问题，请检查：
+
+1、SDIO_CARD_DETECT是否低电平（要求为低电平），下拉电阻是否上拉；
+
+2、SDIO_CARD_DETECT是否由于连锡的缘故和VDD供电短路。
+
+黄灯表示：单板上无Emmc器件
+
+[NAND Flash]
+
+红灯请检查：
+
+板子上焊接的NAND FLASH是否在海思发布包兼容器件列表中。
+
+黄灯表示：单板上无Nand器件
+
+[Network]
+
+红灯请检查：
+
+若控制台打印：“Time out while receiving command execute result!”，则表示网口未连接；
+
+若控制台打印：“Downloading: *T T T T T T”，则表示当前网络未通，需检查网络连接状态。
+
+[Over]

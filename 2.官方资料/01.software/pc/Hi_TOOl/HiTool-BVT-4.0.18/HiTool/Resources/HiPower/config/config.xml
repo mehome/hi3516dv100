@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HiPower id="S40v200">
+	<SettingConfig>
+		<ADMode isLittleEndian = "false">
+			<CH1>
+				<CMD0 address="0x0" addressBytes="0x1" devAddress="0x80" i2cPort="0x1" registerBytes="0x2" value="0x4F42"/>
+				<CMD1 address="0x5" addressBytes="0x1" devAddress="0x80" i2cPort="0x1" registerBytes="0x2" value="0x0014"/>
+			</CH1>
+			<CH2>
+				<CMD0 address="0x0" addressBytes="0x1" devAddress="0x88" i2cPort="0x1" registerBytes="0x2" value="0x4F42"/>
+				<CMD1 address="0x5" addressBytes="0x1" devAddress="0x88" i2cPort="0x1" registerBytes="0x2" value="0x0014"/>
+			</CH2>
+			<CH3>
+				<CMD0 address="0x0" addressBytes="0x1" devAddress="0x8A" i2cPort="0x1" registerBytes="0x2" value="0x4F42"/>
+				<CMD1 address="0x5" addressBytes="0x1" devAddress="0x8A" i2cPort="0x1" registerBytes="0x2" value="0x0014"/>
+			</CH3>
+
+			<CH4>
+				<CMD0 address="0x0" addressBytes="0x1" devAddress="0x82" i2cPort="0x1" registerBytes="0x2" value="0x4F42"/>
+				<CMD1 address="0x5" addressBytes="0x1" devAddress="0x82" i2cPort="0x1" registerBytes="0x2" value="0x0014"/>
+			</CH4>
+
+			<DDR>
+				<CMD0 address="0x0" addressBytes="0x1" devAddress="0x88" i2cPort="0x3" registerBytes="0x2" value="0x4F42"/>
+				<CMD1 address="0x5" addressBytes="0x1" devAddress="0x88" i2cPort="0x3" registerBytes="0x2" value="0x0014"/>
+			</DDR>
+
+			<E5V>
+				<CMD0 address="0x0" addressBytes="0x1" devAddress="0x8A" i2cPort="0x3" registerBytes="0x2" value="0x4F42"/>
+				<CMD1 address="0x5" addressBytes="0x1" devAddress="0x8A" i2cPort="0x3" registerBytes="0x2" value="0x0014"/>
+			</E5V>
+
+			<IO>
+				<CMD0 address="0x0" addressBytes="0x1" devAddress="0x82" i2cPort="0x3" registerBytes="0x2" value="0x4F42"/>
+				<CMD1 address="0x5" addressBytes="0x1" devAddress="0x82" i2cPort="0x3" registerBytes="0x2" value="0x0014"/>
+			</IO>
+
+
+			<E12V>
+				<CMD0 address="0x0" addressBytes="0x1" devAddress="0x80" i2cPort="0x3" registerBytes="0x2" value="0x4F42"/>
+				<CMD1 address="0x5" addressBytes="0x1" devAddress="0x80" i2cPort="0x3" registerBytes="0x2" value="0x0014"/>
+			</E12V>
+		</ADMode>
+
+		<ParamAddress>
+			<CH1 value="> /proc/msp/pm_cpu"/>
+			<CH2 value="> /proc/msp/pm_gpu"/>
+			<CH3 value="> /proc/msp/pm_core"/>
+			<CH4 value="> /proc/msp/pm_pwm"/>
+		</ParamAddress>
+
+		<ColumnAddress>
+			<CH1 addressBytes="0x1" current="0x4" devAddress="0x80" i2cPort="0x1" power="0x3" registerBytes="0x2" voltage="0x02"/>
+			<CH2 addressBytes="0x1" current="0x4" devAddress="0x88" i2cPort="0x1" power="0x3" registerBytes="0x2" voltage="0x02"/>
+			<CH3 addressBytes="0x1" current="0x4" devAddress="0x8A" i2cPort="0x1" power="0x3" registerBytes="0x2" voltage="0x02"/>
+			<CH4 addressBytes="0x1" current="0x4" devAddress="0x82" i2cPort="0x1" power="0x3" registerBytes="0x2" voltage="0x02"/>
+
+			<E5V addressBytes="0x1" current="0x4" devAddress="0x8A" i2cPort="0x3" power="0x3" registerBytes="0x2" voltage="0x02"/>
+
+			<DDR addressBytes="0x1" current="0x4" devAddress="0x88" i2cPort="0x3" power="0x3" registerBytes="0x2" voltage="0x02"/>
+
+			<E12V addressBytes="0x1" current="0x4" devAddress="0x80" i2cPort="0x3" power="0x3" registerBytes="0x2" voltage="0x02"/>
+
+			<IO addressBytes="0x1" current="0x4" devAddress="0x82" i2cPort="0x3" power="0x3" registerBytes="0x2" voltage="0x02"/>
+
+			<Frequency cpu="0xF80000E8" ddr="0xF80000F0" gpu="0xF80000F8"/>
+			<Usage cpu="0xF80000EC" gpu="0xF80000FC"/>
+
+			<Tesensor1 command="cat /proc/msp/pm_tsensor1"/>
+			<Tesensor2 command="cat /proc/msp/pm_tsensor2"/>
+			<Tesensor3 command="cat /proc/msp/pm_tsensor3"/>
+			<Tesensor4 command="cat /proc/msp/pm_tsensor4"/>
+			<Tesensor5 command="cat /proc/msp/pm_tsensor5"/>
+		</ColumnAddress>
+		<reserved>
+		</reserved>
+	</SettingConfig>
+	<Functions>
+	</Functions>
+</HiPower>

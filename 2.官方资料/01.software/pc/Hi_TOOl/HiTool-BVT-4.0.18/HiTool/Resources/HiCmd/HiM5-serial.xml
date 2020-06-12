@@ -1,0 +1,794 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 对于串口模式的脚本，startcmd为第一个要下发下去的命令,endcmd为单个命令发送完毕后需要发送该命令返回到命令最外层准备下次发送命令ctrl+s ：0x13 ctrl+q: 0x11-->
+<HiCMD startcmd="dbg" endcmd="exit" i2cDelay="50" >
+  <!--可以有多个FirstLevel对，name_en/name_zh分别对应界面上节点树上的第一层节点的英文和中文名称，cmd属性对应该节点工具需要发送的命令，type属性定义该节点是串口类型还是模拟I2C的命令-->
+  <FirstLevel name_en="app" name_zh="app" cmd="app" visable="false" type="Serial">
+    <!--每个FirstLevel对可以包含多个SecondLevel对，cmd对应进入该节点工具需要下发的命令-->
+    <SecondLevel name_en="gpio" name_zh="gpio" cmd="gpio" visable="true">
+      <!--每个SecondLevel对可以包含多个group对-->
+      <group name_en="GPIO Level Write/Read" name_zh="GPIO Read/Write" visable="true">
+        <!--每个group对可以包含多个cmd子节点，多个param子节点，一个cmd对应一个按钮，一个param对应一个参数-->
+        <!--cmd子节点的cmd属性为一条调试命令--> 
+        <cmd name_en="write" cmd="write" />
+        <cmd name_en="read"  cmd="read" />
+        <!--type类型定义该参数的类型，包括int（单行文本框），string（带滚动条的多行文本框），list（下拉菜单），bool（复选框）-->
+        <!--range属性定义该参数取值范围，对于连续范围以：最小值:最大值的格式表示，一般int型的数据以这种方式定义。-->
+        <!--如果是list类型，则以：displayname1:value1;displayname2:value2-->
+        <!--property属性定义了该参数是哪条命令的输入参数（i）或者返回值（r）-->
+        <!--如果是r，则需要有return属性定义返回值前返回的关键字.板端的返回值打印格式要求为关键字:返回值-->
+        <!--descript_en/descript_zh定义了当鼠标停在该参数上时，工具显示的该字段的中英文说明-->
+        <param name_en="group"
+               type="int"
+               range="null"
+               property="1:i;2:i"
+               descript_en="GPIO group ID"
+               descript_zh="GPIO group ID" />
+        <param name_en="bit"
+               type="int"
+               range="0:255"
+               property="1:i;2:i"
+               descript_en="GPIO bit number"
+               descript_zh="GPIO bit number" />
+        <param name_en="level"
+               type="list"
+               range="low:0;high:1"
+               property="1:i;2:r"
+               return="level" />
+      </group>
+    </SecondLevel>
+  </FirstLevel>
+  <FirstLevel name_en="mw" name_zh="mw" cmd="mw" visable="true" type="COM">
+    <SecondLevel name_en="mw_player" name_zh="mw_player"  cmd="mw_player" visable="true">
+	  <group name_en="Mw player debug info" name_zh="Mw player debug info" visable="true">
+		<cmd name_en="debug info" cmd="debug_info" />
+		<param name_en="Get debug info"
+		   type="string"
+		   range="null"
+		   property="1:r;"
+		   return="info"
+		   descript_en=""
+		   descript_zh="获取Mw player调试信息" />
+	  </group>
+    </SecondLevel>
+    <SecondLevel name_en="db" name_zh="db"  cmd="mw_db" visable="true">
+      <group name_en="get/set panel index" name_zh="get/set panel index" visable="true">
+        <cmd name_en="set" cmd="spi" />
+        <cmd name_en="get" cmd="gpi" />
+        <param name_en="index"
+               type="int"
+               range="0:255"
+	       return="index"
+               property="1:i;2:r"
+               descript_en="panel index"
+               descript_zh="panel index" />
+        <param name_en="total"
+               type="int"
+               range="null"
+	       return="0:255"
+               property="2:r"
+               descript_en="total panel index"
+               descript_zh="total panel index" />
+      </group>
+    </SecondLevel>
+	<SecondLevel name_en="msg" name_zh="msg"  cmd="mw_msg" visable="true">
+      <group name_en="i2c data print" name_zh="i2c data print" visable="true">
+        <cmd name_en="i2c data debug" cmd="sdbg" />
+        <param name_en="debug"
+               type="list"
+               range="close:0;open:1"
+               property="1:i"
+               descript_en="i2c data debug"
+               descript_zh="查看获取的i2c数据" />
+      </group>
+    </SecondLevel>
+  </FirstLevel>
+  <FirstLevel name_en="drv" name_zh="drv" cmd="drv" visable="true" type="COM">
+    <SecondLevel name_en="i2c master" name_zh="i2c master"  cmd="drv_i2c_m" visable="true">
+      <group name_en="set rate" name_zh="set rate" visable="true">
+        <cmd name_en="set rate" cmd="srate" />
+        <param name_en="channel"
+               type="int"
+               range="0:1"
+               property="1:i"
+               descript_en="i2c channel ID"
+               descript_zh="i2c 通道号" />
+        <param name_en="rate"
+               type="list"
+               range="50k:0;100k:1;200k:2;300k:3;400k:4"
+               property="1:i"
+               descript_en="i2c rate"
+               descript_zh="i2c rate" />
+      </group>
+	  <group name_en="write/read" name_zh="i2c读写" visable="true">
+        <cmd name_en="write" cmd="write" />
+		<cmd name_en="read" cmd="read" />
+        <param name_en="channel"
+               type="int"
+               range="0:1"
+               property="1:i;2:i"
+               descript_en="i2c channel ID"
+               descript_zh="i2c 通道号" />
+        <param name_en="device addr"
+               type="int"
+               range="0:255"
+               property="1:i;2:i"
+               descript_en="device address"
+               descript_zh="从设备地址" />
+		<param name_en="reg addr"
+               type="int"
+               range="null"
+               property="1:i;2:i"
+               descript_en="register address"
+               descript_zh="从设备寄存器地址" />
+		<param name_en="reg length"
+               type="int"
+               range="null"
+               property="1:i;2:i"
+               descript_en="register address length"
+               descript_zh="从设备寄存器地址长度" />
+		<param name_en="data length"
+               type="int"
+               range="null"
+               property="1:i;2:i"
+               descript_en="data length"
+               descript_zh="数据长度" />
+		<param name_en="data "
+               type="string"
+               range="null"
+               property="1:i;2:r"
+			   return="data"
+               descript_en="data length"
+               descript_zh="数据长度" />
+      </group>
+	  <group name_en="readdir" name_zh="i2c读" visable="true">
+		<cmd name_en="read" cmd="read" />
+        <param name_en="channel"
+               type="int"
+               range="0:1"
+               property="1:i;2:i"
+               descript_en="i2c channel ID"
+               descript_zh="i2c 通道号" />
+        <param name_en="device addr"
+               type="int"
+               range="0:255"
+               property="1:i;2:i"
+               descript_en="device address"
+               descript_zh="从设备地址" />
+		<param name_en="data length"
+               type="int"
+               range="null"
+               property="1:i;2:i"
+               descript_en="data length"
+               descript_zh="数据长度" />
+		<param name_en="data "
+               type="string"
+               range="null"
+               property="1:i;2:r"
+			   return="data"
+               descript_en="data length"
+               descript_zh="数据长度" />
+      </group>
+    </SecondLevel>
+  </FirstLevel>
+  <FirstLevel name_en="i2c" name_zh="i2c" cmd="ctrl+s" visable="true" type="I2C">
+    <!--如果FirstLevel类型为I2C类型，则SecondLevel子节点及其包含的子节点定义参考i2c类型的脚本定义-->
+    <SecondLevel name_en="video" name_zh="video" visable="true">
+      <!--每个SecondLevel对可以包含多个group对,id对应i2c写命令中D0的0-3bit-->
+      <group id="1" name_en="Input Format" name_zh="Input Format" visable="true">
+        <!--每个group对可以包含多个cmd，多个param，cmd子节点的cmd属性对相应i2c写命令中的D1,delay属性定义该命令执行后需要等待的时间-->
+        <cmd name_en="set" cmd="0x06" delay="10"/>
+        <!--type类型定义该参数的类型，包括int（单行文本框），string（带滚动条的多行文本框），list（下拉菜单），bool（复选框）-->
+        <!--range属性定义该参数取值范围，对于连续范围以：最小值:最大值的格式表示，一般int型的数据以这种方式定义。-->
+        <!--如果是list类型，则以：displayname1:value1;displayname2:value2-->
+        <!--property属性定义了该参数是哪条命令的输入参数（i）或者返回值（r），如果是r，则需要有return属性定义返回值的从7个字节第几个字节开始-->
+        <!--descript_en/descript_zh定义了当鼠标停在该参数上时，工具显示的该字段的中英文说明-->
+        <param name_en="FrameType"
+               type="list"
+               range="2D:0x00;3D_SBS:0x01;3D_TAB:0x02;3D_FPK:0x03;3D_FS:0x04"
+               property="1:i"
+               return="0"
+               descript_en="Format"
+               descript_zh="Format" />
+      </group>
+      <group id="1" name_en="Output format" name_zh="Output format" visable="true">
+        <cmd name_en="set" cmd="0x8" delay="10" />
+        <param name_en="OutFormat"
+               type="list"
+               range="2D:0x00;3D_FS:0x04"
+               property="1:i"
+               return="0"
+               descript_en="3D or 2D display"
+               descript_zh="3D or 2D display" />
+      </group>
+      <group id="1" name_en="Input timing" visable="true">
+        <cmd name_en="set" cmd="0x0a" delay="10"/>
+        <param name_en="b2Division"
+               type="bool"
+               range="0:1"
+               property="1:i"
+               return="0"
+               descript_zh="2分屏使能开关" />
+        <param name_en="bitwidth"
+               type="list"
+               range="8Bit:0x00;10Bit:0x01;12Bit:0x02"
+               property="1:i"
+               return="1"
+               descript_en="bit width" 
+               descript_zh="视频位宽"/>
+        <param name_en="timing mode"
+               type="list"
+               range="4K2K_60HZ:0x00;4K1K_120HZ:0x01;4K2K_30HZ:0x2;FHD_120HZ:0x3;FHD_60HZ:0x4;FHD_30HZ:0x5"
+               property="1:i" 
+               return="2"
+               descript_zh="视频Timing类型"/>
+      </group>
+      <group id="1" name_en="Osd input timing" visable="true">
+        <cmd name_en="set" cmd="0xc" delay="10" />
+        <param name_en="bOsdEnable"
+               type="bool"
+               range="0:1"
+               property="1:i"
+               return="0"
+               descript_zh="OSD使能开关" />
+        <param name_en="bitwidth"
+               type="list"
+               range="8Bit:0x0;10Bit:0x1;12Bit:0x2"
+               property="1:i"
+               return="1"
+               descript_en="bit width" 
+               descript_zh="视频位宽" />
+        <param name_en="timing mode"
+               type="list"
+               range="4K2K_60HZ:0x00;4K1K_120HZ:0x01;4K2K_30HZ:0x2;FHD_120HZ:0x3;FHD_60HZ:0x4;FHD_30HZ:0x5"
+               property="1:i" 
+               return="2"
+               descript_zh="视频Timing类型" />
+      </group>
+      <group id="1" name_en="Mute setting" visable="true">
+        <cmd name_en="set" cmd="0x10" delay="10" />
+        <param name_en="VideoOrOsd"
+               type="list"
+               range="video_Mute:0x0;OSD_Mute:0x1"
+               property="1:i;"
+               descript_en="mute type"
+               descript_zh="mute类型" />
+        <param name_en="bMuteEnable"
+               type="bool"
+               range="0:1"               
+               property="1:i;"
+               descript_en="mute enable"
+               descript_zh="mute使能开关" />
+        <param name_en="RGB_R"
+               type="int"
+               range="0:255"
+               property="1:i;"
+               descript_en=""
+               descript_zh="视频Mute颜色的R分量" />
+        <param name_en="RGB_G"
+               type="int"
+               range="0:255"
+               property="1:i;"
+               descript_en=""
+               descript_zh="视频Mute颜色的G分量" />
+        <param name_en="RGB_B"
+               type="int"
+               range="0:255"
+               property="1:i;"
+               descript_en=""
+               descript_zh="视频Mute颜色的B分量" />
+      </group>
+      <group id="1" name_en="Freeze mode setting" visable="true">
+        <cmd name_en="set" cmd="0x12" delay="10" />
+        <param name_en="StopMode"
+               type="list"
+               range="Black screen:0x00;Still frame:0x01"
+               property="1:i"
+               return="0" 
+               descript_en=""
+               descript_zh="信号切换是黑屏还是静帧" />
+      </group>
+      <group id="1" name_en="2DTo3D view point" visable="true">
+        <cmd name_en="set" cmd="0x14" delay="10" />
+        <param name_en="ViewPoint"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="0" 
+               descript_en=""
+               descript_zh="2D转3D视点" />
+      </group>
+	  <group id="1" name_en="2DTo3D depth" visable="true">
+        <cmd name_en="set" cmd="0x16" delay="10" />
+        <param name_en="Depth"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="0" 
+               descript_en=""
+               descript_zh="2D转3D景深" />
+      </group>
+	  <group id="1" name_en="3D L/R switch" visable="true">
+        <cmd name_en="set" cmd="0x18" delay="10" />
+        <param name_en="LR Switch"
+               type="bool"
+               range="0:1"
+               property="1:i"
+               return="0" 
+               descript_en=""
+               descript_zh="设置3D左右眼互换" />
+      </group>
+	  <group id="1" name_en="Osd protect enable" visable="true">
+        <cmd name_en="set" cmd="0x1a" delay="10" />
+        <param name_en="Region index"
+               type="int"
+               range="0:7"
+               property="1:i"
+               descript_en=""
+               descript_zh="设置Osd区域index" />
+		<param name_en="Osd protect enable"
+               type="bool"
+               range="0:1"
+               property="1:i;"
+               descript_en=""
+               descript_zh="设置这个区域Osd保护是否使能" />	   
+      </group>
+	  <group id="1" name_en="Osd protect window xy" visable="true">
+        <cmd name_en="set" cmd="0x1b" delay="10" />
+        <param name_en="Region index"
+               type="int"
+               range="0:7"
+               property="1:i"
+               descript_en=""
+               descript_zh="设置Osd区域index" />
+		<param name_en="Osd protect window x"
+               type="int"
+               range="0:3840"
+               property="1:i;"
+               descript_en=""
+               descript_zh="设置Osd保护区域起始点横坐标" />
+		<param name_en="Osd protect window y"
+               type="int"
+               range="0:2160"
+               property="1:i;"
+               descript_en=""
+               descript_zh="设置Osd保护区域起始点纵坐标" />	
+      </group>
+	  <group id="1" name_en="Osd protect window wh" visable="true">
+        <cmd name_en="set" cmd="0x1c" delay="10" />
+        <param name_en="Region index"
+               type="int"
+               range="0:7"
+               property="1:i"
+               descript_en=""
+               descript_zh="设置Osd区域index" />
+		<param name_en="Osd protect window w"
+               type="int"
+               range="0:3840"
+               property="1:i;"
+               descript_en=""
+               descript_zh="设置Osd保护区域宽度" />
+		<param name_en="Osd protect window h"
+               type="int"
+               range="0:2160"
+               property="1:i;"
+               descript_en=""
+               descript_zh="设置Osd保护区域高度" />
+      </group>
+	  <group id="1" name_en="Graphic mode enable" visable="true">
+        <cmd name_en="set" cmd="0x1d" delay="10" />
+        <param name_en="Graphic mode enable"
+               type="bool"
+               range="0:1"
+               property="1:i"
+               return="0" 
+               descript_en=""
+               descript_zh="是否开启Graphic mode" />
+      </group>
+	  <group id="1" name_en="Memc low delay enable" visable="true">
+        <cmd name_en="set" cmd="0x1f" delay="10" />
+        <param name_en="Memc low delay enable"
+               type="bool"
+               range="0:1"
+               property="1:i"
+               return="0" 
+               descript_en=""
+               descript_zh="是否开启Memc低延时模式" />
+      </group>
+	  <group id="1" name_en="Local dimming enable" visable="true">
+        <cmd name_en="set" cmd="0x21" delay="10" />
+        <param name_en="Local dimming enable"
+               type="bool"
+               range="0:1"
+               property="1:i"
+               return="0" 
+               descript_en=""
+               descript_zh="是否开启Local dimming" />
+      </group>
+	  <group id="1" name_en="Aging mode enable" visable="true">
+        <cmd name_en="set" cmd="0x23" delay="10" />
+        <param name_en="Aging mode enable"
+               type="bool"
+               range="0:1"
+               property="1:i"
+               return="0" 
+               descript_en=""
+               descript_zh="是否开启Aging mode" />
+      </group>
+	  <group id="1" name_en="Test pattern enable" visable="true">
+        <cmd name_en="set" cmd="0x25" delay="10" />
+        <param name_en="Test pattern enable"
+               type="bool"
+               range="0:1"
+               property="1:i"
+               descript_en=""
+               descript_zh="设置Test pattern使能" />
+		<param name_en="Test pattern company"
+               type="list"
+               range="Samsung:0x0;Innolux:0x1"
+               property="1:i;"
+               descript_en=""
+               descript_zh="设置Test pattern类型" />
+		<param name_en="Test pattern type"
+               type="list"
+               range="Pure:0x0;Gray:0x1;Line:0x2;Block:0x3"
+               property="1:i;"
+               descript_en=""
+               descript_zh="设置Test pattern子类型" />
+		<param name_en="Test pattern index"
+               type="int"
+               range="0:7"
+               property="1:i;"
+               descript_en=""
+               descript_zh="设置Test pattern索引" />
+		<param name_en="Test pattern mode"
+               type="list"
+               range="Move:0x0;Static:0x1"
+               property="1:i;"
+               descript_en=""
+               descript_zh="设置Test pattern模式" />		
+      </group>
+	  <group id="1" name_en="Osd alpha" visable="true">
+        <cmd name_en="set" cmd="0x26" delay="10" />
+        <param name_en="Osd alpha"
+               type="int"
+               range="0:1024"
+               property="1:i"
+               return="0" 
+               descript_en=""
+               descript_zh="图形层全局Alpha" />
+      </group>
+	  <group id="1" name_en="Ssc enable" visable="true">
+        <cmd name_en="set" cmd="0x28" delay="10" />
+        <param name_en="Interface type"
+               type="list"
+               range="Lvds:0x0;Vbone:0x1;Minilvds:0x2;P2P:0x3"
+               property="1:i"
+               return="0" 
+               descript_en=""
+               descript_zh="接口类型" />
+		<param name_en="Ssc enable"
+               type="bool"
+               range="0:1"
+               property="1:i"
+               return="1" 
+               descript_en=""
+               descript_zh="接口展屏开关" />
+		<param name_en="Frequency"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="2" 
+               descript_en=""
+               descript_zh="接口展屏频率" />
+		<param name_en="Ratio"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="3" 
+               descript_en=""
+               descript_zh="接口展屏比" />
+      </group>
+    </SecondLevel>
+    <SecondLevel name_en="PQ" nme_zh="PQ" visable="true">
+      <group id="2" name_en="Brightness" name_zh="Brightness" visable="true">
+        <cmd name_en="set" cmd="0x00"  delay="10"/>
+        <param name_en="Brightness"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="0"
+               descript_en="Brightness"
+               descript_zh="亮度信息" />
+      </group>
+      <group id="2" name_en="Contrast" name_zh="Contrast" visable="true">
+        <cmd name_en="set" cmd="0x02" />
+        <param name_en="Contrast"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="0"
+               descript_en="Contrast"
+               descript_zh="对比度" />
+      </group>
+      <group id="2" name_en="Saturation" name_zh="Saturation" visable="true">
+        <cmd name_en="set" cmd="0x04" />
+        <param name_en="Saturation"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="0"
+               descript_en="Saturation"
+               descript_zh="饱和度" />
+      </group>
+	  <group id="2" name_en="Hue" name_zh="Hue" visable="true">
+        <cmd name_en="set" cmd="0x06" />
+        <param name_en="Hue"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="0"
+               descript_en="Hue"
+               descript_zh="色调" />
+      </group>
+	  <group id="2" name_en="Sharpness" name_zh="Sharpness" visable="true">
+        <cmd name_en="set" cmd="0x08" />
+        <param name_en="Sharpness"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="0"
+               descript_en="Sharpness"
+               descript_zh="锐化强度" />
+      </group>
+	  <group id="2" name_en="R_Gain" name_zh="R_Gain" visable="true">
+        <cmd name_en="set" cmd="0x0a" />
+        <param name_en="RGain"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="0"
+               descript_en="RGain"
+               descript_zh="红色增益" />
+      </group>
+	  <group id="2" name_en="G_Gain" name_zh="G_Gain" visable="true">
+        <cmd name_en="set" cmd="0x0c" />
+        <param name_en="GGain"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="0"
+               descript_en="GGain"
+               descript_zh="绿色增益" />
+      </group>	  
+	  <group id="2" name_en="B_Gain" name_zh="B_Gain" visable="true">
+        <cmd name_en="set" cmd="0x0e" />
+        <param name_en="BGain"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="0"
+               descript_en="BGain"
+               descript_zh="蓝色增益" />
+      </group>	  
+	  <group id="2" name_en="R_Offset" name_zh="R_Offset" visable="true">
+        <cmd name_en="set" cmd="0x10" />
+        <param name_en="ROffset"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="0"
+               descript_en="ROffset"
+               descript_zh="红色增益" />
+      </group>	 	  	  
+	  <group id="2" name_en="G_Offset" name_zh="G_Offset" visable="true">
+        <cmd name_en="set" cmd="0x12" />
+        <param name_en="GOffset"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="0"
+               descript_en="GOffset"
+               descript_zh="绿色增益" />
+      </group>		  
+	  <group id="2" name_en="B_Offset" name_zh="B_Offset" visable="true">
+        <cmd name_en="set" cmd="0x14" />
+        <param name_en="BOffset"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="0"
+               descript_en="BOffset"
+               descript_zh="蓝色增益" />
+      </group>		  	  
+	  <group id="2" name_en="PQ_OnOff" name_zh="PQ_OnOff" visable="true">
+        <cmd name_en="set" cmd="0x16" />
+        <param name_en="PqMdlId"
+               type="list"
+               range="HI_DRV_PQ_MODULE_PFMD:0x00;HI_DRV_PQ_MODULE_NR:0x01;HI_DRV_PQ_MODULE_DBM:0x02;HI_DRV_PQ_MODULE_SHARPNESS:0x03;HI_DRV_PQ_MODULE_COLOR_CORING:0x04;HI_DRV_PQ_MODULE_BLUE_STRETCH:0x05;HI_DRV_PQ_MODULE_GAMMA:0x06;HI_DRV_PQ_MODULE_DIM:0x07;HI_DRV_PQ_MODULE_DCI:0x08;HI_DRV_PQ_MODULE_COLOR:0x09;HI_DRV_PQ_MODULE_SR:0x0a;HI_DRV_PQ_MODULE_WCG:0x0b;HI_DRV_PQ_MODULE_RGBW:0x0c;HI_DRV_PQ_MODULE_OD:0x0d;HI_DRV_PQ_MODULE_DEMURA:0x0e;HI_DRV_PQ_MODULE_BUTT:0x0f"
+               property="1:i"
+               return="0"
+               descript_zh="开关PQ模块:PFMD,NR,...... " />
+        <param name_en="PqOnOff"
+               type="bool"
+               range="0:1"
+               property="1:i"
+               return="1"
+               descript_en="" 
+               descript_zh="PQ 模块开关状态"/>
+      </group>
+	  <group id="2" name_en="Nr_Level" name_zh="Nr_Level" visable="true">
+        <cmd name_en="set" cmd="0x18" />
+        <param name_en="NrLevel"
+               type="list"
+               range="off:0x00;low:0x01;mid:0x02;high:0x03"
+               property="1:i"
+               return="0"
+               descript_en="NrLevel"
+               descript_zh="降噪强度" />
+      </group>	    
+	  <group id="2" name_en="MEMC_Level" name_zh="MEMC_Level" visable="true">
+        <cmd name_en="set" cmd="0x1b" />
+        <param name_en="MemcLevel"
+               type="list"
+               range="low:0x00;mid:0x01;high:0x02"
+               property="1:i"
+               return="0"
+               descript_en="MemcLevel"
+               descript_zh="MEMC 强度" />
+      </group>		  
+	  <group id="2" name_en="Film_Mode" name_zh="Film_Mode" visable="true">
+        <cmd name_en="set" cmd="0x1d" />
+        <param name_en="FilmMode"
+               type="list"
+               range="FilmMode_3_2:0x00; FilmMode_2_2:0x01; FilmMode_2_3_3_2:0x02;FilmMode_3_2_3_2_2:0x03;FilmMode_11_2_3:0x04;FilmMode_2_2_2_4:0x05;FilmMode_6_4:0x06;FilmMode_5_5:0x07;FilmMode_4_4:0x08;FilmMode_8_7:0x09;FilmMode_1_3:0x0a;FilmMode_1_1_1_2:0x0b;FilmMode_1_1_1_1_2:0x0c"
+               property="1:i"
+               return="0"
+               descript_en="FilmMode"
+               descript_zh="电影模式" />
+      </group>	  
+	  <group id="2" name_en="Demo" name_zh="Demo" visable="true">
+        <cmd name_en="set" cmd="0x1f" />
+        <param name_en="DemoMode"
+               type="list"
+               range="HI_PQ_DEMO_DBM:0x00; HI_PQ_DEMO_NR:0x01; HI_PQ_DEMO_SHARPNESS:0x02;HI_PQ_DEMO_DCI:0x03;HI_PQ_DEMO_MEMC:0x04;HI_PQ_DEMO_COLOR:0x05; HI_PQ_DEMO_SR:0x06;HI_DRV_PQ_DEMO_WCG:0x07;HI_PQ_DEMO_ALL:0x08"
+               property="1:i"
+               return="0"
+               descript_en="DemoMode"
+               descript_zh="PQ 算法模块的demo模块" />
+		<param name_en="DemoOnOff"
+               type="bool"
+               range="0:1"
+               property="1:i"
+               return="1"
+			   descript_en="DemoOnOff"
+               descript_zh="PQ 算法模块的demo开关" />
+		<param name_en="DemoOnRight"
+               type="bool"
+               range="0:1"
+               property="1:i"
+               return="2"
+			   descript_en="DemoOnRight"
+               descript_zh="PQ 算法模块的demo模式：0:右边;1:左边" />		   
+      </group>	 	  
+	  <group id="2" name_en="Sr_Level" name_zh="Sr_Level" visable="true">
+        <cmd name_en="set" cmd="0x21" />
+        <param name_en="Sr_Level"
+               type="list"
+               range="low:0x00; mid:0x01; high:0x02"
+               property="1:i"
+               return="0"
+               descript_en="Sr_Level"
+               descript_zh="电影模式" />
+      </group>	  
+	  <group id="2" name_en="Auto_Nr_Mode" name_zh="Auto_Nr_Mode" visable="true">
+        <cmd name_en="set" cmd="0x23" />
+        <param name_en="AutoNrMode"
+               type="bool"
+               range="0:1"
+               property="1:i"
+               return="0"
+               descript_en="AutoNrMode"
+               descript_zh="NR自动降噪开关" />
+      </group>		  
+	  <group id="2" name_en="Db_Level" name_zh="Db_Level" visable="true">
+        <cmd name_en="set" cmd="0x25" />
+        <param name_en="DbLevel"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="0"
+               descript_en="DbLevel"
+               descript_zh="DB 强度" />
+      </group>		  
+	  <group id="2" name_en="Dm_Level" name_zh="Dm_Level" visable="true">
+        <cmd name_en="set" cmd="0x27" />
+        <param name_en="DmLevel"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="0"
+               descript_en="DmLevel"
+               descript_zh="DM 强度" />
+      </group>		  	  
+	  <group id="2" name_en="Local_Dim_Level" name_zh="Local_Dim_Level" visable="true">
+        <cmd name_en="set" cmd="0x29" />
+        <param name_en="LocalDimLevel"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="0"
+               descript_en="LocalDimLevel"
+               descript_zh="背光强度" />
+      </group>
+      <group id="2" name_en="Local_Dim_Clip_Range"  name_zh="背光clip 范围" visable="true">
+        <cmd name_en="set" cmd="0x2b" />
+        <param name_en="MinStrength"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="0"
+			   descript_en="MinStrength"
+               descript_zh="背光clip最小值0" />
+        <param name_en="MaxStrength"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="1"
+               descript_en="MaxStrength" 
+               descript_zh="背光clip最大值255" />
+      </group>
+	</SecondLevel> 
+	<SecondLevel name_en="system" name_zh="系统" visable="true">
+      <group id="3" name_en="panel index" name_zh="屏参索引" visable="true">
+        <cmd name_en="set" cmd="0x04" delay="10" />
+        <param name_en="Index"
+               type="int"
+               range="0:255"
+               property="1:i"
+               return="0"
+               descript_en="panel index value"
+               descript_zh="屏参索引值" />
+      </group>
+      <group id="0" name_en="DDR SSC" name_zh="DDR 展频" visable="true">
+        <cmd name_en="set" cmd="0x00" delay="10" />
+        <param name_en="SprendEnable"
+               type="bool"
+               range="0:1"
+               property="1:i"
+               return="0"
+               descript_en="3D display switch"
+               descript_zh="3D display switch" />
+		<param name_en="SpreadFreq"
+               type="list"
+               range="93k:2;62k:3;46k:4;37k:5;31k:6"
+               property="1:i"
+               return="1"
+               descript_en="ddr spread frequency"
+               descript_zh="ddr 展频频率" />
+		<param name_en="SpreadRation"
+               type="int"
+               range="0:31"
+               property="1:i"
+               return="2"
+               descript_en="ddr spread rate 1:0.1%"
+               descript_zh="ddr 展频百分比 1:0.1%" />
+		<param name_en="SpreadDown"
+               type="list"
+               range="up:0;down:1"
+               property="1:i"
+               return="3"
+               descript_en="ddr spread direction"
+               descript_zh="ddr 展频方向" />
+      </group>
+      <group id="0" name_en="watchdog" name_zh="看门狗" visable="true">
+        <cmd name_en="set" cmd="0x02" delay="10" />
+        <param name_en="enable"
+               type="bool"
+               range="0:1"
+               property="1:i"
+               return="0"
+               descript_zh="看门狗使能" />
+      </group>
+    </SecondLevel> 
+  </FirstLevel>
+</HiCMD>

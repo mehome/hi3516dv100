@@ -1,0 +1,1534 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<view>
+
+<commond name="DDR" value="hiddrs -d 0"/>
+
+<bindtable order="ADEC,AENC,AI,AO,H264E,JPEGE,REGION,VDA,VDEC,VENC,VGS,VPSS" caption=" FirMod  FirDev  FirChn  SecMod  SecDev  SecChn  TirMod  TirDev  TirChn "/>
+
+<modul name="ADEC" proc="cat /proc/umap/adec" device="null" channel="ChnId" tabletitle="ADEC CHN ATTR">
+	
+	<!--1、当GetCnt>PutCnt+1，获取的音频数据有未及时释放的情况。-->
+	<debugitem errorcode="024001" level="warning" type="self">
+		<condition>
+		    <and>
+				<largerthan arg1="ADEC CHN ATTR.GetCnt" arg2="ADEC CHN ATTR.PutCnt + 1" />
+		    </and>
+		</condition>
+		<log lang="zh" message="获取的音频数据有未及时释放的情况。" />
+		<remark lang="zh" message="GetCnt={0}" arg1="ADEC CHN ATTR.GetCnt" />
+	</debugitem>	
+	
+</modul>
+
+<modul name="AENC" proc="cat /proc/umap/aenc" device="null" channel="ChnId" tabletitle="AENC CHN ATTR">
+	
+	<!--1、当FrmErr！=0且增加时，音频编码器内部有错误发生。-->
+	<debugitem errorcode="023001" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="AENC CHN STATUS.FrmErr" />
+		        <unequals arg1="AENC CHN STATUS.FrmErr" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="音频编码器内部有错误发生。" />
+		<remark lang="zh" message="FrmErr={0}" arg1="AENC CHN STATUS.FrmErr" />
+	</debugitem>
+	
+	<!--1、当BufFull！=0且增加时，采集的数据没有及时取走，会有丢帧情况发生。-->
+	<debugitem errorcode="023002" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="AENC CHN STATUS.BufFull" />
+		        <unequals arg1="AENC CHN STATUS.BufFull" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="采集的数据没有及时取走，会有丢帧情况发生。" />
+		<remark lang="zh" message="BufFull={0}" arg1="AENC CHN STATUS.BufFull" />
+	</debugitem>
+	
+</modul>
+
+<modul name="AI" proc="cat /proc/umap/ai" device="AiDev" channel="AiChn" tabletitle="AI CHN STATUS">
+
+	<!--1、如果u32Data0 u32Data1的值为0或者ffffffff，则AI没有正常采集到数据。-->
+	<debugitem errorcode="021001" level="error" >
+		<condition>
+		    <and>
+				<or>
+					<equals arg1="AI CHN STATUS.u32Data0" value="0" />
+					<equals arg1="AI CHN STATUS.u32Data0" value="ffffffff" />
+				</or>
+		        	<or>
+					<equals arg1="AI CHN STATUS.u32Data1" value="0" />
+					<equals arg1="AI CHN STATUS.u32Data1" value="ffffffff" />
+				</or>
+		    </and>
+		</condition>
+		<log lang="zh" message="AI没有正常采集到数据。" />
+		<remark lang="zh" message="u32Data0={0} u32Data1={1}" arg1="AI CHN STATUS.u32Data0" arg2="AI CHN STATUS.u32Data1" />
+	</debugitem>
+	
+	<!--2、如果AEC开启，但是AecFail的值不断增加，则表示AEC属性没有正确设置。-->
+	<debugitem errorcode="021002" level="error" >
+		<condition>
+		    <and>
+				<equals arg1="AI CHN VQE STATUS1.bAec" value="enable" />
+				<changed arg1="AI CHN VQE STATUS1.AecFail" />
+		    </and>
+		</condition>
+		<log lang="zh" message="AEC属性设置有问题。" />
+		<remark lang="zh" message="bAec={0} AecFail={1}" arg1="AI CHN VQE STATUS1.bAec" arg2="AI CHN VQE STATUS1.AecFail" />
+	</debugitem>
+	
+	<!--3、如果IntCnt值没有变化 ，则表示AI属性没有正确设置 。-->
+	<debugitem errorcode="021003" level="error" >
+		<condition>
+		    <and>
+				<unchanged arg1="AI DEV STATUS.IntCnt"  />
+		    </and>
+		</condition>
+		<log lang="zh" message="AI属性设置有问题。" />
+		<remark lang="zh" message="无" />
+	</debugitem>
+	
+	<!--4、当BufFul发生变化且!=0时，则采集的数据没有及时取走，会有丢帧情况发生。-->
+	<debugitem errorcode="021004" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="AI CHN STATUS.BufFul" />
+		        <unequals arg1="AI CHN STATUS.BufFul" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="采集的数据没有及时取走，会有丢帧情况发生。" />
+		<remark lang="zh" message="BufFul={0}" arg1="AI CHN STATUS.BufFul" />
+	</debugitem>
+	
+	<!--5、如果bAnr 为enable ，但是bUsrmod 为auto，则用户设置的Anr参数不起作用。-->
+	<debugitem errorcode="021005" level="info" >
+		<condition>
+		    <and>
+		        <equals arg1="AI CHN VQE STATUS1.bAnr" value="enable" />
+		        <equals arg1="AI CHN VQE STATUS1.bUsrmod" value="auto" />
+		    </and>
+		</condition>
+		<log lang="zh" message="设置的Anr参数不起作用。" />
+		<remark lang="zh" message="无" />
+	</debugitem>
+	
+	<!--6、如果bAec 为enable ，但是bUsrmod 为auto，则用户设置的Aec参数不起作用。-->
+	<debugitem errorcode="021006" level="info" >
+		<condition>
+		    <and>
+		        <equals arg1="AI CHN VQE STATUS1.bAec" value="enable" />
+		        <equals arg1="AI CHN VQE STATUS1.bUsrmod" value="auto" />
+		    </and>
+		</condition>
+		<log lang="zh" message="设置的Aec参数不起作用。" />
+		<remark lang="zh" message="无" />
+	</debugitem>
+	
+	<!--7、如果bAgc为enable ，但是bUsrmod 为auto，则用户设置的Agc参数不起作用。-->
+	<debugitem errorcode="021007" level="info" >
+		<condition>
+		    <and>
+		        <equals arg1="AI CHN VQE STATUS2.bAgc" value="enable" />
+		        <equals arg1="AI CHN VQE STATUS2.bUsrmod" value="auto" />
+		    </and>
+		</condition>
+		<log lang="zh" message="设置的Agc参数不起作用。" />
+		<remark lang="zh" message="无" />
+	</debugitem>
+	
+	<!--8、如果bHpf 为enable ，但是bUsrmod 为auto，则用户设置的Hpf参数不起作用。-->
+	<debugitem errorcode="021008" level="info" >
+		<condition>
+		    <and>
+		        <equals arg1="AI CHN VQE STATUS4.bHpf" value="enable" />
+		        <equals arg1="AI CHN VQE STATUS4.bUsrmod" value="auto" />
+		    </and>
+		</condition>
+		<log lang="zh" message="设置的Hpf参数不起作用。" />
+		<remark lang="zh" message="无" />
+	</debugitem>
+	
+	<!--9、如果bRnr 为enable ，但是bUsrmod 为auto，则用户设置的Rnr参数不起作用。-->
+	<debugitem errorcode="021009" level="info" >
+		<condition>
+		    <and>
+		        <equals arg1="AI CHN VQE STATUS4.bRnr" value="enable" />
+		        <equals arg1="AI CHN VQE STATUS4.bUsrmod" value="auto" />
+		    </and>
+		</condition>
+		<log lang="zh" message="设置的Rnr参数不起作用。" />
+		<remark lang="zh" message="无" />
+	</debugitem>
+	
+</modul>
+
+<modul name="AO" proc="cat /proc/umap/ao" device="AoDev" channel="AoChn" tabletitle="AO CHN STATUS">
+	
+	<!--1、如果BufEmp发生变化且!=0时，则表示有欠载现象发生，此时应检查客户端向板端发送的音频数据时候是否有丢包。-->
+	<debugitem errorcode="022001" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="AO CHN STATUS.BufEmp" />
+		        <unequals arg1="AO CHN STATUS.BufEmp" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="欠载现象发，此时应检查客户端向板端发送的音频数据时候是否有丢包。" />
+		<remark lang="zh" message="BufEmp={0}" arg1="AO CHN STATUS.BufEmp" />
+	</debugitem>
+	
+	<!--2、如果u32Data0 u32Data1的值为0或者ffffffff，则AO没有收到数据。-->
+	<debugitem errorcode="022002" level="error" >
+		<condition>
+		    <and>
+				<or>
+					<equals arg1="AO CHN STATUS.u32Data0" value="0" />
+					<equals arg1="AO CHN STATUS.u32Data0" value="ffffffff" />
+				</or>
+		        	<or>
+					<equals arg1="AO CHN STATUS.u32Data1" value="0" />
+					<equals arg1="AO CHN STATUS.u32Data1" value="ffffffff" />
+				</or>
+		    </and>
+		</condition>
+		<log lang="zh" message="AO没有收到数据。" />
+		<remark lang="zh" message="u32Data0={0} u32Data1={1}" arg1="AO CHN STATUS.u32Data0" arg2="AO CHN STATUS.u32Data1" />
+	</debugitem>
+	
+	<!--3、如果IntCnt值没有变化 ，则表示AO属性没有正确设置 。-->
+	<debugitem errorcode="022003" level="error" >
+		<condition>
+		    <and>
+				<unchanged arg1="AO DEV STATUS.IntCnt" />
+		    </and>
+		</condition>
+		<log lang="zh" message="AO属性设置有问题。" />
+		<remark lang="zh" message="无" />
+	</debugitem>
+	
+	<!--4、如果bAnr 为enable ，但是bUsrmod 为auto，则用户设置的Anr参数不起作用。-->
+	<debugitem errorcode="022004" level="info" >
+		<condition>
+		    <and>
+		        <equals arg1="AO CHN VQE STATUS1.bAnr" value="enable" />
+		        <equals arg1="AO CHN VQE STATUS1.bUsrmod" value="auto" />
+		    </and>
+		</condition>
+		<log lang="zh" message="设置的Anr参数不起作用。" />
+		<remark lang="zh" message="无" />
+	</debugitem>
+	
+	<!--5、如果bAgc为enable ，但是bUsrmod 为auto，则用户设置的Agc参数不起作用。-->
+	<debugitem errorcode="022005" level="info" >
+		<condition>
+		    <and>
+		        <equals arg1="AO CHN VQE STATUS2.bAgc" value="enable" />
+		        <equals arg1="AO CHN VQE STATUS2.bUsrmod" value="auto" />
+		    </and>
+		</condition>
+		<log lang="zh" message="设置的Agc参数不起作用。" />
+		<remark lang="zh" message="无" />
+	</debugitem>
+	
+	<!--6、如果bHpf 为enable ，但是bUsrmod 为auto，则用户设置的Hpf参数不起作用。-->
+	<debugitem errorcode="022006" level="info" >
+		<condition>
+		    <and>
+		        <equals arg1="AO CHN VQE STATUS4.bHpf" value="enable" />
+		        <equals arg1="AO CHN VQE STATUS4.bUsrmod" value="auto" />
+		    </and>
+		</condition>
+		<log lang="zh" message="设置的Hpf参数不起作用。" />
+		<remark lang="zh" message="无" />
+	</debugitem>	
+	
+</modul>
+
+<modul name="VI" proc="cat /proc/umap/vi" device="null" channel="PhyChn" tabletitle="VI PHYCHN STATUS 1">
+	
+	<!--1、如果该值=0，说明无中断，请检查线的连接或是AD的的配置，或是VI的配置。
+           该值不为0，并且不增加时，接触不良，或者是送来的信号有问题。-->
+	<debugitem errorcode="016001" level="error" >
+		<condition>
+			<or>
+				<and>
+					<unchanged arg1="VI PHYCHN STATUS 1.IntCnt" />
+					<unequals arg1="VI PHYCHN STATUS 1.IntCnt" value="0" />
+				</and>
+				<and>
+					<unchanged arg1="VI PHYCHN STATUS 1.IntCnt" />
+					<equals arg1="VI PHYCHN STATUS 1.IntCnt" value="0" />
+				</and>
+			</or>
+		</condition>
+		<log lang="zh" message="产生此现象的可能原因是：接触不良、AD配置不正确、VI设置不正确、信号异常等。" />
+		<remark lang="zh" message="IntCnt={0}" arg1="VI PHYCHN STATUS 1.IntCnt" />
+	</debugitem>
+	
+	<!--2、VbFail该值不为0，并且增加时，说明内存不够，要增加公共缓存池。-->
+	<debugitem errorcode="016002" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="VI PHYCHN STATUS 1.VbFail" />
+		        <unequals arg1="VI PHYCHN STATUS 1.VbFail" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="公共内存不够，要增加公共缓存池。" />
+		<remark lang="zh" message="VbFail={0}" arg1="VI PHYCHN STATUS 1.VbFail" />
+	</debugitem>
+	
+	<!--3、LosInt该值不为0，并且增加时，可能是内存不够，也可能是时序异常。-->
+	<debugitem errorcode="016003" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="VI PHYCHN STATUS 1.LosInt" />
+		        <largerthan arg1="VI PHYCHN STATUS 1.LosInt" value="2" />
+		    </and>
+		</condition>
+		<log lang="zh" message="产生此现象的可能原因是：内存不够、时序异常。" />
+		<remark lang="zh" message="LosInt={0}" arg1="VI PHYCHN STATUS 1.LosInt" />
+	</debugitem>
+	
+	<!--4、TopLos该值不为0，并且增加时，连续来二个底场中断时，此值会加1。-->
+	<debugitem errorcode="016004" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="VI PHYCHN STATUS 1.TopLos" />
+		        <unequals arg1="VI PHYCHN STATUS 1.TopLos" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="时序异常，连续二个底场中断。" />
+		<remark lang="zh" message="TopLos={0}" arg1="VI PHYCHN STATUS 1.TopLos" />
+	</debugitem>
+	
+	
+	<!--5、BotLos：该值不为0，并且增加时,分配不到内存或者是帧率控制时，此值加1.-->
+	<debugitem errorcode="016005" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="VI PHYCHN STATUS 1.BotLos" />
+		        <unequals arg1="VI PHYCHN STATUS 1.BotLos" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="内存不够或者是没有满帧采集。" />
+		<remark lang="zh" message="BotLos={0}" arg1="VI PHYCHN STATUS 1.BotLos" />
+	</debugitem>
+	
+	
+	<!--6、ThrCnt：该值不为0，并且增加时,硬件上报帧/场丢失的次数。-->
+	<debugitem errorcode="016006" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="VI PHYCHN STATUS 2.ThrCnt" />
+		        <unequals arg1="VI PHYCHN STATUS 2.ThrCnt" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="说明硬件采集有丢场或丢帧的现象。" />
+		<remark lang="zh" message="ThrCnt={0}" arg1="VI PHYCHN STATUS 2.ThrCnt" />
+	</debugitem>
+	
+	
+	<!--7、AutoDis：该值不为0，并且增加时，因中断过多自动关闭MASK的次数。-->
+	<debugitem errorcode="016007" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="VI PHYCHN STATUS 2.AutoDis" />
+		        <unequals arg1="VI PHYCHN STATUS 2.AutoDis" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="中断间隔过短，可能是接触不良，或者是时序异常。" />
+		<remark lang="zh" message="AutoDis={0}" arg1="VI PHYCHN STATUS 2.AutoDis" />
+	</debugitem>
+	
+	<!--8、CasAutD：该值不为0，并且增加时，VI/VO级联时，因中断被延迟，可能造成串屏问题而丢弃的图像次数。-->
+	<debugitem errorcode="016008" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="VI PHYCHN STATUS 2.CasAutD" />
+		        <unequals arg1="VI PHYCHN STATUS 2.CasAutD" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="级联中断间隔异常。" />
+		<remark lang="zh" message="CasAutD={0}" arg1="VI PHYCHN STATUS 2.CasAutD" />
+	</debugitem>
+	
+	<!--9、TmgErr：该值不为0，并且增加时,统计BUF溢出等异常中断次数。-->
+	<debugitem errorcode="016009" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="VI PHYCHN STATUS 2.TmgErr" />
+		        <unequals arg1="VI PHYCHN STATUS 2.TmgErr" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="硬件采集异常。" />
+		<remark lang="zh" message="TmgErr={0}" arg1="VI PHYCHN STATUS 2.TmgErr" />
+	</debugitem>
+	
+	<!--10、ccErrN：该值不为0，并且增加时,采集未完成的帧/场数。-->
+	<debugitem errorcode="016010" level="error" >
+		<condition>	
+			<and>
+		       <changed arg1="VI PHYCHN STATUS 2.ccErrN" />
+		       <unequals arg1="VI PHYCHN STATUS 2.ccErrN" value="2" />
+			</and>	
+		</condition>
+		<log lang="zh" message="产生此现象的可能原因是：时序异常、帧率控制。" />
+		<remark lang="zh" message="ccErrN={0}" arg1="VI PHYCHN STATUS 2.ccErrN" />
+	</debugitem>
+	
+	<!--11、SwLost：该值不为0，并且增加时,通道软件丢帧计数。-->
+	<debugitem errorcode="016011" level="error" >
+		<condition>
+			<and>		
+				<changed arg1="VI CHN STATUS.SwLost" />
+		        <unequals arg1="VI CHN STATUS.SwLost" value="0" />	
+			</and>				
+		</condition>
+		<log lang="zh" message="产生此现象的可能原因是：内存不够、调用VGS失败。" />
+		<remark lang="zh" message="SwLost={0}" arg1="VI CHN STATUS.SwLost" />
+	</debugitem>	
+	
+	<!--12、BufCnt>2时，有内存释放失败，内存泄漏。-->
+	<debugitem errorcode="016012" level="error" >
+		<condition>
+			<and>		
+				<changed arg1="VI PHYCHN STATUS 1.BufCnt" />
+		        <largerthan arg1="VI PHYCHN STATUS 1.BufCnt" value="2" />	
+			</and>				
+		</condition>
+		<log lang="zh" message="有内存释放失败，内存泄漏。" />
+		<remark lang="zh" message="BufCnt={0}" arg1="VI PHYCHN STATUS 1.BufCnt" />
+	</debugitem>	
+	
+	<!--13、UsrBgnNOk：该值不为0，并且增加时,发送用用户图片时，调用VGS缩放图片失败，可能是VGS资源不够了。-->
+	<debugitem errorcode="016013" level="error" >
+		<condition>
+			<and>		
+				<changed arg1="VI CHN CALL VGS STATUS 1.UsrBgnNOk" />
+		        <unequals arg1="VI CHN CALL VGS STATUS 1.UsrBgnNOk" value="0" />	
+			</and>				
+		</condition>
+		<log lang="zh" message="发送用户图片时，调用VGS，begin job失败，可能是VGS资源不够了。" />
+		<remark lang="zh" message="UsrBgnNOk={0}" arg1="VI CHN CALL VGS STATUS 1.UsrBgnNOk" />
+	</debugitem>	
+	
+	<!--14、UsrCancel：该值不为0，并且增加时,,发送用用户图片时，调用VGS缩放图片失败，可能是VGS资源不够了。-->
+	<debugitem errorcode="016014" level="error" >
+		<condition>
+			<and>		
+				<changed arg1="VI CHN CALL VGS STATUS 1.UsrCancel" />
+		        <unequals arg1="VI CHN CALL VGS STATUS 1.UsrCancel" value="0" />	
+			</and>				
+		</condition>
+		<log lang="zh" message="发送用户图片时，调用VGS，添加task或者提交job失败，可能是VGS资源不够了。" />
+		<remark lang="zh" message="UsrCancel={0}" arg1="VI CHN CALL VGS STATUS 1.UsrCancel" />
+	</debugitem>	
+	
+	<!--15、CvrBgnNOk：该值不为0，并且增加时,调用VGS打COVEREX失败，可能是VGS资源不够了。-->
+	<debugitem errorcode="016015" level="error" >
+		<condition>
+			<and>		
+				<changed arg1="VI CHN CALL VGS STATUS 1.CvrBgnNOk" />
+		        <unequals arg1="VI CHN CALL VGS STATUS 1.CvrBgnNOk" value="0" />	
+			</and>				
+		</condition>
+		<log lang="zh" message="调用VGS打COVEREX时，begin job失败，可能是VGS资源不够了。" />
+		<remark lang="zh" message="CvrBgnNOk={0}" arg1="VI CHN CALL VGS STATUS 1.CvrBgnNOk" />
+	</debugitem>	
+	
+	<!--16、CvrCancel：该值不为0，并且增加时,调用VGS打COVEREX失败，可能是VGS资源不够了。-->
+	<debugitem errorcode="016016" level="error" >
+		<condition>
+			<and>		
+				<changed arg1="VI CHN CALL VGS STATUS 1.CvrCancel" />
+		        <unequals arg1="VI CHN CALL VGS STATUS 1.CvrCancel" value="0" />	
+			</and>				
+		</condition>
+		<log lang="zh" message="调用VGS打COVEREX时，添加task或者提交job失败，可能是VGS资源不够了。" />
+		<remark lang="zh" message="CvrCancel={0}" arg1="VI CHN CALL VGS STATUS 1.CvrCancel" />
+	</debugitem>	
+	
+	<!--17、OsdBgnNOk：该值不为0，并且增加时,调用VGS打OSD失败，可能是VGS资源不够了。-->
+	<debugitem errorcode="016017" level="error" >
+		<condition>
+			<and>		
+				<changed arg1="VI CHN CALL VGS STATUS 2.OsdBgnNOk" />
+		        <unequals arg1="VI CHN CALL VGS STATUS 2.OsdBgnNOk" value="0" />	
+			</and>				
+		</condition>
+		<log lang="zh" message="调用VGS打OSD时，begin job失败，可能是VGS资源不够了。" />
+		<remark lang="zh" message="OsdBgnNOk={0}" arg1="VI CHN CALL VGS STATUS 2.OsdBgnNOk" />
+	</debugitem>	
+	
+	<!--18、OsdCancel：该值不为0，并且增加时,调用VGS打OSD失败，可能是VGS资源不够了。-->
+	<debugitem errorcode="016018" level="error" >
+		<condition>
+			<and>		
+				<changed arg1="VI CHN CALL VGS STATUS 2.OsdCancel" />
+		        <unequals arg1="VI CHN CALL VGS STATUS 2.OsdCancel" value="0" />	
+			</and>				
+		</condition>
+		<log lang="zh" message="调用VGS打COVEREX时，添加task或者提交job失败，可能是VGS资源不够了。" />
+		<remark lang="zh" message="OsdCancel={0}" arg1="VI CHN CALL VGS STATUS 2.OsdCancel" />
+	</debugitem>	
+	
+	<!--19、ScaleNOk：该值不为0，并且增加时,调用VGS进行缩放时失败，可能是VGS资源不够了。-->
+	<debugitem errorcode="016019" level="error" >
+		<condition>
+			<and>		
+				<changed arg1="VI CHN CALL VGS STATUS 2.ScaleNOk" />
+		        <unequals arg1="VI CHN CALL VGS STATUS 2.ScaleNOk" value="0" />	
+			</and>				
+		</condition>
+		<log lang="zh" message="调用VGS进行缩放时，begin job失败，可能是VGS资源不够了。" />
+		<remark lang="zh" message="ScaleNOk={0}" arg1="VI CHN CALL VGS STATUS 2.ScaleNOk" />
+	</debugitem>	
+	
+	<!--20、SclCancel：该值不为0，并且增加时,调用VGS进行缩放时失败，可能是VGS资源不够了。-->
+	<debugitem errorcode="016020" level="error" >
+		<condition>
+			<and>		
+				<changed arg1="VI CHN CALL VGS STATUS 2.SclCancel" />
+		        <unequals arg1="VI CHN CALL VGS STATUS 2.SclCancel" value="0" />	
+			</and>				
+		</condition>
+		<log lang="zh" message="调用VGS进行缩放时，添加task或者提交job失败，可能是VGS资源不够了。" />
+		<remark lang="zh" message="SclCancel={0}" arg1="VI CHN CALL VGS STATUS 2.SclCancel" />
+	</debugitem>	
+	
+	<!--21、OverCnt：该值不为0，并且增加时,中断时间间隔超过规定时间的次数。-->
+	<debugitem errorcode="016021" level="warning" >
+		<condition>	
+			<and>
+		       <changed arg1="VI PHYCHN STATUS 2.OverCnt" />
+		       <unequals arg1="VI PHYCHN STATUS 2.OverCnt" value="0" />
+			</and>	
+		</condition>
+		<log lang="zh" message="中断时间间隔超过规定时间（模块参数int_gap_time）。" />
+		<remark lang="zh" message="OverCnt={0}" arg1="VI PHYCHN STATUS 2.OverCnt" />
+	</debugitem>	
+	
+	<!--22、LIntCnt：该值不为0，并且增加时,中断处理时间超过规定时间的次数。-->
+	<debugitem errorcode="016022" level="warning" >
+		<condition>	
+			<and>
+		       <changed arg1="VI PHYCHN STATUS 2.LIntCnt" />
+		       <unequals arg1="VI PHYCHN STATUS 2.LIntCnt" value="0" />
+			</and>	
+		</condition>
+		<log lang="zh" message="中断处理时间超过规定时间（模块参数int_time）。" />
+		<remark lang="zh" message="LIntCnt={0}" arg1="VI PHYCHN STATUS 2.LIntCnt" />
+	</debugitem>	
+</modul>
+
+<modul name="H264E" proc="cat /proc/umap/h264e" device="null" channel="ID" tabletitle="CHN ATTR">
+	
+	<!--1、当Lost发生变化且!=0时，编码有丢帧，丢帧原因包括编码器硬件异常、码流buffer空间不足、超大帧、帧率控制、瞬时码率过冲。-->
+	<debugitem errorcode="010001" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="PICTURE INFO.Lost" />
+		        <unequals arg1="PICTURE INFO.Lost" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="编码有丢帧，丢帧原因包括编码器硬件异常、码流buffer空间不足、超大帧、帧率控制、瞬时码率过冲。" />
+		<remark lang="zh" message="Lost={0}" arg1="PICTURE INFO.Lost" />
+	</debugitem>
+	
+	<!--2、当Disc发生变化且!=0时，编码有丢帧，丢帧原因包括编码器硬件异常、码流buffer空间不足、超大帧。-->
+	<debugitem errorcode="010002" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="PICTURE INFO.Disc" />
+		        <unequals arg1="PICTURE INFO.Disc" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="编码有丢帧，丢帧原因包括编码器硬件异常、码流buffer空间不足、超大帧。" />
+		<remark lang="zh" message="Disc={0}" arg1="PICTURE INFO.Disc" />
+	</debugitem>
+	
+	<!--3、当Skip发生变化且!=0时，编码有丢帧，丢帧原因包括帧率控制、瞬时码率过冲。-->
+	<debugitem errorcode="010003" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="PICTURE INFO.Skip" />
+		        <unequals arg1="PICTURE INFO.Skip" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="编码有丢帧，丢帧原因包括帧率控制、瞬时码率过冲。" />
+		<remark lang="zh" message="Skip={0}" arg1="PICTURE INFO.Skip" />
+	</debugitem>
+	
+	<!--4、当UnrdStr >= 10时，编码码流buffer里有较多帧未获取的码流。-->
+	<debugitem errorcode="010004" level="warning" >
+		<condition>
+		    <and>
+				<largerthan arg="PICTURE INFO.UnrdStr" value="9" />
+		    </and>
+		</condition>
+		<log lang="zh" message="编码码流buffer里有较多帧未获取的码流。" />
+		<remark lang="zh" message="UnrdStr={0}" arg1="PICTURE INFO.UnrdStr" />
+	</debugitem>
+	
+</modul>
+
+<modul name="JPEGE" proc="cat /proc/umap/jpege" device="null" channel="ID" tabletitle="ATTRIBUTE">
+	
+	<!--1、当FullInt发生变化且!=0时，硬件编码过程中发现码流buffer空间不足而导致丢帧。-->
+	<debugitem errorcode="006001" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="STATUS2.FullInt" />
+		        <unequals arg1="STATUS2.FullInt" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="硬件编码过程中发现码流buffer空间不足而导致丢帧。" />
+		<remark lang="zh" message="FullInt={0}" arg1="STATUS2.FullInt" />
+	</debugitem>
+	
+	<!--1、当StrmCnt发生变化且>= 10时，编码码流buffer里有较多帧未获取的码流。-->
+	<debugitem errorcode="006002" level="warning" >
+		<condition>
+		    <and>	
+				<changed arg1="STATUS1.StrmCnt" />
+				<largerthan arg="STATUS1.StrmCnt" value="9" />
+		    </and>
+		</condition>
+		<log lang="zh" message="编码码流buffer里有较多帧未获取的码流。" />
+		<remark lang="zh" message="StrmCnt={0}" arg1="STATUS1.StrmCnt" />
+	</debugitem>
+	
+	<!--2、当PicDroped发生变化且!=0时，编码有丢帧，丢帧原因包括码流buffer满、帧率控制、瞬时码率过冲。-->
+	<debugitem errorcode="006003" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="STATUS2.PicDroped" />
+		        <unequals arg1="STATUS2.PicDroped" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="硬件编码过程中发现码流buffer空间不足而导致丢帧。" />
+		<remark lang="zh" message="PicDroped={0}" arg1="STATUS2.PicDroped" />
+	</debugitem>
+	
+	<!--3、当PicDisc发生变化且!=0时，编码有丢帧，丢帧原因包括编码器硬件异常、超大帧、码流buffer空间不足。-->
+	<debugitem errorcode="006004" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="STATUS2.PicDisc" />
+		        <unequals arg1="STATUS2.PicDisc" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="编码有丢帧，丢帧原因包括编码器硬件异常、超大帧、码流buffer空间不足。" />
+		<remark lang="zh" message="PicDisc={0}" arg1="STATUS2.PicDisc" />
+	</debugitem>
+	
+	<!--4、当NoStmCnt发生变化且!=0时，码流Buffer中缓存的码流帧数超出最大码流帧数MaxStrm。-->
+	<debugitem errorcode="006005" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="STATUS2.NoStmCnt" />
+		        <unequals arg1="STATUS2.NoStmCnt" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="码流Buffer中缓存的码流帧数超出最大码流帧数MaxStrm。" />
+		<remark lang="zh" message="NoStmCnt={0}" arg1="STATUS2.NoStmCnt" />
+	</debugitem>
+	
+	<!--5、当RcFail发生变化且!=0时，帧率控制或瞬时码率超过阈值时导致编码丢帧。-->
+	<debugitem errorcode="006006" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="STATUS2.RcFail" />
+		        <unequals arg1="STATUS2.RcFail" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="帧率控制或瞬时码率超过阈值时导致编码丢帧。" />
+		<remark lang="zh" message="RcFail={0}" arg1="STATUS2.RcFail" />
+	</debugitem>
+	
+</modul>
+
+<modul name="REGION" proc="cat /proc/umap/rgn" device="null" channel="Hdl" tabletitle="REGION STATUS OF OVERLAY">
+	
+	<!--1、当JobFail发生变化且!=0时，OVERLAY任务，向TDE提交job时失败。-->
+	<debugitem errorcode="003001" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="REGION CALL TDE STATUS OF OVERLAY.JobFail" />
+		        <unequals arg1="REGION CALL TDE STATUS OF OVERLAY.JobFail" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="OVERLAY任务，向TDE提交job时失败。" />
+		<remark lang="zh" message="JobFail={0}" arg1="REGION CALL TDE STATUS OF OVERLAY.JobFail" />
+	</debugitem>
+	
+	<!--2、当TaskFail发生变化且!=0时，OVERLAY任务，向TDE的job中添加task失败。-->
+	<debugitem errorcode="003002" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="REGION CALL TDE STATUS OF OVERLAY.TaskFail" />
+		        <unequals arg1="REGION CALL TDE STATUS OF OVERLAY.TaskFail" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="OVERLAY任务，向TDE的job中添加task失败。" />
+		<remark lang="zh" message="TaskFail={0}" arg1="REGION CALL TDE STATUS OF OVERLAY.TaskFail" />
+	</debugitem>
+	
+	<!--3、当EndFail发生变化且!=0时，OVERLAY任务，TDE的job完成失败。-->
+	<debugitem errorcode="003003" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="REGION CALL TDE STATUS OF OVERLAY.EndFail" />
+		        <unequals arg1="REGION CALL TDE STATUS OF OVERLAY.EndFail" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="OVERLAY任务，TDE的job完成失败。" />
+		<remark lang="zh" message="EndFail={0}" arg1="REGION CALL TDE STATUS OF OVERLAY.EndFail" />
+	</debugitem>
+	
+	<!--4、当JobFail发生变化且!=0时，OVERLAYEX任务，向TDE提交job时失败。-->
+	<debugitem errorcode="003004" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="REGION CALL TDE STATUS OF OVERLAYEX.JobFail" />
+		        <unequals arg1="REGION CALL TDE STATUS OF OVERLAYEX.JobFail" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="OVERLAYEX任务，向TDE提交job时失败。" />
+		<remark lang="zh" message="JobFail={0}" arg1="REGION CALL TDE STATUS OF OVERLAYEX.JobFail" />
+	</debugitem>
+	
+	<!--5、当TaskFail发生变化且!=0时，OVERLAYEX任务，向TDE的job中添加task失败。-->
+	<debugitem errorcode="003005" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="REGION CALL TDE STATUS OF OVERLAYEX.TaskFail" />
+		        <unequals arg1="REGION CALL TDE STATUS OF OVERLAYEX.TaskFail" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="OVERLAYEX任务，向TDE的job中添加task失败。" />
+		<remark lang="zh" message="TaskFail={0}" arg1="REGION CALL TDE STATUS OF OVERLAYEX.TaskFail" />
+	</debugitem>
+	
+	<!--6、当EndFail发生变化且!=0时，OVERLAYEX任务，TDE的job完成失败。-->
+	<debugitem errorcode="003006" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="REGION CALL TDE STATUS OF OVERLAYEX.EndFail" />
+		        <unequals arg1="REGION CALL TDE STATUS OF OVERLAYEX.EndFail" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="OVERLAYEX任务，TDE的job完成失败。" />
+		<remark lang="zh" message="EndFail={0}" arg1="REGION CALL TDE STATUS OF OVERLAYEX.EndFail" />
+	</debugitem>
+	
+</modul>
+
+<modul name="VDA" proc="cat /proc/umap/vda" device="null" channel="NO." tabletitle="VDA CALL VGS STATE">
+	
+	<!--1、当JobFail发生变化且!=0时，VDA 向VGS提交job失败。-->
+	<debugitem errorcode="009001" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="VDA CALL VGS STATE.JobFail" />
+		        <unequals arg1="VDA CALL VGS STATE.JobFail" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VDA向VGS提交job失败。" />
+		<remark lang="zh" message="JobFail={0}" arg1="VDA CALL VGS STATE.JobFail" />
+	</debugitem>
+	
+	<!--2、当TaskFail发生变化且!=0时，VDA向VGS的job中添加task失败。-->
+	<debugitem errorcode="009002" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="VDA CALL VGS STATE.TaskFail" />
+		        <unequals arg1="VDA CALL VGS STATE.TaskFail" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VDA向VGS的job中添加task失败。" />
+		<remark lang="zh" message="TaskFail={0}" arg1="VDA CALL VGS STATE.TaskFail" />
+	</debugitem>
+	
+	<!--3、当JobFinFail发生变化且!=0时，VDA向VGS提交的job完成失败。-->
+	<debugitem errorcode="009003" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="VDA CALL VGS STATE.JobFinFail" />
+		        <unequals arg1="VDA CALL VGS STATE.JobFinFail" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VDA向VGS提交的job完成失败。" />
+		<remark lang="zh" message="JobFinFail={0}" arg1="VDA CALL VGS STATE.JobFinFail" />
+	</debugitem>
+	
+	<!--4、当LstPicC发生变化且!=0时，VDA图像乱序导致丢帧。-->
+	<debugitem errorcode="009004" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="VDA STATE2.LstPicC" />
+		        <unequals arg1="VDA STATE2.LstPicC" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VDA图像乱序导致丢帧。" />
+		<remark lang="zh" message="LstPicC={0}" arg1="VDA STATE2.LstPicC" />
+	</debugitem>
+	
+	<!--5、当Recv>VdaC+1，且bScdu为1时，VDA错误。-->
+	<debugitem errorcode="009005" level="error" >
+		<condition>
+		    <and>
+		        <equals arg1="VDA STATE.bScdu" value="1" />
+		        <largerthan arg1="VDA STATE2.Recv" arg2="VDA STATE.VdaC + 1" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VDA处理出错。" />
+		<remark lang="zh" message="无" />
+	</debugitem>
+	
+	<!--6、当bScdu变化，且为0时，通道停止工作。-->
+	<debugitem errorcode="009006" level="info" >
+		<condition>
+		    <and>
+		        <changed arg1="VDA STATE.bScdu" />
+		        <equals arg1="VDA STATE.bScdu" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VDA通道停止工作。" />
+		<remark lang="zh" message="无" />
+	</debugitem>
+	
+</modul>
+
+<modul name="VDEC" proc="cat /proc/umap/vdec" device="null" channel="ID" tabletitle="Detail Stream STATE">
+	
+	<!--1、当PrtclErr发生变化且!=0时，协议参数设置错误。MaxSlice、MaxSPS、MaxPPS中至少有一个设置不够。-->
+	<debugitem errorcode="005001" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="CHN STATE.PrtclErr" />
+		        <unequals arg1="CHN STATE.PrtclErr" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="协议参数设置错误。MaxSlice、MaxSPS、MaxPPS中至少有一个设置不够大。" />
+		<remark lang="zh" message="PrtclErr={0}" arg1="CHN STATE.PrtclErr" />
+	</debugitem>
+	
+	<!--2、当StrmUnSP发生变化且!=0时，码流规格不支持。-->
+	<debugitem errorcode="005002" level="error">
+		<condition>
+		    <and>
+		        <changed arg1="CHN STATE.StrmUnSP" />
+		        <unequals arg1="CHN STATE.StrmUnSP" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh">码流规格不支持。</log>
+		<remark lang="zh" message="StrmUnSP={0}" arg1="CHN STATE.StrmUnSP" />
+	</debugitem>
+	
+	<!--3、当StrmErro发生变化且r!=0时，码流有错。这时如果ErrThr!=100，把ErrThr设置为100可能会解出更多图像。-->
+	<debugitem errorcode="005003" level="error">
+		<condition>
+		    <and>
+		        <changed arg1="CHN STATE.StrmError" />
+		        <unequals arg1="CHN STATE.StrmError" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh">码流有错，如果把ErrThr设置为100可能会解出更多图像。</log>
+		<remark lang="zh" message="StrmError={0}" arg1="CHN STATE.StrmError" />
+	</debugitem>
+	
+	<!--4、当RefNumErr发生变化且!=0时，参考帧个数设置错误。RefNum设置不够。-->
+	<debugitem errorcode="005004" level="error">
+		<condition>
+		    <and>
+		        <changed arg1="CHN STATE.RefNumErr" />
+		        <unequals arg1="CHN STATE.RefNumErr" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh">参考帧个数设置错误，RefNum设置不够大。</log>
+		<remark lang="zh" message="RefNumErr={0}" arg1="CHN STATE.RefNumErr" />
+	</debugitem>
+	
+	<!--5、当PicSizeErr发生变化且!=0时，图片总大小超过通道宽x通道高。应该创建宽高更大的解码通道。-->
+	<debugitem errorcode="005005" level="error">
+		<condition>
+		    <and>
+		        <changed arg1="CHN STATE.PicSizeErr" />
+		        <unequals arg1="CHN STATE.PicSizeErr" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh">图片总大小超过通道宽x通道高，应该创建宽高更大的解码通道。</log>
+		<remark lang="zh" message="PicSizeErr={0}" arg1="CHN STATE.PicSizeErr" />
+	</debugitem>
+	
+	<!--6、当fmterror发生变化且!=0时，码流格式不支持。-->
+	<debugitem errorcode="005006" level="error">
+		<condition>
+		    <and>
+		        <changed arg1="CHN STATE.fmterror" />
+		        <unequals arg1="CHN STATE.fmterror" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh">码流格式不支持。</log>
+		<remark lang="zh" message="fmterror={0}" arg1="CHN STATE.fmterror" />
+	</debugitem>
+	
+	<!--7、当PicBufSizeErr发生变化且!=0时，图像Buffer不够大。-->
+	<debugitem errorcode="005007" level="error">
+		<condition>
+		    <and>
+		        <changed arg1="CHN STATE.PicBufSizeErr" />
+		        <unequals arg1="CHN STATE.PicBufSizeErr" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh">图像Buffer不够大。</log>
+		<remark lang="zh" message="PicBufSizeErr={0}" arg1="CHN STATE.PicBufSizeErr" />
+	</debugitem>
+	
+	<!--GetPicVbFail-->
+	<!--8、当GetPicVbFail发生变化且!=0时，PicVB分配不足。-->
+	<debugitem errorcode="005008" level="error">
+		<condition>
+		    <and>
+		        <changed arg1="Detail FrameStore STATE.GetPicVbFail" />
+		        <unequals arg1="Detail FrameStore STATE.GetPicVbFail" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh">PicVB分配不足。</log>
+		<remark lang="zh" message="GetPicVbFail={0}" arg1="Detail FrameStore STATE.GetPicVbFail" />
+	</debugitem>
+	
+	<!--GetPmvVbFail-->
+	<!--9、当GetPmvVbFail发生变化且!=0时，PmvVB分配不足。-->
+	<debugitem errorcode="005009" level="error">
+		<condition>
+		    <and>
+		        <changed arg1="Detail FrameStore STATE.GetPmvVbFail" />
+		        <unequals arg1="Detail FrameStore STATE.GetPmvVbFail" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh">PmvVB分配不足。</log>
+		<remark lang="zh" message="GetPmvVbFail={0}" arg1="Detail FrameStore STATE.GetPmvVbFail" />
+	</debugitem>
+	
+	<!--10、当MpiSndNum、FmNewPic、KerSnd长时间（60s应该足够长了）计数不增加且都为非0值，且DisplayMode为“PlayBack”且UserNode>1时, VDEC由于被反压而停止解码。-->
+	<debugitem errorcode="005010" level="error">
+		<condition>
+		    <and>
+		        <unchanged arg1="Detail Stream STATE.MpiSndNum" time="60"/>
+		        <unchanged arg1="Detail FrameStore STATE.FmNewPic" time="60"/>
+		        <unchanged arg1="Detail FrameStore STATE.KerSnd" time="60"/>
+		        <unequals arg1="Detail Stream STATE.MpiSndNum" value="0" />
+		        <unequals arg1="Detail FrameStore STATE.FmNewPic" value="0" />
+		        <unequals arg1="Detail FrameStore STATE.KerSnd" value="0" />
+		        <equals arg1="DisplayMode" value="PlayBack" />
+		        <largerthan arg1="Detail FrameStore STATE.UserNode" value="1" />
+		    </and>
+		</condition>
+		<log lang="zh">VDEC由于被反压而停止解码。</log>
+		<remark lang="zh" message="UserNode={0} DisplayMode={1}" arg1="Detail FrameStore STATE.UserNode" arg2="DisplayMode" />
+	</debugitem>
+	
+	<!--11、当MpiSndNum、FmNewPic、UsrSnd长时间（60s应该足够长了）计数不增加且都为非0值，且UserNode!=0时, VDEC由于被反压而停止解码。-->
+	<debugitem errorcode="005011" level="error">
+		<condition>
+		    <and>
+		        <unchanged arg1="Detail Stream STATE.MpiSndNum" time="60"/>
+		        <unchanged arg1="Detail FrameStore STATE.FmNewPic" time="60"/>
+		        <unchanged arg1="Detail FrameStore STATE.UsrSnd" time="60"/>
+		        <unequals arg1="Detail Stream STATE.MpiSndNum" value="0" />
+		        <unequals arg1="Detail FrameStore STATE.FmNewPic" value="0" />
+		        <unequals arg1="Detail FrameStore STATE.UsrSnd" value="0" />
+		        <largerthan arg1="Detail FrameStore STATE.UserNode" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh">VDEC由于被反压而停止解码。</log>
+		<remark lang="zh" message="UserNode={0}" arg1="Detail FrameStore STATE.UserNode" arg2="DisplayMode" />
+	</debugitem>
+	
+	<!--2、当PriVbCnt不为-1，且PriVbCnt<MaxVbCnt时，VB个数分配不足。-->	
+	<debugitem errorcode="005013" level="error">
+		<condition>
+		    <and>
+		        <unequals arg1="PriVbCnt" value="-1" />
+		        <lessthan arg1="PriVbCnt" arg2="MaxVbCnt" />
+		    </and>
+		</condition>
+		<log lang="zh">VB个数分配不足。</log>
+		<remark lang="zh" message="PriVbCnt={0} MaxVbCnt={1}" arg1="PriVbCnt" arg2="MaxVbCnt" />
+	</debugitem>
+	
+	<!--3、当同时满足(1)StrmInputMode是"FRAME/  BLOCK"或者是"FRAME/NOBLOCK"或者是"FRAME/TIMEOUT";
+	(2)MpiSndNum<FmNewPic时，chn ID 发送码流有问题，每次发送的不是一帧码流而是很多帧码流。-->	
+	<debugitem errorcode="005014" level="error">
+		<condition>
+		    <and>
+				<or>
+		        <equals arg1="StrmInputMode" value="FRAME/BLOCK" />
+		        <equals arg1="StrmInputMode" value="FRAME/NOBLOCK" />
+		        <equals arg1="StrmInputMode" value="FRAME/TIMEOUT" />
+				</or>
+		        <lessthan arg1="Detail Stream STATE.MpiSndNum" arg2="Detail FrameStore STATE.FmNewPic" />
+		    </and>
+		</condition>
+		<log lang="zh">发送码流有问题，每次发送的不是一帧码流而是很多帧码流。</log>
+		<remark lang="zh" message="StrmInputMode={0} MpiSndNum={1}" arg1="StrmInputMode" arg2="Detail FrameStore STATE.FmNewPic" />
+	</debugitem>
+	
+    <!--1、如果MiniBufMode==1，解码码流buffer使用省内存模式，请注意超大帧处理。-->
+	<debugitem errorcode="005015" level="warning" type="once">
+		<condition>
+		    <and>
+		        <equals arg1="MODULE PARAM.MiniBufMode" value="1" />
+		    </and>
+		</condition>
+		<log lang="zh">解码码流buffer使用省内存模式，请注意超大帧处理。</log>
+		<remark lang="zh" message="MiniBufMode={0}" arg1="MODULE PARAM.MiniBufMode" />
+	</debugitem>
+	
+	<!--1、当DecMode为“IPB”且OutMode为“Dec”时，如果码流有B帧，则解码序输出可能导致图像播放乱序。-->
+	<debugitem errorcode="005016" level="warning">
+		<condition>
+			<and>
+				<equals arg="DecMode" value="IPB" />
+				<equals arg="OutMode" value="Dec" />
+			</and>
+		</condition>
+		<log lang="zh">码流有B帧，则解码序输出可能导致图像播放乱序。</log>
+		<remark lang="zh" message="DecMode={0} OutMode={1}" arg1="DecMode" arg2="OutMode"/>
+	</debugitem>	
+	
+	<!--2、当BusyNode > 1，解码后端处理图像较慢，有BusyNode个已解码图像堆积在VDEC内部。-->
+	<debugitem errorcode="005017" level="warning">
+		<condition>
+			<and>
+				<largerthan arg="Detail FrameStore STATE.BusyNode" value="1" />
+			</and>
+		</condition>
+		<log lang="zh">解码后端处理图像较慢，有部分已解码图像堆积在VDEC内部。</log>
+		<remark lang="zh" message="BusyNode={0}" arg1="Detail FrameStore STATE.BusyNode" />
+	</debugitem>
+	
+	<!--3、当Discard发生变化且!=0，有用户数据被丢弃。-->
+	<debugitem errorcode="005018" level="warning">
+		<condition>
+			<and>
+				<changed arg1="Detail UserData STATE.Discard" />
+		        <unequals arg1="Detail UserData STATE.Discard" value="0" />
+			</and>
+		</condition>
+		<log lang="zh">有用户数据被丢弃。</log>
+		<remark lang="zh" message="Discard={0}" arg1="Detail UserData STATE.Discard" />
+	</debugitem>
+	
+	<!--	4、如果MpiSndNum、MpiSndLen、FmGetNum、FmGetLen、FmRlsNum、FmRlsLen、 FmLstGet、UsrSnd都由非0值变为0，且UserNode不为0，通道已复位，但还有解码图像未释放。-->
+	<debugitem errorcode="005019" level="warning">
+		<condition>
+			<and>
+				<changed arg1="Detail Stream STATE.MpiSndNum"/>
+				<changed arg1="Detail Stream STATE.MpiSndLen"/>
+				<changed arg1="Detail Stream STATE.FmGetNum"/>
+				<changed arg1="Detail Stream STATE.FmGetLen"/>
+				<changed arg1="Detail Stream STATE.FmRlsNum"/>
+				<changed arg1="Detail Stream STATE.FmRlsLen"/>
+				<changed arg1="Detail Stream STATE.FmLstGet"/>
+				<changed arg1="Detail FrameStore STATE.UsrSnd"/>
+				<equals arg1="Detail Stream STATE.MpiSndNum" value="0" />
+				<equals arg1="Detail Stream STATE.MpiSndLen" value="0" />
+				<equals arg1="Detail Stream STATE.FmGetNum" value="0" />
+				<equals arg1="Detail Stream STATE.FmGetLen" value="0" />
+				<equals arg1="Detail Stream STATE.FmRlsNum" value="0" />
+				<equals arg1="Detail Stream STATE.FmRlsLen" value="0" />
+				<equals arg1="Detail Stream STATE.FmLstGet" value="0" />
+				<equals arg1="Detail FrameStore STATE.UsrSnd" value="0" />
+				<unequals arg1="Detail FrameStore STATE.UserNode" value="0" />
+			</and>
+		</condition>
+		<log lang="zh">通道已复位，但还有解码图像未释放。</log>
+		<remark lang="zh" message="UserNode={0}" arg1="Detail FrameStore STATE.UserNode" />
+	</debugitem>
+	
+	<!--5、当CurPicPts一直为某一个非0值（统计10秒），PTS异常，一直为CurPicPts。-->
+	<!--Detail FrameStore STATE.CurPicPts-->
+	<debugitem errorcode="005020" level="warning" >
+		<condition>
+			<and>
+				<unchanged arg1="Detail FrameStore STATE.CurPicPts" time="10"/>
+				<unequals arg1="Detail FrameStore STATE.CurPicPts" value="0"/>
+			</and>
+		</condition>
+		<log lang="zh">PTS异常。</log>
+		<remark lang="zh" message="CurPicPts={0}" arg1="Detail FrameStore STATE.CurPicPts" />
+	</debugitem>
+	
+	<debugitem errorcode="005021" level="warning" >
+		<condition>
+			<and>
+				<largerthan arg1="CHN STATE.NoVb" arg2="0"/>
+			</and>
+		</condition>
+		<log lang="zh">VB分配不够。</log>
+		<remark lang="zh" message="NoVb={0}" arg1="CHN STATE.NoVb" />
+	</debugitem>
+	
+	<debugitem errorcode="005022" level="error" >
+		<condition>
+			<and>
+				<largerthan arg1="CHN STATE.StrmNotRls" arg2="0"/>
+			</and>
+		</condition>
+		<log lang="zh">VFMW码流长时间没有释放。</log>
+		<remark lang="zh" message="StrmNotRls={0}" arg1="CHN STATE.StrmNotRls" />
+	</debugitem>
+	<debugitem errorcode="005023" level="error" >
+		<condition>
+			<and>
+				<largerthan arg1="Detail Stream STATE.FmRlsFail" arg2="0"/>
+			</and>
+		</condition>
+		<log lang="zh">码流释放失败</log>
+		<remark lang="zh" message="FmRlsFail={0}" arg1="Detail Stream STATE.FmRlsFail" />
+	</debugitem>
+</modul>
+
+<modul name="VENC" proc="cat /proc/umap/venc" device="null" channel="NO." tabletitle="VENC CHN ATTR 1">
+	
+	<!--1、当VbFail发生变化且!=0时，VENC被VPSS查询时，VENC申请VB失败。-->
+	<debugitem errorcode="008001" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="Venc VPSS QUERY.VbFail" />
+		        <unequals arg1="Venc VPSS QUERY.VbFail" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VENC被VPSS查询时，VENC申请VB失败。" />
+		<remark lang="zh" message="VbFail={0}" arg1="Venc VPSS QUERY.VbFail" />
+	</debugitem>
+	
+	<!--2、当InfoErr发生变化且!=0时，源图像信息不符合要求，VENC被VPSS查询失败。-->
+	<debugitem errorcode="008002" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="Venc VPSS QUERY.InfoErr" />
+		        <unequals arg1="Venc VPSS QUERY.InfoErr" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="源图像信息不符合要求，VENC被VPSS查询失败。" />
+		<remark lang="zh" message="InfoErr={0}" arg1="Venc VPSS QUERY.InfoErr" />
+	</debugitem>
+	
+	<!--3、当VInfErr发生变化且!=0时，VPSS发送图像，图像信息错误导致发送失败。-->
+	<debugitem errorcode="008003" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="Venc SEND1.VInfErr" />
+		        <unequals arg1="Venc SEND1.VInfErr" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VPSS发送图像，图像信息错误导致发送失败。" />
+		<remark lang="zh" message="VInfErr={0}" arg1="Venc SEND1.VInfErr" />
+	</debugitem>
+	
+	<!--4、当OInfErr发生变化且!=0时，其他模块发送图像，图像信息错误导致发送失败。-->
+	<debugitem errorcode="008004" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="Venc SEND1.OInfErr" />
+		        <unequals arg1="Venc SEND1.OInfErr" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="其他模块发送图像，图像信息错误导致发送失败。" />
+		<remark lang="zh" message="OInfErr={0}" arg1="Venc SEND1.OInfErr" />
+	</debugitem>
+	
+	<!--5、当CropErr发生变化且!=0时，VENC裁剪图像失败。-->
+	<debugitem errorcode="008005" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="Venc SEND1.CropErr" />
+		        <unequals arg1="Venc SEND1.CropErr" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VENC裁剪图像失败。" />
+		<remark lang="zh" message="CropErr={0}" arg1="Venc SEND1.CropErr" />
+	</debugitem>
+	
+	<!--6、当SizeErr发生变化且!=0时，源图像宽高小于编码码流宽高。-->
+	<debugitem errorcode="008006" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="Venc SEND1.SizeErr" />
+		        <unequals arg1="Venc SEND1.SizeErr" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="源图像宽高小于编码码流宽高。" />
+		<remark lang="zh" message="SizeErr={0}" arg1="Venc SEND1.SizeErr" />
+	</debugitem>
+	
+	<!--7、当StartFail发生变化且!=0时，VENC调用VGS，VGS启动失败的次数。-->
+	<debugitem errorcode="008007" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="Venc SEND2.StartFail" />
+		        <unequals arg1="Venc SEND2.StartFail" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VENC调用VGS，VGS启动失败的次数。" />
+		<remark lang="zh" message="StartFail={0}" arg1="Venc SEND2.StartFail" />
+	</debugitem>
+	
+	<!--8、当IntFail发生变化且!=0时，VENC调用VGS，VGS中断失败的次数。-->
+	<debugitem errorcode="008008" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="Venc SEND2.IntFail" />
+		        <unequals arg1="Venc SEND2.IntFail" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VENC调用VGS，VGS中断失败的次数。" />
+		<remark lang="zh" message="IntFail={0}" arg1="Venc SEND2.IntFail" />
+	</debugitem>
+	
+	<!--1、当Full发生变化且!=0时，VENC被VPSS查询，VENC图像队列满，可能会丢帧。-->
+	<debugitem errorcode="008009" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="Venc VPSS QUERY.Full" />
+		        <unequals arg1="Venc VPSS QUERY.Full" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VENC被VPSS查询，VENC图像队列满，可能会丢帧。" />
+		<remark lang="zh" message="Full={0}" arg1="Venc VPSS QUERY.Full" />
+	</debugitem>
+	
+	<!--2、当QueryFail发生变化且!=0时，VENC被VPSS查询失败，查询失败原因包括源图像不符
+	合要求、帧率控制丢帧、编码器停止接收图像、申请VB失败、图像队列满。-->
+	<debugitem errorcode="008010" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="Venc VPSS QUERY.QueryFail" />
+		        <unequals arg1="Venc VPSS QUERY.QueryFail" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VENC被VPSS查询失败，查询失败原因包括源图像不符合要求、帧率控制丢帧、编码器停止接收图像、申请VB失败、图像队列满。" />
+		<remark lang="zh" message="QueryFail={0}" arg1="Venc VPSS QUERY.QueryFail" />
+	</debugitem>
+	
+	<!--3、当Stop发生变化且!=0时，VENC被VPSS查询，VENC停止接受图像导致查询失败。-->
+	<debugitem errorcode="008011" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="Venc VPSS QUERY.Stop" />
+		        <unequals arg1="Venc VPSS QUERY.Stop" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VENC被VPSS查询，VENC停止接受图像导致查询失败。" />
+		<remark lang="zh" message="Stop={0}" arg1="Venc VPSS QUERY.Stop" />
+	</debugitem>
+	
+	<!--4、当Full发生变化且!=0时，外部模块发送图像，图像队列满，可能会丢帧。-->
+	<debugitem errorcode="008012" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="Venc SEND1.Full" />
+		        <unequals arg1="Venc SEND1.Full" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="外部模块发送图像，图像队列满，可能会丢帧。" />
+		<remark lang="zh" message="Full={0}" arg1="Venc SEND1.Full" />
+	</debugitem>
+	
+	<!--5、当Busy >= 4时，VENC内部堆积了较多图像。-->
+	<debugitem errorcode="008013" level="warning" >
+		<condition>
+		    <and>
+				<changed arg1="Venc PIC QUEUE STATE.Busy" />
+				<largerthan arg="Venc PIC QUEUE STATE.Busy" value="3" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VENC内部堆积了较多图像。" />
+		<remark lang="zh" message="Busy={0}" arg1="Venc PIC QUEUE STATE.Busy" />
+	</debugitem>
+	
+</modul>
+
+<modul name="VGS" proc="cat /proc/umap/vgs" device="null" channel="SeqNo" tabletitle="--RECENT JOB INFO----">
+	<!--1、如果VGS NODE STATUS.SubmitFail发生变化且!=0时，VGS超性能，提交给硬件的节点不够，提交Job给VGS失败。-->
+	<debugitem errorcode="045001" level="warning" type="Gather" >
+		<condition>
+		    <and>
+		        <changed arg1="VGS NODE STATUS.SubmitFail" />
+		        <unequals arg1="VGS NODE STATUS.SubmitFail" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="提交Job给VGS失败，超过了VGS的处理性能。" />
+		<remark lang="zh" message="SubmitFail={0}" arg1="VGS NODE STATUS.SubmitFail" />
+	</debugitem>	
+	
+	<!--2、如果VGS NODE STATUS.IntFail发生变化且!=0时，VGS中断错误的次数。-->
+	<debugitem errorcode="045002" level="error" type="Gather" >
+		<condition>
+		    <and>
+		        <changed arg1="VGS NODE STATUS.IntFail" />
+		        <unequals arg1="VGS NODE STATUS.IntFail" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VGS中断错误。" />
+		<remark lang="zh" message="IntFail={0}" arg1="VGS NODE STATUS.IntFail" />
+	</debugitem>
+	
+	<!--3、如果VGS JOB STATUS.FreeNum=0且持续10秒时，其他模块提交给VGS job错误但是没有及时cancel job。-->
+	<debugitem errorcode="045003" level="error" type="Gather">
+		<condition>
+		    <and>
+			    <unchanged arg1="VGS JOB STATUS.FreeNum" time="10"/>
+			    <equals arg1="VGS JOB STATUS.FreeNum" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="其他模块提交给VGS job错误但是没有及时cancel job。" />
+		<remark lang="zh" message="FreeNum={0}" arg1="VGS JOB STATUS.FreeNum" />
+	</debugitem>
+	
+	<!--4、如果VGS TASK STATUS.FreeNum=0且持续10秒时，其他模块提交给VGS task错误但是没有及时cancel job。-->
+	<debugitem errorcode="045004" level="error" type="Gather">
+		<condition>
+		    <and>
+			    <unchanged arg1="VGS TASK STATUS.FreeNum" time="10"/>
+			    <equals arg1="VGS TASK STATUS.FreeNum" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="其他模块提交给VGS task错误但是没有及时cancel job。" />
+		<remark lang="zh" message="FreeNum={0}" arg1="VGS TASK STATUS.FreeNum" />
+	</debugitem>
+	
+</modul>
+
+<modul name="VPSS" proc="cat /proc/umap/vpss" device="null" channel="GrpID" tabletitle="VPSS GRP ATTR">
+	
+	<!--1、当ViLost!=0时，VPSS有丢帧，预览场景或者系统刚起来未稳定时的丢帧属于正常丢帧。-->
+	<debugitem errorcode="007001" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="VPSS GRP WORK STATUS.ViLost" />
+		        <unequals arg1="VPSS GRP WORK STATUS.ViLost" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VPSS有丢帧，预览场景或者系统刚起来未稳定时的丢帧属于正常丢帧。" />
+		<remark lang="zh" message="ViLost={0}" arg1="VPSS GRP WORK STATUS.ViLost" />
+	</debugitem>
+	
+	<!--2、当VdecLost发生变化且!=0时，VPSS队列满而不接收当前图像。-->
+	<debugitem errorcode="007002" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="VPSS GRP WORK STATUS.VdecLost" />
+		        <unequals arg1="VPSS GRP WORK STATUS.VdecLost" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VPSS队列满而不接收当前图像。" />
+		<remark lang="zh" message="VdecLost={0}" arg1="VPSS GRP WORK STATUS.VdecLost" />
+	</debugitem>
+	
+	<!--3、当StartFl发生变化且!=0时，VPSS查询任务失败, 应检测VPSS后端是否正常绑定与使能。-->
+	<debugitem errorcode="007003" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="VPSS GRP WORK STATUS.StartFl" />
+		        <unequals arg1="VPSS GRP WORK STATUS.StartFl" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VPSS查询任务失败，应检测VPSS后端是否正常绑定与使能。" />
+		<remark lang="zh" message="StartFl={0}" arg1="VPSS GRP WORK STATUS.StartFl" />
+	</debugitem>
+	
+	<!--1、当StartErr0发生变化且!=0，启动VPSS0失败，此错误经常由内存存取异常
+	（数据反转，被踩等）引起。-->
+	<debugitem errorcode="007004" level="error" type="Gather" >
+		<condition>
+		    <and>
+		        <changed arg1="DRV WORK STATUS.StartErr0" />
+		        <unequals arg1="DRV WORK STATUS.StartErr0" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="启动VPSS0失败，此错误经常由内存存取异常（数据反转，被踩等）引起。" />
+		<remark lang="zh" message="StartErr0={0}" arg1="DRV WORK STATUS.StartErr0" />
+	</debugitem>
+	
+	<!--2、当NodeIdErr0发生变化且!=0，读取VPSS0 NodeId错误，此错误经常由内存存取异常
+		（数据反转，被踩等）引起。-->
+	<debugitem errorcode="007005" level="error" type="Gather" >
+		<condition>
+		    <and>
+		        <changed arg1="DRV WORK STATUS.NodeIdErr0" />
+		        <unequals arg1="DRV WORK STATUS.NodeIdErr0" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="读取VPSS0 NodeId错误，此错误经常由内存存取异常（数据反转，被踩等）引起。" />
+		<remark lang="zh" message="NodeIdErr0={0}" arg1="DRV WORK STATUS.NodeIdErr0" />
+	</debugitem>
+	
+	<!--3、当StartErr1发生变化且!=0，启动VPSS1失败，此错误经常由内存存取异常
+	（数据反转，被踩等）引起。-->
+	<debugitem errorcode="007006" level="error" type="Gather" >
+		<condition>
+		    <and>
+		        <changed arg1="DRV WORK STATUS.StartErr1" />
+		        <unequals arg1="DRV WORK STATUS.StartErr1" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="启动VPSS1失败，此错误经常由内存存取异常（数据反转，被踩等）引起。" />
+		<remark lang="zh" message="StartErr1={0}" arg1="DRV WORK STATUS.StartErr1" />
+	</debugitem>
+	
+	<!--4、当NodeIdErr1发生变化且!=0，读取VPSS1 NodeId错误，此错误经常由内存存取异常（数据反转，被踩等）引起。-->
+	<debugitem errorcode="007007" level="error" type="Gather" >
+		<condition>
+		    <and>
+		        <changed arg1="DRV WORK STATUS.NodeIdErr1" />
+		        <unequals arg1="DRV WORK STATUS.NodeIdErr1" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="读取VPSS1 NodeId错误，此错误经常由内存存取异常（数据反转，被踩等）引起。" />
+		<remark lang="zh" message="NodeIdErr1={0}" arg1="DRV WORK STATUS.NodeIdErr1" />
+	</debugitem>
+	
+	<!--5、当StartErr2发生变化且!=0，启动VPSS2失败，此错误经常由内存存取异常
+	（数据反转，被踩等）引起。-->
+	<debugitem errorcode="007008" level="error" type="Gather" >
+		<condition>
+		    <and>
+		        <changed arg1="DRV WORK STATUS.StartErr2" />
+		        <unequals arg1="DRV WORK STATUS.StartErr2" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="启动VPSS2失败，此错误经常由内存存取异常（数据反转，被踩等）引起。" />
+		<remark lang="zh" message="StartErr2={0}" arg1="DRV WORK STATUS.StartErr2" />
+	</debugitem>
+	
+	<!--6、当NodeIdErr2发生变化且!=0，读取VPSS2 NodeId错误，此错误经常由内存存取异常（数据反转，被踩等）引起。-->
+	<debugitem errorcode="007009" level="error" type="Gather" >
+		<condition>
+		    <and>
+		        <changed arg1="DRV WORK STATUS.NodeIdErr2" />
+		        <unequals arg1="DRV WORK STATUS.NodeIdErr2" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="读取VPSS2 NodeId错误，此错误经常由内存存取异常（数据反转，被踩等）引起。" />
+		<remark lang="zh" message="NodeIdErr2={0}" arg1="DRV WORK STATUS.NodeIdErr2" />
+	</debugitem>
+	
+	<!--7、当BusErr发生变化且!=0非，VPSS中断错误。-->
+	<debugitem errorcode="007010" level="error" type="Gather" >
+		<condition>
+		    <and>
+		        <changed arg1="DRV WORK STATUS.BusErr" />
+		        <unequals arg1="DRV WORK STATUS.BusErr" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VPSS中断错误。" />
+		<remark lang="zh" message="BusErr={0}" arg1="DRV WORK STATUS.BusErr" />
+	</debugitem>
+	
+</modul>
+
+﻿<modul name="VO" proc="cat /proc/umap/vo" device="LayerId" channel="ChnId" tabletitle="CHN BASE INFO">
+	
+	<!--1、ByMutli CHN STATUS1 中SCnt前后两次不变 ，高清层LayerId通道ChnId没有收到前端数据。-->
+	<debugitem errorcode="015001" level="error" >
+		<condition>
+		    <and>
+		        <unchanged arg1="ByMutli CHN STATUS1.SCnt" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VOU高清没有收到前端发送的视频数据。" />
+		<remark lang="zh" message="SCnt={0}" arg1="ByMutli CHN STATUS1.SCnt" />
+	</debugitem>
+	
+	<!--2、ByMutli CHN STATUS1 中ChRpt前后两次变化且不为0 ，高清层LayerId通道ChnId丢帧或用重复帧。-->
+	<debugitem errorcode="015002" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="ByMutli CHN STATUS1.ChRpt" />
+				<unequals arg1="ByMutli CHN STATUS1.ChRpt" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="高清层通道丢帧或用重复帧。" />
+		<remark lang="zh" message="ChRpt={0}" arg1="ByMutli CHN STATUS1.ChRpt" />
+	</debugitem>
+	
+	<!--3、ByMutli CHN STATUS1 中LCnt前后两次变化且不为0, 高清层LayerId通道ChnId 预览主动丢帧(大于水线)或回放出现pts错误。-->
+	<debugitem errorcode="015003" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="ByMutli CHN STATUS1.LCnt" />
+				<unequals arg1="ByMutli CHN STATUS1.LCnt" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="预览主动丢帧（大于水线）或回放出现pts错误。" />
+		<remark lang="zh" message="LCnt={0}" arg1="ByMutli CHN STATUS1.LCnt" />
+	</debugitem>
+	
+	<!--4、BySingle CHN STATUS 1 中SCnt前后两次不变，标清通道ChnId没有收到前端数据。-->
+	<debugitem errorcode="015004" level="error" >
+		<condition>
+		    <and>
+		        <unchanged arg1="BySingle CHN STATUS 1.SCnt" />
+		    </and>
+		</condition>
+		<log lang="zh" message="VOU标清通道没有收到前端数据。" />
+		<remark lang="zh" message="SCnt={0}" arg1="BySingle CHN STATUS 1.SCnt" />
+	</debugitem>
+	
+	<!--5、BySingle CHN STATUS 1 中ChRpt前后两次变化且不为0，标清通道ChnId出现丢帧或用重复帧。-->
+	<debugitem errorcode="015005" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="BySingle CHN STATUS 1.ChRpt" />
+				<unequals arg1="BySingle CHN STATUS 1.ChRpt" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="标清通道ChnId出现丢帧或用重复帧。" />
+		<remark lang="zh" message="ChRpt={0}" arg1="BySingle CHN STATUS 1.ChRpt" />
+	</debugitem>
+	
+	<!--6、BySingle CHN STATUS 1 中ChRpt前后两次不变 DRpt前后两次变化 标清设备层显示重复帧。-->
+	<debugitem errorcode="015006" level="warning" >
+		<condition>
+		    <and>
+				<unchanged arg1="BySingle CHN STATUS 1.ChRpt" />
+		        <changed arg1="BySingle CHN STATUS 1.DRpt" />
+		    </and>
+		</condition>
+		<log lang="zh" message="标清设备层显示重复帧。" />
+		<remark lang="zh" message="ChRpt={0} DRpt={1}" arg1="BySingle CHN STATUS 1.ChRpt" arg2="BySingle CHN STATUS 1.DRpt" />
+	</debugitem>
+	
+	<!--7、BySingle CHN STATUS1 中LCnt前后两次变化且不为0，标清通道ChnId出现回放出现pts错误。-->
+	<debugitem errorcode="015007" level="warning" >
+		<condition>
+		    <and>
+		        <changed arg1="BySingle CHN STATUS 1.LCnt" />
+				<unequals arg1="BySingle CHN STATUS 1.LCnt" value="0" />
+		    </and>
+		</condition>
+		<log lang="zh" message="Single模式预览主动丢帧（大于水线）或回放出现pts错误。" />
+		<remark lang="zh" message="LCnt={0}" arg1="BySingle CHN STATUS 1.LCnt" />
+	</debugitem>
+	
+	<!--8、WBC INFO 中NotFin前后出现变化，且不为1，回写帧错误，丢帧处理-->
+	<debugitem errorcode="015008" level="error" >
+		<condition>
+		    <and>
+		        <changed arg1="WBC INFO.NotFin" />
+		        <!-- <unequals arg1="WBC INFO.NotFin" value="1" /> -->
+		    </and>
+		</condition>
+		<log lang="zh" message="回写帧错误，丢帧处理。" />
+		<remark lang="zh" message="NotFin={0}" arg1="WBC INFO.NotFin" />
+	</debugitem>
+	
+</modul>
+</view>

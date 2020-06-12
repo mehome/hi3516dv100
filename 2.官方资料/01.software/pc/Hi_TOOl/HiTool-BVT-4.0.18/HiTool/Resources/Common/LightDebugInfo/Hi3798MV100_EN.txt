@@ -1,0 +1,142 @@
+[Serial]
+
+If the indicator turns red, the tool fails to interact with the board. In this case, check the connection of the serial port.
+
+[CPU/Board Power-On]
+
+If the indicator turns red:
+1. Check whether the serial port connection is normal.
+Check whether the serial port is correctly selected in the HiBurn. The serial port receiver/transmitter should be set to 115200 bit/s, and the number of data bits, stop bits, parity bits, and check bits should be set to 8, 1, 0, and 0 respectively.
+
+2. Check whether the board is powered on.
+Check whether the board is powered on within 15s after the Burn button is clicked.
+
+3. Check whether the power supply of the CPU is normal.
+The 3.3V_standby, 3.3V_MOS, 1.1V_CORE, and 1.1V_CPU power supplies must be normal.
+Note: Check whether overheating occurs after the CPU is powered on. If yes, turn off the power supplies immediately and check the GND impedance of the four power supplies.
+
+4. Check whether the 24 MHz system clock oscillates.
+Measure the voltages at both ends of the crystal oscillator by using the multimeter DC. The voltages should be about 1.65 V (the voltages at the two ends may vary a little). 
+Observe the waveform at both ends of the oscillator by using an oscilloscope. The wave should be a complete 24 MHz sine wave with 3.3 Vp-p.
+
+5. Check whether the serial circuit and serial port are properly connected.
+The serial port of the chip uses the CMOS level (3.3 V), and the PC uses the RS232 level. Therefore, pay attention to the design of level conversion circuit.
+
+6. Check whether the CPU is soldered properly.
+
+[BOOTROM]
+
+If the indicator turns red, replace the board or the master chip.
+
+[Read eMMC/SD]
+
+If the indicator turns red, an error occurs when the eMMC/SD state is read. Check the following items:
+1. Check whether the eMMC/SD connector is properly soldered (whether solder bridges are formed), and whether the SD card is inserted.
+2. Check whether the power supply of the eMMC/SD card is normal. The power supply should be 3.3 V¡À5%.
+3. Check whether the serial resistor and pull-up resistor of the eMMC/SD card interface are properly powered on, and whether the impedance is normal.
+4. Replace the eMMC/SD with a new one after the boot is burnt.
+
+[DDR Initialization]
+
+If the indicator turns red:
+1. Check whether the model of the chip on the board is the same as the chip model selected in the tool. You can directly check the model flag on the board or view the current board model over the serial port.
+
+2. Check whether the used *.reg file during boot compilation matches the current board. For details about the mapping, see the following:
+Linux version directory/source/boot/sysreg/read_cn.xls
+Android version directory/device/hisilicon/bigfish/sdk/source/boot/sysreg/read_cn.xls
+
+3. Verify that the 1.5 V DDR power supply is normal. Measure the impedance of the GND capacitor for the 1.5 V DDR power to check whether the power is short-circuited.
+
+4. Verify that the DDR reference voltage is 0.5 VDD¡À1%.
+
+5. Verify that the DDR component is soldered properly.
+
+6. Verify that the core power of the master chip is VDD¡À5%.
+
+7. If the matched VTT exists, verify that the VTT voltage is 0.5 VDD¡À5%.
+
+8. Check whether the used DDR component is in the compatibility list.
+
+[DDR Training]
+If the indicator turns red, some DDR signals are abnormal. Locate the cause according to the displayed information in the console. 
+
+Description about DDR training V1 errors: 
+1. Software write leveling error information: SWL + 0000000X. X indicates the corresponding byte.  
+2. Software DQS gating error information: SGA + 0000000X. X indicates the corresponding byte.  
+3. Hardware DQS gating error information: HGA + 00000000 
+4. Hardware read dataeye error information: HRD + 00000000 
+5. Software read dataeye error information: SRD + 0000000X. X indicates the first error DQ signal. 
+6. Software write dataeye error information: SWD + 0000000X. X indicates the first error DQ signal.  
+
+Description about DDR training V2 errors: 
+1. Software write leveling error information: DDRTR WL Err: PhyXXXXXXXXByteXXXXXXXX 
+2. Hardware gate error information: DDRTR HWG Err: PhyXXXXXXXX 
+3. Software gate error information: DDRTR Gate Err: PhyXXXXXXXXByteXXXXXXXX 	
+4. Software DDRT error information: DDRTR DDRT Err: PhyXXXXXXXX 
+5. Hardware read dataeye error information: DDRTR HWRD Err: PhyXXXXXXXX 
+6. Software MPR error information: DDRTR Dataeye Err: PhyXXXXXXXXByteXXXXXXXXDQXXXXXXXX 
+7. Software dataeye error information: DDRTR Dataeye Err: PhyXXXXXXXXByteXXXXXXXXDQXXXXXXXX 
+8. Software Lowpower command address error information: DDRTR LPCA Err: PhyXXXXXXXX 
+
+Simple description about DDR training V2 errors: 
+DDREXXXXXXXXPXXXXXXXXBXXXXXXXXDXXXXXXXX
+1. The letter E is the abbreviation of Error, indicating an error code. The eight digits following the letter E are a hexadecimal number. 
+0x00000001 Write Leveling error
+0x00000002 Hardware Gating error
+0x00000004 Software Gating error
+0x00000008 DDRT test time out
+0x00000010 Hardware read dataeye error
+0x00000020 MPR error
+0x00000040 Dataeye error
+0x00000080 LPDDR CA error
+2. The letter P represents the base address of the DDR PHY. The eight digits following the letter P are a hexadecimal number. 
+3. The letter B represents the byte sequence. The eight digits following the letter B are a hexadecimal number. 
+4. The letter D represents the DQ sequence. The eight digits following the letter D are a hexadecimal number. 	
+
+To locate the DDR issue, do as follows: 
+1. Check the board hardware, including the core and DDR power supplies, soldering of the DDR and master chip, and BOM. 
+2. View the serial port information to find the faulty DDR. 
+3. Scale the frequency to check whether the issue is caused by the connection or signal quality. 
+4. Replace the DDR and master chip to verify the soldering, PCB design, and processing quality. 
+If you need to locate the fault quickly in the production line, you are advised to find the faulty DDR based on the displayed information and directly replace it. 
+
+
+
+[Fastboot Start]
+
+If the indicator turns red:
+1. Check whether the fastboot version and *.reg file match the board, including the numbers of PCB layers and DDRs.
+
+2. Check whether the VDD_CPU and VDD_CORE voltages are normal.
+
+3. Scale down the DDR frequency to check whether the issue is caused by the DDR.
+
+[Image-Flash Match]
+
+If the indicator turns red, the current fastboot image and the flash memory are mismatched.
+
+[eMMC/SD Flash]
+
+If the indicator turns red, the SDIO_CARD_DETECT pin is not connected properly.
+
+1. Verify that the level of the SDIO_CARD_DETECT pin is low and the pull-down resistor exists.
+
+2. Check whether SDIO_CARD_DETECT is short-circuited with the VDD power supply due to solder bridges.
+
+If the indicator turns yellow, there is no eMMC component on the board.
+
+[NAND Flash]
+
+If the indicator turns red, check whether the NAND flash soldered on the board is in the list of compatible components of the HiSilicon SDK.
+
+If the indicator turns yellow, there is no NAND flash on the board.
+
+[Network]
+
+If the indicator turns red:
+
+If "Time out while receiving command execute result!" is displayed in the console, the network port is not connected.
+
+If "Downloading: *_T T T T T T" is displayed in the console, the current network is not connected. You need to check the network connection status.
+
+[Over]

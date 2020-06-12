@@ -1,0 +1,30 @@
+#!/bin/sh
+source scripts/common.sh
+
+ECHO "Cleanup SDK" COLOR_YELLOW	
+
+ECHO ""
+WARN "ALL THE SOUCE FILES WILL BE DELETED, FILES YOU MOTIFIED/ADDED WILL BE LOST !!!"
+ECHO ""
+
+#ECHO "To continue, type 'Yes' and then press ENTER ..."
+
+#read choice
+#[ x$choice != xYes ] && exit 1
+
+set +e
+
+ECHO "cleanup drv"
+pushd .
+run_command_progress_float "rm drv -frv" 0 "find drv | wc -l"
+popd
+
+ECHO "cleanup mpp"
+pushd .
+run_command_progress_float "rm mpp* -frv" 0 "find mpp* | wc -l"
+popd
+
+ECHO "cleanup osdrv"
+pushd .
+run_command_progress_float "rm osdrv -frv" 0 "find osdrv | wc -l"
+popd

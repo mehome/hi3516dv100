@@ -1,0 +1,45 @@
+#!/bin/sh
+source scripts/common.sh
+
+ECHO "Unpacking SDK" COLOR_YELLOW
+
+WARN "Be sure you have installed the cross-compiler. if not, install it first!"
+WARN "ALL THE SOUCE FILES WILL BE OVERWRITED, FILES YOU MOTIFIED WILL BE LOST !!!"
+ECHO ""
+
+#ECHO "To continue, type 'Yes' and then press ENTER ..."
+
+#read choice
+#[ x$choice != xYes ] && exit 1
+
+set +e
+
+#ECHO "install cross toolchain"
+#./tools/toolchains/cross.install
+
+ECHO "unpacking osdrv"
+mkdir -p osdrv/
+run_command_progress_float "tar -xvzf package/osdrv.tgz" 0 "tar -tzf package/osdrv.tgz | wc -l"
+
+ECHO "unpacking kernel"
+mkdir -p osdrv/
+run_command_progress_float "tar -xvzf osdrv/opensource/kernel/linux-3.4.y.tgz -C osdrv/opensource/kernel/" 0 "tar -tzf osdrv/opensource/kernel/linux-3.4.y.tgz | wc -l"
+
+if [ "$SDK_CHIP" = "hi3519" ]; then
+#ECHO "unpacking mpp_single"
+#mkdir -pv mpp_single
+#run_command_progress_float "tar -xvzf package/mpp_single.tgz" 0 "tar -tzf package/mpp_single.tgz | wc -l"
+
+ECHO "unpacking mpp_big-little"
+mkdir -pv mpp_big-little
+run_command_progress_float "tar -xvzf package/mpp_big-little.tgz" 0 "tar -tzf package/mpp_big-little.tgz | wc -l"
+else
+ECHO "unpacking mpp"
+mkdir -pv mpp
+run_command_progress_float "tar -xvzf package/mpp.tgz" 0 "tar -tzf package/mpp.tgz | wc -l"
+fi
+
+ECHO "unpacking drv"
+mkdir -pv drv
+run_command_progress_float "tar -xvzf package/drv.tgz" 0 	"tar -tzf package/drv.tgz | wc -l"
+

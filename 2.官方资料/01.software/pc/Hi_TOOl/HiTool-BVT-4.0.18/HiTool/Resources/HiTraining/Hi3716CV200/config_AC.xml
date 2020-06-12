@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<training  mode="bit">
+   <commands>
+         <command value="sh watchdog.bin&amp;"/>
+   </commands>
+   <loops    >
+       <loop description="write,ODT0" key="ODT0">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="ODT0" address="0xf8a38120"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="ODT0" address="0xf8a38120"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,ODT1" key="ODT1">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="ODT1" address="0xf8a38120"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="ODT1" address="0xf8a38120"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+		
+		   <loop description="write,ODT2" key="ODT2">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="ODT2" address="0xf8a38124"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="ODT2" address="0xf8a38124"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,ODT3" key="ODT3">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="ODT3" address="0xf8a38124"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="ODT3" address="0xf8a38124"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+		
+		
+		   <loop description="write,CS0" key="CS0">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="CS0" address="0xf8a38128"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="CS0" address="0xf8a38128"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,CS1" key="CS1">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="CS1" address="0xf8a38128"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="CS1" address="0xf8a38128"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+		
+		
+		   <loop description="write,CS2" key="CS2">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="CS2" address="0xf8a3812c"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="CS2" address="0xf8a3812c"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,CS3" key="CS3">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="CS3" address="0xf8a3812c"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="CS3" address="0xf8a3812c"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+		
+		<loop description="write,CKE0" key="CKE0">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="CKE0" address="0xf8a38130"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="CKE0" address="0xf8a38130"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,CKE1" key="CKE1">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="CKE1" address="0xf8a38130"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="CKE1" address="0xf8a38130"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+		
+		<loop description="write,CKE2" key="CKE2">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="CKE2" address="0xf8a38134"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="CKE2" address="0xf8a38134"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,CKE3" key="CKE3">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="CKE3" address="0xf8a38134"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="CKE3" address="0xf8a38134"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+		
+		<loop description="write,WE" key="WE">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="WE" address="0xf8a38138"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="WE" address="0xf8a38138"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,CAS" key="CAS">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="CAS" address="0xf8a38138"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="CAS" address="0xf8a38138"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+		
+        <loop description="write,RAS" key="RAS">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="RAS" address="0xf8a3813c"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="RAS" address="0xf8a3813c"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,RESETN" key="RESETN">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="RESETN" address="0xf8a3813c"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="RESETN" address="0xf8a3813c"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+		
+        <loop description="write,ADDR0" key="ADDR0">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="ADDR0" address="0xf8a38140"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="ADDR0" address="0xf8a38140"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,ADDR1" key="ADDR1">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="ADDR1" address="0xf8a38140"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="ADDR1" address="0xf8a38140"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>		
+		
+        <loop description="write,ADDR2" key="ADDR2">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="ADDR2" address="0xf8a38144"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="ADDR2" address="0xf8a38144"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,ADDR3" key="ADDR3">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="ADDR3" address="0xf8a38144"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="ADDR3" address="0xf8a38144"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>			
+
+        <loop description="write,ADDR4" key="ADDR4">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="ADDR4" address="0xf8a38148"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="ADDR4" address="0xf8a38148"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,ADDR5" key="ADDR5">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="ADDR5" address="0xf8a38148"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="ADDR5" address="0xf8a38148"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>			
+		
+        <loop description="write,ADDR6" key="ADDR6">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="ADDR6" address="0xf8a3814c"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="ADDR6" address="0xf8a3814c"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,ADDR7" key="ADDR7">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="ADDR7" address="0xf8a3814c"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="ADDR7" address="0xf8a3814c"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>			
+		
+        <loop description="write,ADDR8" key="ADDR8">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="ADDR8" address="0xf8a38150"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="ADDR8" address="0xf8a38150"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,ADDR9" key="ADDR9">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="ADDR9" address="0xf8a38150"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="ADDR9" address="0xf8a38150"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>			
+		
+        <loop description="write,ADDR10" key="ADDR10">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="ADDR10" address="0xf8a38154"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="ADDR10" address="0xf8a38154"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,ADDR11" key="ADDR11">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="ADDR11" address="0xf8a38154"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="ADDR11" address="0xf8a38154"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>			
+		
+        <loop description="write,ADDR12" key="ADDR12">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="ADDR12" address="0xf8a38158"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="ADDR12" address="0xf8a38158"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,ADDR13" key="ADDR13">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="ADDR13" address="0xf8a38158"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="ADDR13" address="0xf8a38158"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>	
+
+        <loop description="write,ADDR14" key="ADDR14">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="ADDR14" address="0xf8a3815c"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="ADDR14" address="0xf8a3815c"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,ADDR15" key="ADDR15">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="ADDR15" address="0xf8a3815c"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="ADDR15" address="0xf8a3815c"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="write,BA0" key="BA0">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="BA0" address="0xf8a38160"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="BA0" address="0xf8a38160"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,BA1" key="BA1">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="BA1" address="0xf8a38160"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="BA1" address="0xf8a38160"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>		
+		
+        <loop description="write,BA2" key="BA2">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="BA2" address="0xf8a38164"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="BA2" address="0xf8a38164"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         
+       
+	</loops>
+   
+   
+</training>

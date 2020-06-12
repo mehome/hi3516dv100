@@ -1,0 +1,1235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HiCMD startcmd="dbg" endcmd="exit" i2cDelay="10" >
+  <!--可以有多个FirstLevel对，name_en/name_zh分别对应界面上节点树上的第一层节点的英文和中文名称，visable表示该节点是否在工具可见-->
+  <FirstLevel name_en="i2c cmd" name_zh="i2c cmd" visable="true">
+    <!--每个FirstLevel对可以包含多个SecondLevel对-->
+    <SecondLevel name_en="video" name_zh="video" visable="true">
+      <!--每个SecondLevel对可以包含多个group对,id对应i2c写命令中D0的0-3bit-->
+      <group id="1" name_en="Input Format" name_zh="Input Format" visable="true" >
+        <!--每个group对可以包含多个cmd，多个param，cmd子节点的cmd属性对相应i2c写命令中的D1,delay属性定义该命令执行后需要等待的时间-->
+        <cmd name_en="set" cmd="0x06" delay="10"/>
+        <cmd name_en="get" cmd="0x07" delay="10"/>
+        <!--type类型定义该参数的类型，包括int（单行文本框），string（带滚动条的多行文本框），list（下拉菜单），bool（复选框）-->
+        <!--range属性定义该参数取值范围，对于连续范围以：最小值:最大值的格式表示，一般int型的数据以这种方式定义。-->
+        <!--如果是list类型，则以：displayname1:value1;displayname2:value2-->
+        <!--property属性定义了该参数是哪条命令的输入参数（i）或者返回值（r），如果是r，则需要有return属性定义返回值的从7个字节第几个字节开始-->
+        <!--descript_en/descript_zh定义了当鼠标停在该参数上时，工具显示的该字段的中英文说明-->
+        <param name_en="FrameType"
+               type="list"
+               range="2D:0x00;3D_SBS:0x01;3D_TAB:0x02;3D_FPK:0x03;3D_FS:0x04"
+               property="1:i;2:r"
+               return="0"
+               descript_en="Format"
+               descript_zh="Format" />
+      </group>
+      <group id="1" name_en="Output format" name_zh="Output format" visable="true">
+        <cmd name_en="set" cmd="0x8" delay="10" />
+        <cmd name_en="get" cmd="0x9" delay="10" />
+        <param name_en="OutFormat"
+               type="list"
+               range="2D:0x00;3D_FS:0x04"
+               property="1:i;2:r"
+               return="0"
+               descript_en="3D or 2D display"
+               descript_zh="3D or 2D display" />
+      </group>
+      <group id="1" name_en="Input timing" visable="true">
+        <cmd name_en="set" cmd="0x0a" delay="10"/>
+        <cmd name_en="get" cmd="0x0b" delay="10"/>
+        <param name_en="b2Division"
+               type="bool"
+               range="0:1"
+               property="1:i;2:r"
+               return="0"
+               descript_zh="2分屏使能开关" />
+        <param name_en="bitwidth"
+               type="list"
+               range="8Bit:0x00;10Bit:0x01;12Bit:0x02"
+               property="1:i;2:r"
+               return="1"
+               descript_en="bit width" 
+               descript_zh="视频位宽"/>
+        <param name_en="timing mode"
+               type="list"
+               range="4K2K_60HZ:0x00;4K1K_120HZ:0x01;4K2K_30HZ:0x2;FHD_120HZ:0x3;FHD_60HZ:0x4;FHD_30HZ:0x5"
+               property="1:i;2:r" 
+               return="2"
+               descript_zh="视频Timing类型"/>
+      </group>
+      <group id="1" name_en="Osd input timing" visable="true">
+        <cmd name_en="set" cmd="0xc" delay="10" />
+        <cmd name_en="get" cmd="0xd" delay="10" />
+        <param name_en="bOsdEnable"
+               type="bool"
+               range="0:1"
+               property="1:i;2:r"
+               return="0"
+               descript_zh="OSD使能开关" />
+        <param name_en="bitwidth"
+               type="list"
+               range="8Bit:0x0;10Bit:0x1;12Bit:0x2"
+               property="1:i;2:r"
+               return="1"
+               descript_en="bit width" 
+               descript_zh="视频位宽" />
+        <param name_en="timing mode"
+               type="list"
+               range="4K2K_60HZ:0x00;4K1K_120HZ:0x01;4K2K_30HZ:0x2;FHD_120HZ:0x3;FHD_60HZ:0x4;FHD_30HZ:0x5"
+               property="1:i;2:r" 
+               return="2"
+               descript_zh="视频Timing类型" />
+      </group>
+      <group id="1" name_en="Mute setting" visable="true">
+        <cmd name_en="set" cmd="0x10" delay="10" />
+        <param name_en="VideoOrOsd"
+               type="list"
+               range="video_Mute:0x0;OSD_Mute:0x1"
+               property="1:i;"
+               descript_en="mute type"
+               descript_zh="mute类型" />
+        <param name_en="bMuteEnable"
+               type="bool"
+               range="0:1"               
+               property="1:i;"
+               descript_en="mute enable"
+               descript_zh="mute使能开关" />
+        <param name_en="RGB_R"
+               type="int"
+               range="0:255"
+               property="1:i;"
+               descript_en=""
+               descript_zh="视频Mute颜色的R分量" />
+        <param name_en="RGB_G"
+               type="int"
+               range="0:255"
+               property="1:i;"
+               descript_en=""
+               descript_zh="视频Mute颜色的G分量" />
+        <param name_en="RGB_B"
+               type="int"
+               range="0:255"
+               property="1:i;"
+               descript_en=""
+               descript_zh="视频Mute颜色的B分量" />
+      </group>
+      <group id="1" name_en="Freeze mode setting" visable="true">
+        <cmd name_en="set" cmd="0x12" delay="10" />
+	    <cmd name_en="get" cmd="0x13" delay="10" />
+        <param name_en="StopMode"
+               type="list"
+               range="黑屏:0x00;静帧:0x01"
+               property="1:i;2:r"
+               return="0" 
+               descript_en=""
+               descript_zh="信号切换是黑屏还是静帧" />
+      </group>
+      <group id="1" name_en="2DTo3D view point" visable="true">
+        <cmd name_en="set" cmd="0x14" delay="10" />
+		<cmd name_en="get" cmd="0x15" delay="10" />
+        <param name_en="ViewPoint"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="0" 
+               descript_en=""
+               descript_zh="2D转3D视点" />
+      </group>
+	  <group id="1" name_en="2DTo3D deapth" visable="true">
+        <cmd name_en="set" cmd="0x16" delay="10" />
+		<cmd name_en="get" cmd="0x17" delay="10" />
+        <param name_en="Deapth"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="0" 
+               descript_en=""
+               descript_zh="2D转3D景深" />
+      </group>
+	  <group id="1" name_en="3D L/R switch" visable="true">
+        <cmd name_en="set" cmd="0x18" delay="10" />
+		<cmd name_en="get" cmd="0x19" delay="10" />
+        <param name_en="LR Switch"
+               type="bool"
+               range="0:1"
+               property="1:i;2:r"
+               return="0" 
+               descript_en=""
+               descript_zh="设置3D左右眼互换" />
+      </group>
+	  <group id="1" name_en="Osd protect enable" visable="true">
+        <cmd name_en="set" cmd="0x1a" delay="10" />
+        <param name_en="Region index"
+               type="int"
+               range="0:7"
+               property="1:i"
+               descript_en=""
+               descript_zh="设置Osd区域index" />
+		<param name_en="Osd protect enable"
+               type="bool"
+               range="0:1"
+               property="1:i;"
+               descript_en=""
+               descript_zh="设置这个区域Osd保护是否使能" />	   
+      </group>
+	  <group id="1" name_en="Osd protect window xy" visable="true">
+        <cmd name_en="set" cmd="0x1b" delay="10" />
+        <param name_en="Region index"
+               type="int"
+               range="0:7"
+               property="1:i"
+               descript_en=""
+               descript_zh="设置Osd区域index" />
+		<param name_en="Osd protect window x"
+               type="int"
+               range="0:3840"
+               property="1:i;"
+               descript_en=""
+               descript_zh="设置Osd保护区域起始点横坐标" />
+		<param name_en="Osd protect window y"
+               type="int"
+               range="0:2160"
+               property="1:i;"
+               descript_en=""
+               descript_zh="设置Osd保护区域起始点纵坐标" />	
+      </group>
+	  <group id="1" name_en="Osd protect window wh" visable="true">
+        <cmd name_en="set" cmd="0x1c" delay="10" />
+        <param name_en="Region index"
+               type="int"
+               range="0:7"
+               property="1:i"
+               descript_en=""
+               descript_zh="设置Osd区域index" />
+		<param name_en="Osd protect window w"
+               type="int"
+               range="0:3840"
+               property="1:i;"
+               descript_en=""
+               descript_zh="设置Osd保护区域宽度" />
+		<param name_en="Osd protect window h"
+               type="int"
+               range="0:2160"
+               property="1:i;"
+               descript_en=""
+               descript_zh="设置Osd保护区域高度" />
+      </group>
+	  <group id="1" name_en="Graphic mode enable" visable="true">
+        <cmd name_en="set" cmd="0x1d" delay="10" />
+		<cmd name_en="get" cmd="0x1e" delay="10" />
+        <param name_en="Graphic mode enable"
+               type="bool"
+               range="0:1"
+               property="1:i;2:r"
+               return="0" 
+               descript_en=""
+               descript_zh="是否开启Graphic mode" />
+      </group>
+	  <group id="1" name_en="Memc low delay enable" visable="true">
+        <cmd name_en="set" cmd="0x1f" delay="10" />
+		<cmd name_en="get" cmd="0x20" delay="10" />
+        <param name_en="Memc low delay enable"
+               type="bool"
+               range="0:1"
+               property="1:i;2:r"
+               return="0" 
+               descript_en=""
+               descript_zh="是否开启Memc低延时模式" />
+      </group>
+	  <group id="1" name_en="Local dimming enable" visable="true">
+        <cmd name_en="set" cmd="0x21" delay="10" />
+		<cmd name_en="get" cmd="0x22" delay="10" />
+        <param name_en="Local dimming enable"
+               type="bool"
+               range="0:1"
+               property="1:i;2:r"
+               return="0" 
+               descript_en=""
+               descript_zh="是否开启Local dimming" />
+      </group>
+	  <group id="1" name_en="Aging mode enable" visable="true">
+        <cmd name_en="set" cmd="0x23" delay="10" />
+		<cmd name_en="get" cmd="0x24" delay="10" />
+        <param name_en="Aging mode enable"
+               type="bool"
+               range="0:1"
+               property="1:i;2:r"
+               return="0" 
+               descript_en=""
+               descript_zh="是否开启Aging mode" />
+      </group>
+	  <group id="1" name_en="Test pattern enable" visable="true">
+        <cmd name_en="set" cmd="0x25" delay="10" />
+        <param name_en="Test pattern enable"
+               type="bool"
+               range="0:1"
+               property="1:i"
+               descript_en=""
+               descript_zh="设置Test pattern使能" />
+		<param name_en="Test pattern company"
+               type="list"
+               range="Samsung:0x0;Innolux:0x1"
+               property="1:i;"
+               descript_en=""
+               descript_zh="设置Test pattern类型" />
+		<param name_en="Test pattern type"
+               type="list"
+               range="Pure:0x0;Gray:0x1;Line:0x2;Block:0x3"
+               property="1:i;"
+               descript_en=""
+               descript_zh="设置Test pattern子类型" />
+		<param name_en="Test pattern index"
+               type="int"
+               range="0:7"
+               property="1:i;"
+               descript_en=""
+               descript_zh="设置Test pattern索引" />
+		<param name_en="Test pattern mode"
+               type="list"
+               range="Move:0x0;Static:0x1"
+               property="1:i;"
+               descript_en=""
+               descript_zh="设置Test pattern模式" />		
+      </group>
+	  <group id="1" name_en="Osd alpha" visable="true">
+        <cmd name_en="set" cmd="0x26" delay="10" />
+		<cmd name_en="get" cmd="0x27" delay="10" />
+        <param name_en="Osd alpha"
+               type="int"
+               range="0:1024"
+               property="1:i;2:r"
+               return="0" 
+               descript_en=""
+               descript_zh="图形层全局Alpha" />
+      </group>
+	  <group id="1" name_en="Ssc enable" visable="true">
+        <cmd name_en="set" cmd="0x28" delay="10" />
+		<cmd name_en="get" cmd="0x29" delay="10" />
+        <param name_en="Interface type"
+               type="list"
+               range="Lvds:0x0;Vbone:0x1;Minilvds:0x2;P2P:0x3"
+               property="1:i;2:r"
+               return="0" 
+               descript_en=""
+               descript_zh="接口类型" />
+		<param name_en="Ssc enable"
+               type="bool"
+               range="0:1"
+               property="1:i;2:r"
+               return="1" 
+               descript_en=""
+               descript_zh="接口展屏开关" />
+		<param name_en="Frequency"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="2" 
+               descript_en=""
+               descript_zh="接口展屏频率" />
+		<param name_en="Ratio"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="3" 
+               descript_en=""
+               descript_zh="接口展屏比" />
+      </group>
+	  <group id="1" name_en="Get vbone lovkn" visable="true">
+		<cmd name_en="get" cmd="0x2a" delay="10" />
+        <param name_en="Get vbone lovkn"
+               type="bool"
+               range="0:1"
+               property="1:r;"
+               return="0"
+               descript_en=""
+               descript_zh="获取Vbone lockn状态" />
+      </group>
+    </SecondLevel>
+    <SecondLevel  name_en="PQ" name_zh="PQ" visable="true">
+      <group id="2" name_en="Brightness" name_zh="Brightness" visable="true">
+        <cmd name_en="set" cmd="0x00"  delay="10"/>
+        <cmd name_en="get" cmd="0x01"  delay="10"/>
+        <param name_en="Brightness"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="0"
+               descript_en="Brightness"
+               descript_zh="亮度信息" />
+      </group>
+      <group id="2" name_en="Contrast" name_zh="Contrast" visable="true">
+        <cmd name_en="set" cmd="0x02" />
+        <cmd name_en="get" cmd="0x03" />
+        <param name_en="Contrast"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="0"
+               descript_en="Contrast"
+               descript_zh="对比度" />
+      </group>
+      <group id="2" name_en="Saturation" name_zh="Saturation" visable="true">
+        <cmd name_en="set" cmd="0x04" />
+        <cmd name_en="get" cmd="0x05" />
+        <param name_en="Saturation"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="0"
+               descript_en="Saturation"
+               descript_zh="饱和度" />
+      </group>
+	  <group id="2" name_en="Hue" name_zh="Hue" visable="true">
+        <cmd name_en="set" cmd="0x06" />
+        <cmd name_en="get" cmd="0x07" />
+        <param name_en="Hue"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="0"
+               descript_en="Hue"
+               descript_zh="色调" />
+      </group>
+	  <group id="2" name_en="Sharpness" name_zh="Sharpness" visable="true">
+        <cmd name_en="set" cmd="0x08" />
+        <cmd name_en="get" cmd="0x09" />
+        <param name_en="Sharpness"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="0"
+               descript_en="Sharpness"
+               descript_zh="锐化强度" />
+      </group>
+	  <group id="2" name_en="R_Gain" name_zh="R_Gain" visable="true">
+        <cmd name_en="set" cmd="0x0a" />
+        <cmd name_en="get" cmd="0x0b" />
+        <param name_en="RGain"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="0"
+               descript_en="RGain"
+               descript_zh="红色增益" />
+      </group>
+	  <group id="2" name_en="G_Gain" name_zh="G_Gain" visable="true">
+        <cmd name_en="set" cmd="0x0c" />
+        <cmd name_en="get" cmd="0x0d" />
+        <param name_en="GGain"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="0"
+               descript_en="GGain"
+               descript_zh="绿色增益" />
+      </group>	  
+	  <group id="2" name_en="B_Gain" name_zh="B_Gain" visable="true">
+        <cmd name_en="set" cmd="0x0e" />
+        <cmd name_en="get" cmd="0x0f" />
+        <param name_en="BGain"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="0"
+               descript_en="BGain"
+               descript_zh="蓝色增益" />
+      </group>	  
+	  <group id="2" name_en="R_Offset" name_zh="R_Offset" visable="true">
+        <cmd name_en="set" cmd="0x10" />
+        <cmd name_en="get" cmd="0x11" />
+        <param name_en="ROffset"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="0"
+               descript_en="ROffset"
+               descript_zh="红色增益" />
+      </group>	 	  	  
+	  <group id="2" name_en="G_Offset" name_zh="G_Offset" visable="true">
+        <cmd name_en="set" cmd="0x12" />
+        <cmd name_en="get" cmd="0x13" />
+        <param name_en="GOffset"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="0"
+               descript_en="GOffset"
+               descript_zh="绿色增益" />
+      </group>		  
+	  <group id="2" name_en="B_Offset" name_zh="B_Offset" visable="true">
+        <cmd name_en="set" cmd="0x14" />
+        <cmd name_en="get" cmd="0x15" />
+        <param name_en="BOffset"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="0"
+               descript_en="BOffset"
+               descript_zh="蓝色增益" />
+      </group>		  	  
+	  <group id="2" name_en="PQ_OnOff" name_zh="PQ_OnOff" visable="true">
+        <cmd name_en="set" cmd="0x16" />
+        <cmd name_en="get" cmd="0x17" />
+        <param name_en="PqMdlId"
+               type="list"
+               range="HI_DRV_PQ_MODULE_PFMD:0x00;HI_DRV_PQ_MODULE_NR:0x01;HI_DRV_PQ_MODULE_DBM:0x02;HI_DRV_PQ_MODULE_SHARPNESS:0x03;HI_DRV_PQ_MODULE_COLOR_CORING:0x04;HI_DRV_PQ_MODULE_BLUE_STRETCH:0x05;HI_DRV_PQ_MODULE_GAMMA:0x06;HI_DRV_PQ_MODULE_DIM:0x07;HI_DRV_PQ_MODULE_DCI:0x08;HI_DRV_PQ_MODULE_COLOR:0x09;HI_DRV_PQ_MODULE_SR:0x0a;HI_DRV_PQ_MODULE_WCG:0x0b;HI_DRV_PQ_MODULE_RGBW:0x0c;HI_DRV_PQ_MODULE_OD:0x0d;HI_DRV_PQ_MODULE_DEMURA:0x0e;HI_DRV_PQ_MODULE_BUTT:0x0f"
+               property="1:i;2:r"
+               return="0"
+               descript_zh="开关PQ模块:PFMD,NR,...... " />
+        <param name_en="PqOnOff"
+               type="bool"
+               range="0:1"
+               property="1:i;2:r"
+               return="1"
+               descript_en="" 
+               descript_zh="PQ 模块开关状态"/>
+      </group>
+	  <group id="2" name_en="Nr_Level" name_zh="Nr_Level" visable="true">
+        <cmd name_en="set" cmd="0x18" />
+        <cmd name_en="get" cmd="0x19" />
+        <param name_en="NrLevel"
+               type="list"
+               range="off:0x00;low:0x01;mid:0x02;high:0x03"
+               property="1:i;2:r"
+               return="0"
+               descript_en="NrLevel"
+               descript_zh="降噪强度" />
+      </group>	  
+	  <group id="2" name_en="MEMC_Dejudder_Range" name_zh="MEMC_Dejudder_Range" visable="true">
+        <cmd name_en="get" cmd="0x1a" />
+        <param name_en="MemcDejudderRange"
+               type="int"
+               range="0:255"
+               property="1:r"
+               return="0"
+               descript_en="MemcDejudderRange"
+               descript_zh="MEMC 去抖动范围" />
+      </group>	  
+	  <group id="2" name_en="MEMC_Level" name_zh="MEMC_Level" visable="true">
+        <cmd name_en="set" cmd="0x1b" />
+        <cmd name_en="get" cmd="0x1c" />
+        <param name_en="MemcLevel"
+               type="list"
+               range="low:0x00;mid:0x01;high:0x02"
+               property="1:i;2:r"
+               return="0"
+               descript_en="MemcLevel"
+               descript_zh="MEMC 强度" />
+      </group>		  
+	  <group id="2" name_en="Film_Mode" name_zh="Film_Mode" visable="true">
+        <cmd name_en="set" cmd="0x1d" />
+        <cmd name_en="get" cmd="0x1e" />
+        <param name_en="FilmMode"
+               type="list"
+               range="FilmMode_3_2:0x00; FilmMode_2_2:0x01; FilmMode_2_3_3_2:0x02;FilmMode_3_2_3_2_2:0x03;FilmMode_11_2_3:0x04;FilmMode_2_2_2_4:0x05;FilmMode_6_4:0x06;FilmMode_5_5:0x07;FilmMode_4_4:0x08;FilmMode_8_7:0x09;FilmMode_1_3:0x0a;FilmMode_1_1_1_2:0x0b;FilmMode_1_1_1_1_2:0x0c"
+               property="1:i;2:r"
+               return="0"
+               descript_en="FilmMode"
+               descript_zh="电影模式" />
+      </group>	  
+	  <group id="2" name_en="Demo" name_zh="Demo" visable="true">
+        <cmd name_en="set" cmd="0x1f" />
+        <cmd name_en="get" cmd="0x20" />
+        <param name_en="DemoMode"
+               type="list"
+               range="HI_PQ_DEMO_DBM:0x00; HI_PQ_DEMO_NR:0x01; HI_PQ_DEMO_SHARPNESS:0x02;HI_PQ_DEMO_DCI:0x03;HI_PQ_DEMO_MEMC:0x04;HI_PQ_DEMO_COLOR:0x05; HI_PQ_DEMO_SR:0x06;HI_DRV_PQ_DEMO_WCG:0x07;HI_PQ_DEMO_ALL:0x08"
+               property="1:i;2:r"
+               return="0"
+               descript_en="DemoMode"
+               descript_zh="PQ 算法模块的demo模块" />
+		<param name_en="DemoOnOff"
+               type="bool"
+               range="0:1"
+               property="1:i;2:r"
+               return="1"
+			   descript_en="DemoOnOff"
+               descript_zh="PQ 算法模块的demo开关" />
+		<param name_en="DemoOnRight"
+               type="bool"
+               range="0:1"
+               property="1:i;2:r"
+               return="2"
+			   descript_en="DemoOnRight"
+               descript_zh="PQ 算法模块的demo模式：0:右边;1:左边" />		   
+      </group>	 	  
+	  <group id="2" name_en="Sr_Level" name_zh="Sr_Level" visable="true">
+        <cmd name_en="set" cmd="0x21" />
+        <cmd name_en="get" cmd="0x22" />
+        <param name_en="Sr_Level"
+               type="list"
+               range="low:0x00; mid:0x01; high:0x02"
+               property="1:i;2:r"
+               return="0"
+               descript_en="Sr_Level"
+               descript_zh="电影模式" />
+      </group>	  
+	  <group id="2" name_en="Auto_Nr_Mode" name_zh="Auto_Nr_Mode" visable="true">
+        <cmd name_en="set" cmd="0x23" />
+        <cmd name_en="get" cmd="0x24" />
+        <param name_en="AutoNrMode"
+               type="bool"
+               range="0:1"
+               property="1:i;2:r"
+               return="0"
+               descript_en="AutoNrMode"
+               descript_zh="NR自动降噪开关" />
+      </group>		  
+	  <group id="2" name_en="Db_Level" name_zh="Db_Level" visable="true">
+        <cmd name_en="set" cmd="0x25" />
+        <cmd name_en="get" cmd="0x26" />
+        <param name_en="DbLevel"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="0"
+               descript_en="DbLevel"
+               descript_zh="DB 强度" />
+      </group>		  
+	  <group id="2" name_en="Dm_Level" name_zh="Dm_Level" visable="true">
+        <cmd name_en="set" cmd="0x27" />
+        <cmd name_en="get" cmd="0x28" />
+        <param name_en="DmLevel"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="0"
+               descript_en="DmLevel"
+               descript_zh="DM 强度" />
+      </group>		  	  
+	  <group id="2" name_en="Local_Dim_Level" name_zh="Local_Dim_Level" visable="true">
+        <cmd name_en="set" cmd="0x29" />
+        <cmd name_en="get" cmd="0x2a" />
+        <param name_en="LocalDimLevel"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="0"
+               descript_en="LocalDimLevel"
+               descript_zh="背光强度" />
+      </group>
+      <group id="2" name_en="Local_Dim_Clip_Range"  name_zh="背光clip 范围" visable="true">
+        <cmd name_en="set" cmd="0x2b" />
+        <cmd name_en="get" cmd="0x2c" />
+        <param name_en="MinStrength"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="0"
+			   descript_en="MinStrength"
+               descript_zh="背光clip最小值0" />
+        <param name_en="MaxStrength"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="1"
+               descript_en="MaxStrength" 
+               descript_zh="背光clip最大值255" />
+      </group>
+	</SecondLevel> 
+	<SecondLevel name_en="system" name_zh="系统" visable="true">
+      <group id="3" name_en="panel index" name_zh="屏参索引" visable="true">
+        <cmd name_en="set" cmd="0x04" delay="10" />
+        <cmd name_en="get" cmd="0x05" delay="10" />
+        <param name_en="Index"
+               type="int"
+               range="0:255"
+               property="1:i;2:r"
+               return="0"
+               descript_en="panel index value"
+               descript_zh="屏参索引值" />
+      </group>
+      <group id="0" name_en="DDR SSC" name_zh="DDR 展频" visable="true">
+        <cmd name_en="set" cmd="0x00" delay="10" />
+        <cmd name_en="get" cmd="0x01" delay="10" />
+        <param name_en="SprendEnable"
+               type="bool"
+               range="0:1"
+               property="1:i;2:r"
+               return="0"
+               descript_en="3D display switch"
+               descript_zh="3D display switch" />
+		<param name_en="SpreadFreq"
+               type="list"
+               range="93k:2;62k:3;46k:4;37k:5;31k:6"
+               property="1:i;2:r"
+               return="1"
+               descript_en="ddr spread frequency"
+               descript_zh="ddr 展频频率" />
+		<param name_en="SpreadRation"
+               type="int"
+               range="0:31"
+               property="1:i;2:r"
+               return="2"
+               descript_en="ddr spread rate 1:0.1%"
+               descript_zh="ddr 展频百分比 1:0.1%" />
+		<param name_en="SpreadDown"
+               type="list"
+               range="up:0;down:1"
+               property="1:i;2:r"
+               return="3"
+               descript_en="ddr spread direction"
+               descript_zh="ddr 展频方向" />
+      </group>
+      <group id="0" name_en="watchdog" name_zh="看门狗" visable="true">
+        <cmd name_en="set" cmd="0x02" delay="10" />
+        <cmd name_en="get" cmd="0x03" delay="10" />
+        <param name_en="enable"
+               type="bool"
+               range="0:1"
+               property="1:i;2:r"
+               return="0"
+               descript_zh="看门狗使能" />
+      </group>
+      <group id="0" name_en="SW Version" name_zh="软件版本" visable="true">
+        <cmd name_en="get" cmd="0x04" delay="100" />
+        <param name_en="ChipName"
+               type="list"
+               range="M5:0x4d35"
+               property="1:r"
+               descript_en="chip name"
+               descript_zh="芯片名字" />
+        <param name_en="MainVersion"
+               type="list"
+               range="V100:0x01;V200:0x02;V300:0x03"               
+               property="1:r"
+               descript_en="main version"
+               descript_zh="主版本" />
+		<param name_en="SubVersion"
+               type="list"
+               range="00:0x0;L:0x01"               
+               property="1:r"
+               descript_en="main version"
+               descript_zh="主版本" />
+      </group>
+    </SecondLevel> 
+  </FirstLevel>
+  <FirstLevel name_en="INX" name_zh="群创" visable="true">
+    <SecondLevel name_en="QFHD 24/30HZ Graphic Mode" name_zh="群创24/30HZ图片模式" visable="true">
+       <group id="0" name_en="cmd1" name_zh="命令1" visable="true" >
+           <cmd name_en="set" cmd="0x01" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x02|0x00|0x00|0x55|0x00:0x55000002"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数"/>
+       </group>
+       <group id="0" name_en="cmd2" name_zh="命令2" visable="true">
+           <cmd name_en="set" cmd="0x02" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x00|0x00|0x02|0x01:0x01020000"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+           <param name_en="param"
+                  type="list"
+                  range="0x03:0x03"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />      
+       </group> 
+       <group id="1" name_en="cmd3" name_zh="命令3" visable="true">
+           <cmd name_en="set" cmd="0x06" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x00|0x00|0x00|0x00|0x00:0x00"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+       </group> 
+       <group id="1" name_en="cmd4" name_zh="命令4" visable="true">
+           <cmd name_en="set" cmd="0x05" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x0F|0x00|0x08|0x70|0x00:0x7008000F"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+       </group> 
+       <group id="3" name_en="cmd5" name_zh="命令5" visable="true">
+           <cmd name_en="set" cmd="0x01" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0xF0|0x00|0x00|0x00|0x00:0xF0"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+       </group> 
+    </SecondLevel>
+    <SecondLevel name_en="QFHD 24/30HZ Video Mode" name_zh="24/30HZ电影模式" visable="true">
+        <group id="0" name_en="cmd1" name_zh="命令1" visable="true">
+           <cmd name_en="set" cmd="0x01" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x02|0x00|0x00|0x55|0x00:0x55000002"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+       </group>
+       <group id="0" name_en="cmd2" name_zh="命令2" visable="true">
+           <cmd name_en="set" cmd="0x02" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x00|0x00|0x02|0x01:0x01020000"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+           <param name_en="param"
+                  type="list"
+                  range="0x03:0x03"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />      
+       </group> 
+       <group id="1" name_en="cmd3" name_zh="命令3" visable="true">
+           <cmd name_en="set" cmd="0x06" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x00|0x00|0x00|0x00|0x00:0x00"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+       </group> 
+       <group id="1" name_en="cmd4" name_zh="命令4" visable="true">
+           <cmd name_en="set" cmd="0x05" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x0F|0x00|0x08|0x70|0x00:0x7008000F"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+       </group> 
+       <group id="3" name_en="cmd5" name_zh="命令5" visable="true">
+           <cmd name_en="set" cmd="0x01" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x00|0x00|0x00|0x00|0x00:0x00"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+       </group> 
+    </SecondLevel>
+    <SecondLevel name_en="QFHD 50/60HZ Graphic Mode" name_zh="50/60HZ图像模式" visable="true">
+        <group id="0" name_en="cmd1" name_zh="命令1" visable="true">
+           <cmd name_en="set" cmd="0x01" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x02|0x00|0x40:0x400002"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="param"
+                  type="list"
+                  range="0xFF|0x00:0xFF"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />      
+       </group>
+       <group id="0" name_en="cmd2" name_zh="命令2" visable="true">
+           <cmd name_en="set" cmd="0x02" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x00|0x40|0x62|0x51:0x51624000"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+           <param name_en="param"
+                  type="list"
+                  range="0x73:0x73"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />      
+       </group> 
+       <group id="1" name_en="cmd3" name_zh="命令3" visable="true">
+           <cmd name_en="set" cmd="0x06" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x00|0x00|0x00|0x00|0x00:0x00"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+       </group> 
+       <group id="1" name_en="cmd4" name_zh="命令4" visable="true">
+           <cmd name_en="set" cmd="0x05" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x0F|0x00|0x08|0x70|0x00:0x7008000F"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+       </group> 
+       <group id="3" name_en="cmd5" name_zh="命令5" visable="true">
+           <cmd name_en="set" cmd="0x01" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0xF0|0x00|0x00|0x00|0x00:0xF0"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+       </group> 
+    </SecondLevel>
+    <SecondLevel name_en="QFHD 50/60HZ Video Mode" name_zh="50/60HZ电影模式" visable="true">
+        <group id="0" name_en="cmd1" name_zh="命令1" visable="true">
+           <cmd name_en="set" cmd="0x01" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x02|0x00|0x40:0x400002"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="param"
+                  type="list"
+                  range="0xFF|0x00:0xFF"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" /> 
+       </group>
+       <group id="0" name_en="cmd2" name_zh="命令2" visable="true">
+           <cmd name_en="set" cmd="0x02" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x00|0x40|0x62|0x51:0x51624000"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+           <param name_en="param"
+                  type="list"
+                  range="0x73:0x73"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />      
+       </group> 
+       <group id="1" name_en="cmd3" name_zh="命令3" visable="true">
+           <cmd name_en="set" cmd="0x06" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x00|0x00|0x00|0x00|0x00:0x00"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+       </group> 
+       <group id="1" name_en="cmd4" name_zh="命令4" visable="true">
+           <cmd name_en="set" cmd="0x05" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x0F|0x00|0x08|0x70|0x00:0x7008000F"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+       </group> 
+       <group id="3" name_en="cmd5" name_zh="命令5" visable="true">
+           <cmd name_en="set" cmd="0x01" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x00|0x00|0x00|0x00|0x00:0x00"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+       </group> 
+    </SecondLevel>
+    <SecondLevel name_en="Blanking" name_zh="空白模式使能选择" visable="true">
+        <group id="3" name_en="Blanking Enable/Disable" name_zh="空白使能/不使能" visable="true">
+           <cmd name_en="set" cmd="0x03" delay="10" />
+           <param name_en="Enable/Disable select"
+                  type="list"
+                  range="Enable:0x01;Disable:0x00"               
+                  property="1:i"
+                  descript_en="enable or disable select"
+                  descript_zh="使能选择" />
+       </group>
+    </SecondLevel>
+    <SecondLevel name_en="MEMC Level" name_zh="MEMC 水平设置" visable="true">
+        <group id="3" name_en="Set MEMC Level" name_zh="设置MEMC水平" visable="true">
+           <cmd name_en="set" cmd="0x02" delay="10" />
+           <param name_en="Level select"
+                  type="list"
+                  range="Off:0x00;Weak:0x01;Normal:0x02;Strong:0x03;User definition:0x0A"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="Judder Level"
+                  type="list"
+                  range="0x00:0x00;0x10:0x10;0x20:0x20;0x30:0x30;0x40:0x40;0x50:0x50;0x60:0x60;0x70:0x70;0x80:0x80;0x90:0x90;0xA0:0xA0;0xB0:0xB0;0xC0:0xC0;0xD0:0xD0;0xE0:0xE0;0xF0:0xF0"               
+                  property="1:i"
+                  descript_en="user definition"
+                  descript_zh="用户自定义抖动水平" />
+       </group>
+    </SecondLevel>
+    <SecondLevel name_en="MEMC Demo" name_zh="MEMC Demo 设置" visable="true">
+        <group id="5" name_en="MEMC Demo on" name_zh="MEMC Demo 开" visable="true">
+           <cmd name_en="set" cmd="0x01" delay="10" />
+           <param name_en="Select seting"
+                  type="list"
+                  range="L_memc,R_frame:0x0001;L_frame,R_memc:0x0101;T_memc,B_frame:0x0002;T_frame,B_memc:0x0102"               
+                  property="1:i"
+                  descript_en="select"
+                  descript_zh="设定选择" />
+            <param name_en="Fixed param"
+                  type="list"
+                  range="0x02|0xFF|0x00:0x00FF02"               
+                  property="1:i"
+                  descript_en="fixed param"
+                  descript_zh="参数" />      
+       </group>
+       <group id="5" name_en="MEMC Demo split line width" name_zh="memc demo行宽" visable="true">
+           <cmd name_en="set" cmd="0x01" delay="10" />
+           <param name_en="Fixed param"
+                  type="list"
+                  range="0x01:0x01"               
+                  property="1:i"
+                  descript_en="fixed param"
+                  descript_zh="参数" />
+            <param name_en="Fixed param"
+                  type="list"
+                  range="0x00:0x00"               
+                  property="1:i"
+                  descript_en="fixed param"
+                  descript_zh="参数" />
+            <param name_en="Select pixel width"
+                  type="list"
+                  range="0pix:0x00;1pix:0x01;2pix:0x02;3pix:0x03;4pix:0x04;5pix:0x05;6pix:0x06;7pix:0x07;8pix:0x08;9pix:0x09;10pix:0x0A;11pix:0x0B;12pix:0x0C;13pix:0x0D;14pix:0x0E;15pix:0x0F"               
+                  property="1:i"
+                  descript_en="select"
+                  descript_zh="可选参数参数" />      
+       </group>
+       <group id="5" name_en="MEMC Demo split line color" name_zh="黑白选择" visable="true">
+           <cmd name_en="set" cmd="0x01" delay="10" />
+           <param name_en="Fixed param"
+                  type="list"
+                  range="0x01|0x00|0x01:0x010001"               
+                  property="1:i"
+                  descript_en="fixed param"
+                  descript_zh="参数" />
+            <param name_en="BLACK/WHITE Select"
+                  type="list"
+                  range="Black:0x00;White:0xFF"               
+                  property="1:i"
+                  descript_en="黑白选择"
+                  descript_zh="参数" />      
+       </group>
+       <group id="5" name_en="MEMC Demo off" name_zh="MEMC Demo 关" visable="true">
+           <cmd name_en="set" cmd="0x01" delay="10" />
+           <param name_en="Fixed param"
+                  type="list"
+                  range="0x00|0x00|0x02:0x020000"               
+                  property="1:i"
+                  descript_en="fixed param"
+                  descript_zh="参数" />
+            <param name_en="Fixed param"
+                  type="list"
+                  range="0xFF|0x00:0xFF"               
+                  property="1:i"
+                  descript_en="fixed param"
+                  descript_zh="参数" />
+       </group>
+    </SecondLevel>
+    <SecondLevel name_en="OSD Protection" name_zh="OSD 保护设置" visable="true">
+        <group id="3" name_en="D1=0x05" name_zh="命令" visable="true">
+           <cmd name_en="set" cmd="0x05" delay="10" />
+           <param name_en="D2"
+                  type="int"
+                  range="null"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="D3"
+                  type="int"
+                  range="null"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="D4"
+                  type="int"
+                  range="null"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="D5"
+                  type="int"
+                  range="null"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="D6"
+                  type="int"
+                  range="null"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />                  
+       </group>
+       <group id="3" name_en="D1=0x06" name_zh="命令" visable="true">
+           <cmd name_en="set" cmd="0x06" delay="10" />
+           <param name_en="D2"
+                  type="int"
+                  range="null"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="D3"
+                  type="int"
+                  range="null"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="D4"
+                  type="int"
+                  range="null"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="D5"
+                  type="int"
+                  range="null"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="D6"
+                  type="int"
+                  range="null"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />                  
+       </group>
+    </SecondLevel>
+    <SecondLevel name_en="QFHD 50/60HZ Graphic Mode 2 division" name_zh="50/60HZ图片模式2 division" visable="true">
+        <group id="0" name_en="cmd1" name_zh="命令1" visable="true">
+           <cmd name_en="set" cmd="0x01" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x12|0x00|0x40:0x400012"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="param"
+                  type="list"
+                  range="0xFF|0x00:0xFF"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />      
+       </group>
+       <group id="0" name_en="cmd2" name_zh="命令2" visable="true">
+           <cmd name_en="set" cmd="0x02" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x00|0x20|0x31|0x64:0x64312000"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+           <param name_en="param"
+                  type="list"
+                  range="0x75:0x75"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />      
+       </group> 
+       <group id="1" name_en="cmd3" name_zh="命令3" visable="true">
+           <cmd name_en="set" cmd="0x06" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x00|0x00|0x00|0x00|0x00:0x00"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+       </group> 
+       <group id="1" name_en="cmd4" name_zh="命令4" visable="true">
+           <cmd name_en="set" cmd="0x05" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x0F|0x00|0x08|0x70|0x00:0x7008000F"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+       </group> 
+       <group id="3" name_en="cmd5" name_zh="命令5" visable="true">
+           <cmd name_en="set" cmd="0x01" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0XF0:0xF0"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+       </group> 
+    </SecondLevel>
+    <SecondLevel name_en="QFHD 50/60HZ Video Mode 2 division" name_zh="50/60HZ电影模式2 division" visable="true">
+        <group id="0" name_en="cmd1" name_zh="命令1" visable="true">
+           <cmd name_en="set" cmd="0x01" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x12|0x00|0x40:0x400012"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+            <param name_en="param"
+                  type="list"
+                  range="0xFF|0x00:0xFF"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />      
+       </group>
+       <group id="0" name_en="cmd2" name_zh="命令2" visable="true">
+           <cmd name_en="set" cmd="0x02" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x00|0x20|0x31|0x64:0x64312000"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+           <param name_en="param"
+                  type="list"
+                  range="0x75:0x75"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />      
+       </group> 
+       <group id="1" name_en="cmd3" name_zh="命令3" visable="true">
+           <cmd name_en="set" cmd="0x06" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x00|0x00|0x00|0x00|0x00:0x00"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+       </group> 
+       <group id="1" name_en="cmd4" name_zh="命令4" visable="true">
+           <cmd name_en="set" cmd="0x05" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0x0F|0x00|0x08|0x70|0x00:0x7008000F"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+       </group> 
+       <group id="3" name_en="cmd5" name_zh="命令5" visable="true">
+           <cmd name_en="set" cmd="0x01" delay="10" />
+           <param name_en="param"
+                  type="list"
+                  range="0X00:0x00"               
+                  property="1:i"
+                  descript_en="param"
+                  descript_zh="参数" />
+       </group> 
+    </SecondLevel>
+    <SecondLevel name_en="mute mode select" name_zh="mute模式选择" visable="true">
+        <group id="13" name_en="mute mode select" name_zh="mute 模式选择" visable="true">
+           <cmd name_en="set" cmd="0x0D" delay="10" />
+           <param name_en="mute mode select"
+                  type="list"
+                  range="mute_only_starting:0x01;disable_mute:0x02;general_mute:0x03"               
+                  property="1:i"
+                  descript_en="mote mode select"
+                  descript_zh="mute模式选择" />
+       </group>
+    </SecondLevel>
+    <SecondLevel name_en="ELCS ON/OFF" name_zh="ELCSS 开/关" visable="true">
+        <group id="13" name_en="ELCS ON/OFF select" name_zh="ELCS 开/关选择" visable="true">
+           <cmd name_en="set" cmd="0x5E" delay="10" />
+           <param name_en="ELCS ON/OFF"
+                  type="list"
+                  range="OFF:0x00;ON:0x01"               
+                  property="1:i"
+                  descript_en="ELCS ON/OFF"
+                  descript_zh="ELCS 开/关选择" />
+       </group>
+    </SecondLevel>
+  </FirstLevel>
+</HiCMD>

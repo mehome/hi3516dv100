@@ -1,0 +1,5 @@
+0x00000000	hi_isp_sync_task_register	/home/pub/publish/platform_h4_ipc/mpp/component/isp/isp/firmware/drv/hi3516a_isp	EXPORT_SYMBOL
+0x00000000	hi_isp_sync_task_unregister	/home/pub/publish/platform_h4_ipc/mpp/component/isp/isp/firmware/drv/hi3516a_isp	EXPORT_SYMBOL
+0x00000000	g_stIspExpFunc	/home/pub/publish/platform_h4_ipc/mpp/component/isp/isp/firmware/drv/hi3516a_isp	EXPORT_SYMBOL
+0x00000000	ISP_GetDCFInfo	/home/pub/publish/platform_h4_ipc/mpp/component/isp/isp/firmware/drv/hi3516a_isp	EXPORT_SYMBOL
+0x00000000	g_stIspPirisExpFunc	/home/pub/publish/platform_h4_ipc/mpp/component/isp/isp/firmware/drv/hi3516a_isp	EXPORT_SYMBOL

@@ -1,0 +1,855 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<training  mode="bit">
+   <commands>
+         <command value="sh watchdog.bin&amp;"/>
+   </commands>
+   <loops    >
+       <loop description="write,wdq0" key="wdq0">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="wdq0" address="0xf8a38210"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq0" address="0xf8a38210"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,wdq1"  key="wdq1">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq1" address="0xf8a38210"  start="8" end="12" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq1" address="0xf8a38210"  start="8" end="12" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="write,wdq2"  key="wdq2">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq2" address="0xf8a38210"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq2" address="0xf8a38210"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="write,wdq3"  key="wdq3">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq3" address="0xf8a38210"  start="24" end="28" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq3" address="0xf8a38210"  start="24" end="28" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+		
+		  <loop description="write,wdq4"  key="wdq4">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq4" address="0xf8a38214"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq4" address="0xf8a38214"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,wdq5"  key="wdq5">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq5" address="0xf8a38214"  start="8" end="12" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq5" address="0xf8a38214"  start="8" end="12" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="write,wdq6"  key="wdq6">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq6" address="0xf8a38214"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq6" address="0xf8a38214"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="write,wdq7"  key="wdq7">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq7" address="0xf8a38214"  start="24" end="28" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq7" address="0xf8a38214"  start="24" end="28" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+	</loops>	
+	
+    <loops    >	
+        <loop description="write,wdq8" key="wdq8">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="wdq8" address="0xf8a38290"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq8" address="0xf8a38290"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,wdq9"  key="wdq9">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq9" address="0xf8a38290"  start="8" end="12" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq9" address="0xf8a38290"  start="8" end="12" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="write,wdq10"  key="wdq10">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq10" address="0xf8a38290"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq10" address="0xf8a38290"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="write,wdq11"  key="wdq11">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq11" address="0xf8a38290"  start="24" end="28" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq11" address="0xf8a38290"  start="24" end="28" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+		
+		  <loop description="write,wdq12"  key="wdq12">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq12" address="0xf8a38294"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq12" address="0xf8a38294"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,wdq13"  key="wdq13">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq13" address="0xf8a38294"  start="8" end="12" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq13" address="0xf8a38294"  start="8" end="12" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="write,wdq14"  key="wdq14">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq14" address="0xf8a38294"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq14" address="0xf8a38294"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="write,wdq15"  key="wdq15">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq15" address="0xf8a38294"  start="24" end="28" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq15" address="0xf8a38294"  start="24" end="28" />			  
+			 </registergroup>	
+           </group>
+        </loop>  
+   </loops>
+   
+   <loops    >
+       <loop description="write,wdq16" key="wdq16">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="wdq16" address="0xf8a38310"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq16" address="0xf8a38310"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,wdq17"  key="wdq17">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq17" address="0xf8a38310"  start="8" end="12" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq17" address="0xf8a38310"  start="8" end="12" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="write,wdq18"  key="wdq18">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq18" address="0xf8a38310"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq18" address="0xf8a38310"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="write,wdq19"  key="wdq19">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq19" address="0xf8a38310"  start="24" end="28" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq19" address="0xf8a38310"  start="24" end="28" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+		
+		  <loop description="write,wdq20"  key="wdq20">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq20" address="0xf8a38314"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq20" address="0xf8a38314"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,wdq21"  key="wdq21">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq21" address="0xf8a38314"  start="8" end="12" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq21" address="0xf8a38314"  start="8" end="12" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="write,wdq22"  key="wdq22">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq22" address="0xf8a38314"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq22" address="0xf8a38314"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="write,wdq23"  key="wdq23">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq23" address="0xf8a38314"  start="24" end="28" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq23" address="0xf8a38314"  start="24" end="28" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+	</loops>	
+	
+    <loops    >	
+        <loop description="write,wdq24" key="wdq24">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="wdq24" address="0xf8a38390"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq24" address="0xf8a38390"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,wdq25"  key="wdq25">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq25" address="0xf8a38390"  start="8" end="12" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq25" address="0xf8a38390"  start="8" end="12" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="write,wdq26"  key="wdq26">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq26" address="0xf8a38390"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq26" address="0xf8a38390"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="write,wdq27"  key="wdq27">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq27" address="0xf8a38390"  start="24" end="28" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq27" address="0xf8a38390"  start="24" end="28" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+		
+		  <loop description="write,wdq28"  key="wdq28">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq28" address="0xf8a38394"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq28" address="0xf8a38394"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="write,wdq29"  key="wdq29">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq29" address="0xf8a38394"  start="8" end="12" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq29" address="0xf8a38394"  start="8" end="12" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="write,wdq30"  key="wdq30">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq30" address="0xf8a38394"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq30" address="0xf8a38394"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="write,wdq31"  key="wdq31">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="wdq31" address="0xf8a38394"  start="24" end="28" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="wdq31" address="0xf8a38394"  start="24" end="28" />			  
+			 </registergroup>	
+           </group>
+        </loop>  
+   </loops>
+   
+   
+   <loops    >
+       <loop description="read,rdq0" key="rdq0">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="rdq0" address="0xf8a3821c"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq0" address="0xf8a3821c"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="read,rdq1"  key="rdq1">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq1" address="0xf8a3821c"  start="8" end="12" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq1" address="0xf8a3821c"  start="8" end="12" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="read,rdq2"  key="rdq2">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq2" address="0xf8a3821c"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq2" address="0xf8a3821c"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="read,rdq3"  key="rdq3">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq3" address="0xf8a3821c"  start="24" end="28" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq3" address="0xf8a3821c"  start="24" end="28" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+		
+		  <loop description="read,rdq4"  key="rdq4">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq4" address="0xf8a38220"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq4" address="0xf8a38220"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="read,rdq5"  key="rdq5">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq5" address="0xf8a38220"  start="8" end="12" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq5" address="0xf8a38220"  start="8" end="12" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="read,rdq6"  key="rdq6">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq6" address="0xf8a38220"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq6" address="0xf8a38220"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="read,rdq7"  key="rdq7">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq7" address="0xf8a38220"  start="24" end="28" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq7" address="0xf8a38220"  start="24" end="28" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+	</loops>	
+	
+    <loops   >	
+        <loop description="read,rdq8" key="rdq8">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="rdq8" address="0xf8a3829c"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq8" address="0xf8a3829c"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="read,rdq9"  key="rdq9">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq9" address="0xf8a3829c"  start="8" end="12" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq9" address="0xf8a3829c"  start="8" end="12" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="read,rdq10"  key="rdq10">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq10" address="0xf8a3829c"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq10" address="0xf8a3829c"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="read,rdq11"  key="rdq11">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq11" address="0xf8a3829c"  start="24" end="28" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq11" address="0xf8a3829c"  start="24" end="28" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+		
+		  <loop description="read,rdq12"  key="rdq12">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq12" address="0xf8a382a0"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq12" address="0xf8a382a0"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="read,rdq13"  key="rdq13">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq13" address="0xf8a382a0"  start="8" end="12" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq13" address="0xf8a382a0"  start="8" end="12" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="read,rdq14"  key="rdq14">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq14" address="0xf8a382a0"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq14" address="0xf8a382a0"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="read,rdq15"  key="rdq15">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq15" address="0xf8a382a0"  start="24" end="28" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq15" address="0xf8a382a0"  start="24" end="28" />			  
+			 </registergroup>	
+           </group>
+        </loop>  
+   </loops>
+   
+   <loops    >
+       <loop description="read,rdq16" key="rdq16">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="rdq16" address="0xf8a3831c"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq16" address="0xf8a3831c"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="read,rdq17"  key="rdq17">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq17" address="0xf8a3831c"  start="8" end="12" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq17" address="0xf8a3831c"  start="8" end="12" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="read,rdq18"  key="rdq18">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq18" address="0xf8a3831c"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq18" address="0xf8a3831c"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="read,rdq19"  key="rdq19">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq19" address="0xf8a3831c"  start="24" end="28" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq19" address="0xf8a3831c"  start="24" end="28" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+		
+		  <loop description="read,rdq20"  key="rdq20">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq20" address="0xf8a38320"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq20" address="0xf8a38320"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="read,rdq21"  key="rdq21">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq21" address="0xf8a38320"  start="8" end="12" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq21" address="0xf8a38320"  start="8" end="12" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="read,rdq22"  key="rdq22">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq22" address="0xf8a38320"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq22" address="0xf8a38320"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="read,rdq23"  key="rdq23">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq23" address="0xf8a38320"  start="24" end="28" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq23" address="0xf8a38320"  start="24" end="28" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+	</loops>	
+	
+    <loops   >	
+        <loop description="read,rdq24" key="rdq24">
+		   <group>
+			 <registergroup sequence="false" maxvalue="31">
+                <register name="rdq24" address="0xf8a3839c"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq24" address="0xf8a3839c"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="read,rdq25"  key="rdq25">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq25" address="0xf8a3839c"  start="8" end="12" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq25" address="0xf8a3839c"  start="8" end="12" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="read,rdq26"  key="rdq26">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq26" address="0xf8a3839c"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq26" address="0xf8a3839c"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="read,rdq27"  key="rdq27">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq27" address="0xf8a3839c"  start="24" end="28" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq27" address="0xf8a3839c"  start="24" end="28" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+		
+		  <loop description="read,rdq28"  key="rdq28">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq28" address="0xf8a383a0"  start="0" end="4" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq28" address="0xf8a383a0"  start="0" end="4" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+         <loop description="read,rdq29"  key="rdq29">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq29" address="0xf8a383a0"  start="8" end="12" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq29" address="0xf8a383a0"  start="8" end="12" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="read,rdq30"  key="rdq30">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq30" address="0xf8a383a0"  start="16" end="20" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq30" address="0xf8a383a0"  start="16" end="20" />			  
+			 </registergroup>	
+           </group>
+        </loop>
+
+        <loop description="read,rdq31"  key="rdq31">
+		   <group>
+			  <registergroup sequence="false" maxvalue="31">
+                <register name="rdq31" address="0xf8a383a0"  start="24" end="28" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" minvalue="0" >	 
+			  <register name="rdq31" address="0xf8a383a0"  start="24" end="28" />			  
+			 </registergroup>	
+           </group>
+        </loop>  
+   </loops>  
+   
+</training>

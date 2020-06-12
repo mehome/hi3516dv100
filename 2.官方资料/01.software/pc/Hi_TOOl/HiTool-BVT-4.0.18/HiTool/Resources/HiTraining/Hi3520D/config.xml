@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<training>
+   <commands>
+         <command value="sh watchdog.bin&amp;"/>
+   </commands>
+   <loops>
+       <loop description="read,rdqs0,rdq0,rdq1,rdq2,rdq3,rdq4,rdq5,rdq6,rdq7">
+		   <group>
+			  <registergroup sequence="false" maxvalue="7">
+                <register name="rdqs0" address="0x20110b4c"  start="0" end="2" />
+			 </registergroup>	
+				<registergroup initvalue="true">
+			</registergroup>	
+             <registergroup sequence="true" maxvalue="7" >	 
+			  <register name="rdq0" address="0x20110b2c"  start="0" end="2"/>
+			  <register name="rdq1" address="0x20110b2c"  start="3" end="5"/>
+			  <register name="rdq2" address="0x20110b30"  start="0" end="2"/>
+			  <register name="rdq3" address="0x20110b30"  start="3" end="5"/>
+			  <register name="rdq4" address="0x20110b34"  start="0" end="2"/>
+			  <register name="rdq5" address="0x20110b34"  start="3" end="5"/>
+			  <register name="rdq6" address="0x20110b38"  start="0" end="2"/>
+			  <register name="rdq7" address="0x20110b38"  start="3" end="5"/>
+			 </registergroup>	
+           </group>
+       </loop>
+	   <loop description="read,rdqs1,rdq8,rdq9,rdq10,rdq11,rdq12,rdq13,rdq14,rdq15">
+		   <group>
+			  <registergroup sequence="false" maxvalue="7">
+                <register name="rdqs1" address="0x20110b4c"  start="3" end="5" />
+			 </registergroup>	
+			<registergroup initvalue="true">
+			</registergroup>			
+             <registergroup sequence="true" maxvalue="7" >	 
+			  <register name="rdq8" address="0x20110b3c"  start="0" end="2"/>
+			  <register name="rdq9" address="0x20110b3c"  start="3" end="5"/>
+			  <register name="rdq10" address="0x20110b40"  start="0" end="2"/>
+			  <register name="rdq11" address="0x20110b40"  start="3" end="5"/>
+			  <register name="rdq12" address="0x20110b44"  start="0" end="2"/>
+			  <register name="rdq13" address="0x20110b44"  start="3" end="5"/>
+			  <register name="rdq14" address="0x20110b48"  start="0" end="2"/>
+			  <register name="rdq15" address="0x20110b48"  start="3" end="5"/>
+			 </registergroup>	
+           </group>
+        </loop>
+	   <loop description="write,wdqs0,wdq0,wdq1,wdq2,wdq3,wdq4,wdq5,wdq6,wdq7">
+		   <group>
+			  <registergroup sequence="false" maxvalue="7">
+                <register name="wdqs0" address="0x20110b1c"  start="0" end="2" />
+			 </registergroup>	
+			<registergroup initvalue="true">
+			</registergroup>				 
+             <registergroup sequence="true" maxvalue="7" >	 
+			  <register name="wdq0" address="0x20110afc"  start="0" end="2"/>
+			  <register name="wdq1" address="0x20110afc"  start="3" end="5"/>
+			  <register name="wdq2" address="0x20110b00"  start="0" end="2"/>
+			  <register name="wdq3" address="0x20110b00"  start="3" end="5"/>
+			  <register name="wdq4" address="0x20110b04"  start="0" end="2"/>
+			  <register name="wdq5" address="0x20110b04"  start="3" end="5"/>
+			  <register name="wdq6" address="0x20110b08"  start="0" end="2"/>
+			  <register name="wdq7" address="0x20110b08"  start="3" end="5"/>
+			 </registergroup>	
+           </group>
+        </loop>
+	   <loop description="write,wdqs1,wdq8,wdq9,wdq10,wdq11,wdq12,wdq13,wdq14,wdq15">
+		   <group>
+			  <registergroup sequence="false" maxvalue="7">
+                <register name="wdqs1" address="0x20110b1c"  start="3" end="5" />
+			 </registergroup>	
+			<registergroup initvalue="true">
+			</registergroup>			  
+             <registergroup sequence="true" maxvalue="7" >	 
+			  <register name="wdq8" address="0x20110b0c"  start="0" end="2"/>
+			  <register name="wdq9" address="0x20110b0c"  start="3" end="5"/>
+			  <register name="wdq10" address="0x20110b10"  start="0" end="2"/>
+			  <register name="wdq11" address="0x20110b10"  start="3" end="5"/>
+			  <register name="wdq12" address="0x20110b14"  start="0" end="2"/>
+			  <register name="wdq13" address="0x20110b14"  start="3" end="5"/>
+			  <register name="wdq14" address="0x20110b18"  start="0" end="2"/>
+			  <register name="wdq15" address="0x20110b18"  start="3" end="5"/>
+			 </registergroup>	
+           </group>
+       </loop>	   
+   </loops>
+   
+</training>

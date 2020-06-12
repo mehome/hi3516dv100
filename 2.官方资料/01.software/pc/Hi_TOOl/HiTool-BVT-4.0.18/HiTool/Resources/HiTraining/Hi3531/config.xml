@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<training>
+   <commands>
+         <command value="sh watchdog.bin&amp;"/>
+   </commands>
+   <loops>
+       <loop description="read ddrc1,rdqs0,rdq0,rdq1,rdq2,rdq3,rdq4,rdq5,rdq6,rdq7">
+            <group>
+      	     <registergroup sequence="false" maxvalue="7">
+                <register name="rdqs0" address="0x20110504"  start="0" end="2"/>
+			 </registergroup>	
+			<registergroup initvalue="true">
+			</registergroup>			 
+             <registergroup sequence="true" maxvalue="7" >
+			  <register name="rdq0" address="0x20110540"  start="0" end="2"/>
+			  <register name="rdq1" address="0x20110540"  start="3" end="5"/>
+			  <register name="rdq2" address="0x20110540"  start="6" end="8"/>
+			  <register name="rdq3" address="0x20110540"  start="9" end="11"/>
+			  <register name="rdq4" address="0x20110540"  start="12" end="14"/>
+			  <register name="rdq5" address="0x20110540"  start="15" end="17"/>
+			  <register name="rdq6" address="0x20110540"  start="18" end="20"/>
+			  <register name="rdq7" address="0x20110540"  start="21" end="23"/>
+			 </registergroup>	
+           </group>
+       </loop>
+	   <loop description="read ddrc1,rdqs1,rdq8,rdq9,rdq10,rdq11,rdq12,rdq13,rdq14,rdq15">
+           <group>
+      	     <registergroup sequence="false" maxvalue="7">
+                <register name="rdqs1" address="0x20110504"  start="3" end="5"/>
+			 </registergroup>	
+			<registergroup initvalue="true">
+			</registergroup>			 
+             <registergroup sequence="true" maxvalue="7" >
+			  <register name="rdq8" address="0x20110544"  start="0" end="2"/>
+			  <register name="rdq9" address="0x20110544"  start="3" end="5"/>
+			  <register name="rdq10" address="0x20110544"  start="6" end="8"/>
+			  <register name="rdq11" address="0x20110544"  start="9" end="11"/>
+			  <register name="rdq12" address="0x20110544"  start="12" end="14"/>
+			  <register name="rdq13" address="0x20110544"  start="15" end="17"/>
+			  <register name="rdq14" address="0x20110544"  start="18" end="20"/>
+			  <register name="rdq15" address="0x20110544"  start="21" end="23"/>
+			 </registergroup>	
+           </group>
+       </loop>
+	   <loop description="read ddrc1,rdqs2,rdq16,rdq17,rdq18,rdq19,rdq20,rdq21,rdq22,rdq23">
+           <group>
+      	     <registergroup sequence="false" maxvalue="7">
+                <register name="rdqs2" address="0x20110504"  start="6" end="8"/>
+			 </registergroup>
+			<registergroup initvalue="true">
+			</registergroup>			 
+             <registergroup sequence="true" maxvalue="7" >
+			  <register name="rdq16" address="0x20110548"  start="0" end="2"/>
+			  <register name="rdq17" address="0x20110548"  start="3" end="5"/>
+			  <register name="rdq18" address="0x20110548"  start="6" end="8"/>
+			  <register name="rdq19" address="0x20110548"  start="9" end="11"/>
+			  <register name="rdq20" address="0x20110548"  start="12" end="14"/>
+			  <register name="rdq21" address="0x20110548"  start="15" end="17"/>
+			  <register name="rdq22" address="0x20110548"  start="18" end="20"/>
+			  <register name="rdq23" address="0x20110548"  start="21" end="23"/>
+			 </registergroup>	
+           </group>
+       </loop>
+	   <loop description="read ddrc1,rdqs3,rdq24,rdq25,rdq26,rdq27,rdq28,rdq29,rdq30,rdq31">
+           <group>
+      	     <registergroup sequence="false" maxvalue="7">
+                <register name="rdqs3" address="0x20110504"  start="9" end="11"/>
+			 </registergroup>	
+			<registergroup initvalue="true">
+			</registergroup>			 
+             <registergroup sequence="true" maxvalue="7" >
+			  <register name="rdq24" address="0x2011054c"  start="0" end="2"/>
+			  <register name="rdq25" address="0x2011054c"  start="3" end="5"/>
+			  <register name="rdq26" address="0x2011054c"  start="6" end="8"/>
+			  <register name="rdq27" address="0x2011054c"  start="9" end="11"/>
+			  <register name="rdq28" address="0x2011054c"  start="12" end="14"/>
+			  <register name="rdq29" address="0x2011054c"  start="15" end="17"/>
+			  <register name="rdq30" address="0x2011054c"  start="18" end="20"/>
+			  <register name="rdq31" address="0x2011054c"  start="21" end="23"/>
+			 </registergroup>	
+           </group>
+       </loop>
+          
+	   <loop description="write ddrc1,dqsenable,wdqs0,wdq0,wdq1,wdq2,wdq3,wdq4,wdq5,wdq6,wdq7,dqenable">
+           <group>
+      	     <registergroup sequence="false"  defaultvalue="0">
+                <register name="dqenable" address="0x20110510"  start="24" end="31"/>
+			 </registergroup>	
+			 <registergroup sequence="false" maxvalue="7" >
+			    <register name="wdqs0" address="0x20110500"  start="0" end="2"/> 
+			 </registergroup>
+		   </group>
+		   <group>
+		  	 <registergroup sequence="false" maxvalue="7" >
+			    <register name="wdqs0" address="0x20110500"  start="0" end="2"/> 
+			 </registergroup> 
+			<registergroup initvalue="true">
+			</registergroup>			 
+		        <registergroup sequence="true" maxvalue="7" >
+			  <register name="wdq0" address="0x20110510"  start="0" end="2"/>
+			  <register name="wdq1" address="0x20110510"  start="3" end="5"/>
+			  <register name="wdq2" address="0x20110510"  start="6" end="8"/>
+			  <register name="wdq3" address="0x20110510"  start="9" end="11"/>
+			  <register name="wdq4" address="0x20110510"  start="12" end="14"/>
+			  <register name="wdq5" address="0x20110510"  start="15" end="17"/>
+			  <register name="wdq6" address="0x20110510"  start="18" end="20"/>
+			  <register name="wdq7" address="0x20110510"  start="21" end="23"/>
+			 </registergroup>	
+           </group>
+		   <group>
+		     <registergroup sequence="false"  defaultvalue="0">
+                <register name="dqsenable" address="0x20110470"  start="0" end="0"/>
+			 </registergroup>
+			 <registergroup sequence="true" maxvalue="7" >
+			  <register name="wdq0" address="0x20110510"  start="0" end="2"/>
+			  <register name="wdq1" address="0x20110510"  start="3" end="5"/>
+			  <register name="wdq2" address="0x20110510"  start="6" end="8"/>
+			  <register name="wdq3" address="0x20110510"  start="9" end="11"/>
+			  <register name="wdq4" address="0x20110510"  start="12" end="14"/>
+			  <register name="wdq5" address="0x20110510"  start="15" end="17"/>
+			  <register name="wdq6" address="0x20110510"  start="18" end="20"/>
+			  <register name="wdq7" address="0x20110510"  start="21" end="23"/>
+			 </registergroup>			
+		   </group>
+       </loop>
+       <loop description="write ddrc1,dqsenable,wdqs1,wdq8,wdq9,wdq10,wdq11,wdq12,wdq13,wdq14,wdq15,dqenable">
+	      
+           <group>
+      	     <registergroup sequence="false" defaultvalue="0">
+                <register name="dqenable" address="0x20110514"  start="24" end="31" />
+			 </registergroup>	
+			 <registergroup sequence="false" maxvalue="7" >
+			    <register name="wdqs1" address="0x20110500"  start="3" end="5"/> 
+			 </registergroup>
+		   </group>
+		   <group>
+		  	 <registergroup sequence="false" maxvalue="7" >
+			    <register name="wdqs1" address="0x20110500"  start="3" end="5"/> 
+			 </registergroup> 
+			<registergroup initvalue="true">
+			</registergroup>			 
+		      <registergroup sequence="true" maxvalue="7" >
+			  <register name="wdq8" address="0x20110514"  start="0" end="2"/>
+			  <register name="wdq9" address="0x20110514"  start="3" end="5"/>
+			  <register name="wdq10" address="0x20110514"  start="6" end="8"/>
+			  <register name="wdq11" address="0x20110514"  start="9" end="11"/>
+			  <register name="wdq12" address="0x20110514"  start="12" end="14"/>
+			  <register name="wdq13" address="0x20110514"  start="15" end="17"/>
+			  <register name="wdq14" address="0x20110514"  start="18" end="20"/>
+			  <register name="wdq15" address="0x20110514"  start="21" end="23"/>
+			 </registergroup>	
+           </group>
+		   <group>
+		     <registergroup sequence="false"  defaultvalue="0">
+                <register name="dqsenable" address="0x20110470"  start="1" end="1"/>
+			 </registergroup>
+			 <registergroup sequence="true" maxvalue="7" >
+			  <register name="wdq8" address="0x20110514"  start="0" end="2"/>
+			  <register name="wdq9" address="0x20110514"  start="3" end="5"/>
+			  <register name="wdq10" address="0x20110514"  start="6" end="8"/>
+			  <register name="wdq11" address="0x20110514"  start="9" end="11"/>
+			  <register name="wdq12" address="0x20110514"  start="12" end="14"/>
+			  <register name="wdq13" address="0x20110514"  start="15" end="17"/>
+			  <register name="wdq14" address="0x20110514"  start="18" end="20"/>
+			  <register name="wdq15" address="0x20110514"  start="21" end="23"/>
+			 </registergroup>			
+		   </group>
+       </loop>
+       <loop description="write ddrc1,dqsenable,wdqs2,wdq16,wdq17,wdq18,wdq19,wdq20,wdq21,wdq22,wdq23,dqenable">
+           <group>
+      	     <registergroup sequence="false"  defaultvalue="0">
+                <register name="dqenable" address="0x20110518"  start="24" end="31"/>
+			 </registergroup>	
+			 <registergroup sequence="false" maxvalue="7" >
+			    <register name="wdqs2" address="0x20110500"  start="6" end="8"/> 
+			 </registergroup>
+		   </group>
+		   <group>
+		  	 <registergroup sequence="false" maxvalue="7" >
+			    <register name="wdqs2" address="0x20110500"  start="6" end="8"/> 
+			 </registergroup> 
+			<registergroup initvalue="true">
+			</registergroup>		
+            		 <registergroup sequence="true" maxvalue="7" >
+			  <register name="wdq16" address="0x20110518"  start="0" end="2"/>
+			  <register name="wdq17" address="0x20110518"  start="3" end="5"/>
+			  <register name="wdq18" address="0x20110518"  start="6" end="8"/>
+			  <register name="wdq19" address="0x20110518"  start="9" end="11"/>
+			  <register name="wdq20" address="0x20110518"  start="12" end="14"/>
+			  <register name="wdq21" address="0x20110518"  start="15" end="17"/>
+			  <register name="wdq22" address="0x20110518"  start="18" end="20"/>
+			  <register name="wdq23" address="0x20110518"  start="21" end="23"/>
+			 </registergroup>	
+           </group>
+		   <group>
+		     <registergroup sequence="false" defaultvalue="0">
+                <register name="dqsenable" address="0x20110470"  start="2" end="2" />
+			 </registergroup>
+			 <registergroup sequence="true" maxvalue="7" >
+			  <register name="wdq16" address="0x20110518"  start="0" end="2"/>
+			  <register name="wdq17" address="0x20110518"  start="3" end="5"/>
+			  <register name="wdq18" address="0x20110518"  start="6" end="8"/>
+			  <register name="wdq19" address="0x20110518"  start="9" end="11"/>
+			  <register name="wdq20" address="0x20110518"  start="12" end="14"/>
+			  <register name="wdq21" address="0x20110518"  start="15" end="17"/>
+			  <register name="wdq22" address="0x20110518"  start="18" end="20"/>
+			  <register name="wdq23" address="0x20110518"  start="21" end="23"/>
+			 </registergroup>			
+		   </group>
+       </loop>   
+       <loop description="write ddrc1,dqsenable,wdqs3,wdq24,wdq25,wdq26,wdq27,wdq28,wdq29,wdq30,wdq31,dqenable">
+	   
+           <group>
+      	     <registergroup sequence="false" defaultvalue="0">
+                <register name="dqenable" address="0x2011051c"  start="24" end="31" />
+			 </registergroup>	
+			 <registergroup sequence="false" maxvalue="7" >
+			    <register name="wdqs3" address="0x20110500"  start="9" end="11"/> 
+			 </registergroup>
+		   </group>
+		   <group>
+		  	 <registergroup sequence="false" maxvalue="7" >
+			    <register name="wdqs3" address="0x20110500"  start="9" end="11"/> 
+			 </registergroup> 
+			<registergroup initvalue="true">
+			</registergroup>
+             <registergroup sequence="true" maxvalue="7" >
+			  <register name="wdq24" address="0x2011051c"  start="0" end="2"/>
+			  <register name="wdq25" address="0x2011051c"  start="3" end="5"/>
+			  <register name="wdq26" address="0x2011051c"  start="6" end="8"/>
+			  <register name="wdq27" address="0x2011051c"  start="9" end="11"/>
+			  <register name="wdq28" address="0x2011051c"  start="12" end="14"/>
+			  <register name="wdq29" address="0x2011051c"  start="15" end="17"/>
+			  <register name="wdq30" address="0x2011051c"  start="18" end="20"/>
+			  <register name="wdq31" address="0x2011051c"  start="21" end="23"/>
+			 </registergroup>	
+           </group>
+		   <group>
+		     <registergroup sequence="false" defaultvalue="0">
+                <register name="dqsenable" address="0x20110470"  start="3" end="3" />
+			 </registergroup>
+			 <registergroup sequence="true" maxvalue="7" >
+			  <register name="wdq24" address="0x2011051c"  start="0" end="2"/>
+			  <register name="wdq25" address="0x2011051c"  start="3" end="5"/>
+			  <register name="wdq26" address="0x2011051c"  start="6" end="8"/>
+			  <register name="wdq27" address="0x2011051c"  start="9" end="11"/>
+			  <register name="wdq28" address="0x2011051c"  start="12" end="14"/>
+			  <register name="wdq29" address="0x2011051c"  start="15" end="17"/>
+			  <register name="wdq30" address="0x2011051c"  start="18" end="20"/>
+			  <register name="wdq31" address="0x2011051c"  start="21" end="23"/>
+			 </registergroup>			
+		   </group>
+       </loop>    
+     
+  	   <loop description="read ddrc2,rdqs0,rdq0,rdq1,rdq2,rdq3,rdq4,rdq5,rdq6,rdq7">
+            <group>
+      	     <registergroup sequence="false" maxvalue="7">
+                <register name="rdqs0" address="0x20120504"  start="0" end="2"/>
+			 </registergroup>
+			<registergroup initvalue="true">
+			</registergroup>			 	
+		       <registergroup sequence="true" maxvalue="7" >
+			  <register name="rdq0" address="0x20120540"  start="0" end="2"/>
+			  <register name="rdq1" address="0x20120540"  start="3" end="5"/>
+			  <register name="rdq2" address="0x20120540"  start="6" end="8"/>
+			  <register name="rdq3" address="0x20120540"  start="9" end="11"/>
+			  <register name="rdq4" address="0x20120540"  start="12" end="14"/>
+			  <register name="rdq5" address="0x20120540"  start="15" end="17"/>
+			  <register name="rdq6" address="0x20120540"  start="18" end="20"/>
+			  <register name="rdq7" address="0x20120540"  start="21" end="23"/>
+			 </registergroup>	
+           </group>
+       </loop>
+	   <loop description="read ddrc2,rdqs1,rdq8,rdq9,rdq10,rdq11,rdq12,rdq13,rdq14,rdq15">
+           <group>
+      	     <registergroup sequence="false" maxvalue="7">
+                <register name="rdqs1" address="0x20120504"  start="3" end="5"/>
+			 </registergroup>	
+			<registergroup initvalue="true">
+			</registergroup>			 
+             <registergroup sequence="true" maxvalue="7" >
+			  <register name="rdq8" address="0x20120544"  start="0" end="2"/>
+			  <register name="rdq9" address="0x20120544"  start="3" end="5"/>
+			  <register name="rdq10" address="0x20120544"  start="6" end="8"/>
+			  <register name="rdq11" address="0x20120544"  start="9" end="11"/>
+			  <register name="rdq12" address="0x20120544"  start="12" end="14"/>
+			  <register name="rdq13" address="0x20120544"  start="15" end="17"/>
+			  <register name="rdq14" address="0x20120544"  start="18" end="20"/>
+			  <register name="rdq15" address="0x20120544"  start="21" end="23"/>
+			 </registergroup>	
+           </group>
+       </loop>
+	   <loop description="read ddrc2,rdqs2,rdq16,rdq17,rdq18,rdq19,rdq20,rdq21,rdq22,rdq23">
+           <group>
+      	     <registergroup sequence="false" maxvalue="7">
+                <register name="rdqs2" address="0x20120504"  start="6" end="8"/>
+			 </registergroup>
+			<registergroup initvalue="true">
+			</registergroup>			 
+             <registergroup sequence="true" maxvalue="7" >
+			  <register name="rdq16" address="0x20120548"  start="0" end="2"/>
+			  <register name="rdq17" address="0x20120548"  start="3" end="5"/>
+			  <register name="rdq18" address="0x20120548"  start="6" end="8"/>
+			  <register name="rdq19" address="0x20120548"  start="9" end="11"/>
+			  <register name="rdq20" address="0x20120548"  start="12" end="14"/>
+			  <register name="rdq21" address="0x20120548"  start="15" end="17"/>
+			  <register name="rdq22" address="0x20120548"  start="18" end="20"/>
+			  <register name="rdq23" address="0x20120548"  start="21" end="23"/>
+			 </registergroup>	
+           </group>
+       </loop>
+	   <loop description="read ddrc2,rdqs3,rdq24,rdq25,rdq26,rdq27,rdq28,rdq29,rdq30,rdq31">
+           <group>
+      	     <registergroup sequence="false" maxvalue="7">
+                <register name="rdqs3" address="0x20120504"  start="9" end="11"/>
+			 </registergroup>	
+			<registergroup initvalue="true">
+			</registergroup>			 
+             <registergroup sequence="true" maxvalue="7" >
+			  <register name="rdq24" address="0x2012054c"  start="0" end="2"/>
+			  <register name="rdq25" address="0x2012054c"  start="3" end="5"/>
+			  <register name="rdq26" address="0x2012054c"  start="6" end="8"/>
+			  <register name="rdq27" address="0x2012054c"  start="9" end="11"/>
+			  <register name="rdq28" address="0x2012054c"  start="12" end="14"/>
+			  <register name="rdq29" address="0x2012054c"  start="15" end="17"/>
+			  <register name="rdq30" address="0x2012054c"  start="18" end="20"/>
+			  <register name="rdq31" address="0x2012054c"  start="21" end="23"/>
+			 </registergroup>	
+           </group>
+       </loop>
+          
+	   <loop description="write ddrc2,dqsenable,wdqs0,wdq0,wdq1,wdq2,wdq3,wdq4,wdq5,wdq6,wdq7,dqenable">
+           <group>
+      	     <registergroup sequence="false" defaultvalue="0">
+                <register name="dqenable" address="0x20120510"  start="24" end="31" />
+			 </registergroup>	
+			 <registergroup sequence="false" maxvalue="7" >
+			    <register name="wdqs0" address="0x20120500"  start="0" end="2"/> 
+			 </registergroup>
+		   </group>
+		   <group>
+		  	 <registergroup sequence="false" maxvalue="7" >
+			    <register name="wdqs0" address="0x20120500"  start="0" end="2"/> 
+			 </registergroup> 
+			<registergroup initvalue="true">
+			</registergroup>
+             <registergroup sequence="true" maxvalue="7" >
+			  <register name="wdq0" address="0x20120510"  start="0" end="2"/>
+			  <register name="wdq1" address="0x20120510"  start="3" end="5"/>
+			  <register name="wdq2" address="0x20120510"  start="6" end="8"/>
+			  <register name="wdq3" address="0x20120510"  start="9" end="11"/>
+			  <register name="wdq4" address="0x20120510"  start="12" end="14"/>
+			  <register name="wdq5" address="0x20120510"  start="15" end="17"/>
+			  <register name="wdq6" address="0x20120510"  start="18" end="20"/>
+			  <register name="wdq7" address="0x20120510"  start="21" end="23"/>
+			 </registergroup>	
+           </group>
+		   <group>
+		     <registergroup sequence="false" defaultvalue="0">
+                <register name="dqsenable" address="0x20120470"  start="0" end="0" />
+			 </registergroup>
+			 <registergroup sequence="true" maxvalue="7" >
+			  <register name="wdq0" address="0x20120510"  start="0" end="2"/>
+			  <register name="wdq1" address="0x20120510"  start="3" end="5"/>
+			  <register name="wdq2" address="0x20120510"  start="6" end="8"/>
+			  <register name="wdq3" address="0x20120510"  start="9" end="11"/>
+			  <register name="wdq4" address="0x20120510"  start="12" end="14"/>
+			  <register name="wdq5" address="0x20120510"  start="15" end="17"/>
+			  <register name="wdq6" address="0x20120510"  start="18" end="20"/>
+			  <register name="wdq7" address="0x20120510"  start="21" end="23"/>
+			 </registergroup>			
+		   </group>
+       </loop>
+       <loop description="write ddrc2,dqsenable,wdqs1,wdq8,wdq9,wdq10,wdq11,wdq12,wdq13,wdq14,wdq15,dqenable">
+	      
+           <group>
+      	     <registergroup sequence="false" defaultvalue="0">
+                <register name="dqenable" address="0x20120514"  start="24" end="31" />
+			 </registergroup>	
+			 <registergroup sequence="false" maxvalue="7" >
+			    <register name="wdqs1" address="0x20120500"  start="3" end="5"/> 
+			 </registergroup>
+		   </group>
+		   <group>
+		  	 <registergroup sequence="false" maxvalue="7" >
+			    <register name="wdqs1" address="0x20120500"  start="3" end="5"/> 
+			 </registergroup> 
+			<registergroup initvalue="true">
+			</registergroup>
+             <registergroup sequence="true" maxvalue="7" >
+			  <register name="wdq8" address="0x20120514"  start="0" end="2"/>
+			  <register name="wdq9" address="0x20120514"  start="3" end="5"/>
+			  <register name="wdq10" address="0x20120514"  start="6" end="8"/>
+			  <register name="wdq11" address="0x20120514"  start="9" end="11"/>
+			  <register name="wdq12" address="0x20120514"  start="12" end="14"/>
+			  <register name="wdq13" address="0x20120514"  start="15" end="17"/>
+			  <register name="wdq14" address="0x20120514"  start="18" end="20"/>
+			  <register name="wdq15" address="0x20120514"  start="21" end="23"/>
+			 </registergroup>	
+           </group>
+		   <group>
+		     <registergroup sequence="false" defaultvalue="0">
+                <register name="dqsenable" address="0x20120470"  start="1" end="1" />
+			 </registergroup>
+			 <registergroup sequence="true" maxvalue="7" >
+			  <register name="wdq8" address="0x20120514"  start="0" end="2"/>
+			  <register name="wdq9" address="0x20120514"  start="3" end="5"/>
+			  <register name="wdq10" address="0x20120514"  start="6" end="8"/>
+			  <register name="wdq11" address="0x20120514"  start="9" end="11"/>
+			  <register name="wdq12" address="0x20120514"  start="12" end="14"/>
+			  <register name="wdq13" address="0x20120514"  start="15" end="17"/>
+			  <register name="wdq14" address="0x20120514"  start="18" end="20"/>
+			  <register name="wdq15" address="0x20120514"  start="21" end="23"/>
+			 </registergroup>			
+		   </group>
+       </loop>
+       <loop description="write ddrc2,dqsenable,wdqs2,wdq16,wdq17,wdq18,wdq19,wdq20,wdq21,wdq22,wdq23,dqenable">
+           <group>
+      	     <registergroup sequence="false"  defaultvalue="0">
+                <register name="dqenable" address="0x20120518"  start="24" end="31"/>
+			 </registergroup>	
+			 <registergroup sequence="false" maxvalue="7" >
+			    <register name="wdqs2" address="0x20120500"  start="6" end="8"/> 
+			 </registergroup>
+		   </group>
+		   <group>
+		  	 <registergroup sequence="false" maxvalue="7" >
+			    <register name="wdqs2" address="0x20120500"  start="6" end="8"/> 
+			 </registergroup> 
+			<registergroup initvalue="true">
+			</registergroup>
+             <registergroup sequence="true" maxvalue="7" >
+			  <register name="wdq16" address="0x20120518"  start="0" end="2"/>
+			  <register name="wdq17" address="0x20120518"  start="3" end="5"/>
+			  <register name="wdq18" address="0x20120518"  start="6" end="8"/>
+			  <register name="wdq19" address="0x20120518"  start="9" end="11"/>
+			  <register name="wdq20" address="0x20120518"  start="12" end="14"/>
+			  <register name="wdq21" address="0x20120518"  start="15" end="17"/>
+			  <register name="wdq22" address="0x20120518"  start="18" end="20"/>
+			  <register name="wdq23" address="0x20120518"  start="21" end="23"/>
+			 </registergroup>	
+           </group>
+		   <group>
+		     <registergroup sequence="false" defaultvalue="0">
+                <register name="dqsenable" address="0x20120470"  start="2" end="2" />
+			 </registergroup>
+			 <registergroup sequence="true" maxvalue="7" >
+			  <register name="wdq16" address="0x20120518"  start="0" end="2"/>
+			  <register name="wdq17" address="0x20120518"  start="3" end="5"/>
+			  <register name="wdq18" address="0x20120518"  start="6" end="8"/>
+			  <register name="wdq19" address="0x20120518"  start="9" end="11"/>
+			  <register name="wdq20" address="0x20120518"  start="12" end="14"/>
+			  <register name="wdq21" address="0x20120518"  start="15" end="17"/>
+			  <register name="wdq22" address="0x20120518"  start="18" end="20"/>
+			  <register name="wdq23" address="0x20120518"  start="21" end="23"/>
+			 </registergroup>			
+		   </group>
+       </loop>   
+       <loop description="write ddrc2,dqsenable,wdqs3,wdq24,wdq25,wdq26,wdq27,wdq28,wdq29,wdq30,wdq31,dqenable">
+           <group>
+      	     <registergroup sequence="false" defaultvalue="0">
+                <register name="dqenable" address="0x2012051c"  start="24" end="31" />
+			 </registergroup>	
+			 <registergroup sequence="false" maxvalue="7" >
+			    <register name="wdqs3" address="0x20120500"  start="9" end="11"/> 
+			 </registergroup>
+		   </group>
+		   <group>
+		  	 <registergroup sequence="false" maxvalue="7" >
+			    <register name="wdqs3" address="0x20120500"  start="9" end="11"/> 
+			 </registergroup> 
+			<registergroup initvalue="true">
+			</registergroup>
+             <registergroup sequence="true" maxvalue="7" >
+			  <register name="wdq24" address="0x2012051c"  start="0" end="2"/>
+			  <register name="wdq25" address="0x2012051c"  start="3" end="5"/>
+			  <register name="wdq26" address="0x2012051c"  start="6" end="8"/>
+			  <register name="wdq27" address="0x2012051c"  start="9" end="11"/>
+			  <register name="wdq28" address="0x2012051c"  start="12" end="14"/>
+			  <register name="wdq29" address="0x2012051c"  start="15" end="17"/>
+			  <register name="wdq30" address="0x2012051c"  start="18" end="20"/>
+			  <register name="wdq31" address="0x2012051c"  start="21" end="23"/>
+			 </registergroup>	
+           </group>
+		   <group>
+		     <registergroup sequence="false" defaultvalue="0" >
+                <register name="dqsenable" address="0x20120470"  start="3" end="3" />
+			 </registergroup>
+			 <registergroup sequence="true" maxvalue="7" >
+			  <register name="wdq24" address="0x2012051c"  start="0" end="2"/>
+			  <register name="wdq25" address="0x2012051c"  start="3" end="5"/>
+			  <register name="wdq26" address="0x2012051c"  start="6" end="8"/>
+			  <register name="wdq27" address="0x2012051c"  start="9" end="11"/>
+			  <register name="wdq28" address="0x2012051c"  start="12" end="14"/>
+			  <register name="wdq29" address="0x2012051c"  start="15" end="17"/>
+			  <register name="wdq30" address="0x2012051c"  start="18" end="20"/>
+			  <register name="wdq31" address="0x2012051c"  start="21" end="23"/>
+			 </registergroup>			
+		   </group>
+       </loop>  
+	   </loops>
+   
+</training>
