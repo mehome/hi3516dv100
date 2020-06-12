@@ -1,0 +1,1 @@
+cmd_arch/arm/mach-hi3516a/fastboot/built-in.o :=  arm-hisiv300-linux-ld -EL  --no-warn-mismatch   -r -o arch/arm/mach-hi3516a/fastboot/built-in.o arch/arm/mach-hi3516a/fastboot/hibernate_umh.o arch/arm/mach-hi3516a/fastboot/hibernate_pmmon.o arch/arm/mach-hi3516a/fastboot/hibernate_misc.o 

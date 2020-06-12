@@ -1,0 +1,61 @@
+ifeq ($(CONFIG_OSD_ENABLE), y)
+
+ifeq ($(CONFIG_PRODUCTNAME), "godnet")
+LIBS += ./product/hiosd/vo/godnet/libvo.a
+LIBS += ./product/hiosd/hdmi/godnet/libhdmi.a
+LIBS += ./product/hiosd/dec/libjpegd.a
+endif
+
+ifeq ($(CONFIG_PRODUCTNAME), "godarm")
+LIBS += ./product/hiosd/vo/godarm/libvo.a
+LIBS += ./product/hiosd/hdmi/godarm/libhdmi.a
+LIBS += ./product/hiosd/dec/libjpegd.a
+endif
+
+ifeq ($(CONFIG_PRODUCTNAME), "hi3535")
+LIBS += ./product/hiosd/vo/hi3535/libvo.a
+LIBS += ./product/hiosd/hdmi/hi3535/libhdmi.a
+LIBS += ./product/hiosd/dec/libjpegd.a
+endif
+
+ifeq ($(CONFIG_PRODUCTNAME), "hi3520d")
+LIBS += ./product/hiosd/vo/hi3520d/libvo.a
+LIBS += ./product/hiosd/hdmi/hi3520d/libhdmi.a
+LIBS += ./product/hiosd/dec/libjpegd.a
+endif
+
+ifeq ($(CONFIG_PRODUCTNAME), "hi3516a")
+LIBS += ./product/hiosd/vo/hi3516a/libvo.a
+endif
+
+ifeq ($(CONFIG_PRODUCTNAME), "hi3536")
+LIBS += ./product/hiosd/vo/hi3536/libvo.a
+LIBS += ./product/hiosd/hdmi/hi3536/libhdmi.a
+LIBS += ./product/hiosd/dec/libjpegd.a
+endif
+
+ifeq ($(CONFIG_PRODUCTNAME), "hi3521a")
+LIBS += ./product/hiosd/vo/hi3521a/libvo.a
+LIBS += ./product/hiosd/hdmi/hi3521a/libhdmi.a
+LIBS += ./product/hiosd/dec/libjpegd.a
+endif
+
+ifeq ($(CONFIG_PRODUCTNAME), "hi3531a")
+LIBS += ./product/hiosd/vo/hi3531a/libvo.a
+LIBS += ./product/hiosd/hdmi/hi3531a/libhdmi.a
+LIBS += ./product/hiosd/dec/libjpegd.a
+endif
+
+ifeq ($(CONFIG_PRODUCTNAME), "hi3519")
+LIBS += ./product/hiosd/vo/hi3519/libvo.a
+endif
+
+ifeq ($(CONFIG_PRODUCTNAME), "hi3519v101")
+LIBS += ./product/hiosd/vo/hi3519v101/libvo.a
+endif
+
+ifeq ($(CONFIG_PRODUCTNAME), "hi3559")
+LIBS += ./product/hiosd/vo/hi3559/libvo.a
+endif
+
+endif

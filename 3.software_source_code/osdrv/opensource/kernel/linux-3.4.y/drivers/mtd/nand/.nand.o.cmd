@@ -1,0 +1,1 @@
+cmd_drivers/mtd/nand/nand.o := arm-hisiv300-linux-ld -EL    -r -o drivers/mtd/nand/nand.o drivers/mtd/nand/nand_base.o drivers/mtd/nand/nand_bbt.o drivers/mtd/nand/hinfc_spl_ids.o drivers/mtd/nand/match_table.o drivers/mtd/nand/hinfc_common.o 

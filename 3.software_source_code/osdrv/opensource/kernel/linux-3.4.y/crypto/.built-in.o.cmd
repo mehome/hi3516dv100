@@ -1,0 +1,1 @@
+cmd_crypto/built-in.o :=  arm-hisiv300-linux-ld -EL    -r -o crypto/built-in.o crypto/crypto.o crypto/crypto_algapi.o crypto/crypto_hash.o crypto/md5.o crypto/sha1_generic.o crypto/sha256_generic.o crypto/aes_generic.o crypto/arc4.o crypto/deflate.o crypto/crc32c.o crypto/lzo.o 
