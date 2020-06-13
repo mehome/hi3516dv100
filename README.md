@@ -1,10 +1,13 @@
 # hi3516dv100
+git上传命令
 1.  git add .
 2.  git commit -m "xxxx"
 3.  git push origin master
 
 #### 介绍
 开源海思学习的过程，分享所有的软件和硬件资料。
+github开源地址：https://github.com/Jun1172/hi3516dv100.git
+gitee开源地址：https://github.com/Jun1172/hi3516dv100.git
 
 #### 文件说明
 
@@ -40,7 +43,7 @@ bin file】(只能点此按钮)，生成临时文件 reg_info.bin。
 mkboot.sh reg_info_hi3516a.bin u-boot-hi3516a.bin
 其中 u-boot-hi3516a.bin 就是能够在单板上运行的 U-boot 镜像。
 
-#####kernel编译：
+##### kernel编译：
 1.  进入文件夹：your_addr/hi3516dv100/3.software_source_code/osdrv/opensource/kernel/linux-3.4.y
 2.  配置内核：make ARCH=arm CROSS_COMPILE=arm-hisiv300-linux- menuconfig
 	编译内核时需要在 make 后添加两个参数：ARCH=arm CROSS_COMPILE=arm-hisiXXX-linux-，其中 CROSS_COMPILE 表示工具链。
@@ -48,11 +51,11 @@ mkboot.sh reg_info_hi3516a.bin u-boot-hi3516a.bin
 	z Hi3516A_V100R001C01SPCxxx 对应 uclibc，使用 uclibc 工具链时，CROSS_COMPILE= arm-hisiv300-linux -。 z Hi3516A_V100R001C02SPCxxx 对应 glibc，使用 glibc 工具链时，CROSS_COMPILE=arm-hisiv400-linux-。
 3.  编译内核：make ARCH=arm CROSS_COMPILE=arm-hisiv300-linux- uImage -j4
 	如果编译过程中出现错误，按顺序执行以下命令：
-	make ARCH=arm CROSS_COMPILE=arm-hisiXXX-linux- clean 
-	make ARCH=arm CROSS_COMPILE=arm-hisiXXX-linux- menuconfig 
-	make ARCH=arm CROSS_COMPILE=arm-hisiXXX-linux- uImage
+	make ARCH=arm CROSS_COMPILE=arm-hisiv300-linux- clean 
+	make ARCH=arm CROSS_COMPILE=arm-hisiv300-linux- menuconfig 
+	make ARCH=arm CROSS_COMPILE=arm-hisiv300-linux- uImage
 
-#####文件系统编译
+##### 文件系统编译
 1.  进入文件夹：/home/jun/hi3516dv100/3.software_source_code/osdrv/opensource/busybox/busybox-1.20.2
 
 2.  编译和安装 busybox
