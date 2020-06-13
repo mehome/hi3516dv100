@@ -1,0 +1,1 @@
+cmd_arch/arm/boot/uImage := /bin/sh /home/jun/hi3516dv100/3.software_source_code/osdrv/opensource/kernel/linux-3.4.y/scripts/mkuboot.sh -A arm -O linux -C none  -T kernel -a 0x80008000 -e 0x80008000 -n 'Linux-3.4.35' -d arch/arm/boot/zImage arch/arm/boot/uImage

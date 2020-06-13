@@ -1,0 +1,1 @@
+..//arch/arm/cpu/hi3516a/ddr_training/hi3516a/ddr_training_printf.c

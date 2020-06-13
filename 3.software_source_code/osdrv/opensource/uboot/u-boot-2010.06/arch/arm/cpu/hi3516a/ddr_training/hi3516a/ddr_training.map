@@ -1,0 +1,118 @@
+
+内存配置
+
+名称           来源             长度             属性
+*default*        0x00000000         0xffffffff
+
+链结器命令稿和内存映射
+
+                0x00000000                . = 0x0
+                0x00000000                . = ALIGN (0x4)
+
+.text           0x04010c00     0x100c
+ start.o(.text)
+ .text          0x04010c00       0xc4 start.o
+                0x04010c00                _start
+                0x04010c20                _bss_start
+                0x04010c24                _bss_end
+ *(.text)
+ .text          0x04010cc4      0xd54 ddr_training.o
+                0x04010e10                memcpy_soc
+                0x04010e30                memset_soc
+                0x04010e44                ddrt_read
+                0x04011924                byte_deskew_judge
+                0x040119b8                ddr_training
+ .text          0x04011a18       0xc4 uart.o
+                0x04011a18                uart_early_init
+                0x04011a4c                uart_early_puts
+                0x04011a7c                uart_early_put_hex
+                0x04011ac0                uart_early_putc
+ .text          0x04011adc      0x130 libc.o
+                0x04011adc                memcpy
+                0x04011af8                memset
+                0x04011b10                memcmp
+                0x04011b18                strcmp
+                0x04011b44                strncmp
+                0x04011b7c                strcpy
+                0x04011b98                strcat
+                0x04011bc8                strchr
+                0x04011bf0                strlen
+
+.glue_7         0x04011c0c        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x04011c0c        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x04011c0c        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x04011c0c        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.iplt           0x04011c0c        0x0
+ .iplt          0x00000000        0x0 start.o
+                0x04011c0c                . = ALIGN (0x4)
+
+.rodata         0x04011c0c       0x8f
+ *(SORT(.rodata*))
+ .rodata.str1.1
+                0x04011c0c       0x8f ddr_training.o
+                                 0x92 (松开之前的大小)
+
+.rel.dyn        0x04011c9c        0x0
+ .rel.iplt      0x00000000        0x0 start.o
+                0x04011c9c                . = ALIGN (0x4)
+
+.data           0x04011c9c        0x8
+ *(.data)
+ .data          0x04011c9c        0x8 start.o
+ .data          0x04011ca4        0x0 ddr_training.o
+ .data          0x04011ca4        0x0 uart.o
+ .data          0x04011ca4        0x0 libc.o
+
+.igot.plt       0x04011ca4        0x0
+ .igot.plt      0x00000000        0x0 start.o
+                0x04011ca4                . = ALIGN (0x4)
+
+.got
+ *(.got)
+                0x04011ca4                . = ALIGN (0x4)
+                0x04011ca4                __bss_start = .
+
+.bss            0x04011ca4      0x4a4
+ *(.bss)
+ .bss           0x04011ca4        0x0 start.o
+ .bss           0x04011ca4      0x4a4 ddr_training.o
+ .bss           0x04012148        0x0 uart.o
+ .bss           0x04012148        0x0 libc.o
+                0x04012148                _end = .
+段 .text 的地址设置为 0x4010c00
+LOAD start.o
+LOAD ddr_training.o
+LOAD uart.o
+LOAD libc.o
+OUTPUT(ddr_training.elf elf32-littlearm)
+
+.ARM.attributes
+                0x00000000       0x2b
+ .ARM.attributes
+                0x00000000       0x1d start.o
+ .ARM.attributes
+                0x0000001d       0x2f ddr_training.o
+ .ARM.attributes
+                0x0000004c       0x1d uart.o
+ .ARM.attributes
+                0x00000069       0x2f libc.o
+
+.comment        0x00000000       0x32
+ .comment       0x00000000       0x32 ddr_training.o
+                                 0x33 (松开之前的大小)
+ .comment       0x00000000       0x33 libc.o
+
+.note.GNU-stack
+                0x00000000        0x0
+ .note.GNU-stack
+                0x00000000        0x0 ddr_training.o
+ .note.GNU-stack
+                0x00000000        0x0 libc.o
