@@ -89,6 +89,7 @@ mkboot.sh reg_info_hi3516a.bin u-boot-hi3516a.bin
 
 #### 交流学习
 为海思专门创建的群【嵌入式交流】：https://jq.qq.com/?_wv=1027&k=K73tilmc
+
 另一个交流群，看情况，可能会加不进去【嵌入式交流】：https://jq.qq.com/?_wv=1027&k=3bKuC7nh
 
 

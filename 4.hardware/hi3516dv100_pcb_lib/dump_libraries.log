@@ -1,0 +1,211 @@
+(---------------------------------------------------------------------)
+(                                                                     )
+(    Dump Library Log                                                 )
+(                                                                     )
+(    Software Version : 16.6-2015S108                                 )
+(    Date/Time        : Thu Jun 18 23:19:09 2020                      )
+(                                                                     )
+(---------------------------------------------------------------------)
+
+
+*** file: J:/Hi3516A V100R001C01SPC070/00.hardware/board/HI3516ADMEB_VER_C_PCB.brd ***
+
+
+
+  *** Creating all device files (see create_devices.log) ***
+
+
+  *** Creating padstacks. ***
+
+  SMD8_28S12_32 being dumped.
+
+  SMD12_28S16_32 being dumped.
+
+  SMD10_20 being dumped.
+
+  SMD20S26PSH_L being dumped.
+
+  SMD10_22 being dumped.
+
+  SMD11_21 being dumped.
+
+  SMD30_32 being dumped.
+
+  SMD20S26PSH_R being dumped.
+
+  SMD14_50 being dumped.
+
+  SMD40_70 being dumped.
+
+  SMD14_16 being dumped.
+
+  SMD10_65 being dumped.
+
+  SMD10_57 being dumped.
+
+  SMD28_32 being dumped.
+
+  SMD51_65 being dumped.
+
+  SMD19_20PSH_L being dumped.
+
+  SMD25_78 being dumped.
+
+  SMD55_48 being dumped.
+
+  SMD19_20PSH_R being dumped.
+
+  ID-BOARD being dumped.
+
+  SMD100_25 being dumped.
+
+  SMD100_45 being dumped.
+
+  SMD62_120 being dumped.
+
+  SMD100_95 being dumped.
+
+  SMD185_25 being dumped.
+
+  VIA10-GEN being dumped.
+
+  SMD183_187 being dumped.
+
+  SMD25_60OB being dumped.
+
+  VIA8_16-BGA-FULL being dumped.
+
+  SH37_75REC being dumped.
+
+  PAD65CIR36D being dumped.
+
+  PAD40CIR40U being dumped.
+
+  PAD83CIR83U being dumped.
+
+  SH20_16OBSL being dumped.
+
+  VIA8-BGA-FULL-NEW being dumped.
+
+  VIA8-GEN-FULL-NEW being dumped.
+
+  BALL10 being dumped.
+
+  BALL14 being dumped.
+
+  SHAPE20_20-Y being dumped.
+
+  SHAPE20_20-Z being dumped.
+
+
+  *** Creating shape symbols (.dra and .ssm) ***
+
+  sh20q_lno_t being dumped.
+
+  sh20q_rno_t being dumped.
+
+  sh19_20lno_t being dumped.
+
+  sh19_20rno_t being dumped.
+
+  sh37_71rec being dumped.
+
+  sh20_16obsl being dumped.
+
+  sh25_21obsl being dumped.
+
+  shape20x20-y being dumped.
+
+  shape20x20-z being dumped.
+
+
+  *** Creating package symbols (.dra and .psm) ***
+
+  sip-1p being dumped.
+
+  hsl1008 being dumped.
+
+  stc7343 being dumped.
+
+  hsod523 being dumped.
+
+  mlf8m-050-0202l being dumped.
+
+  spl0303a being dumped.
+
+  tsot23-8 being dumped.
+
+  hsx2-0302 being dumped.
+
+  hsx4-0302 being dumped.
+
+  hsed120-20m-qth being dumped.
+
+  id-board being dumped.
+
+  srn8-0804 being dumped.
+
+  sc0402-bga being dumped.
+
+  sed60-16f-a being dumped.
+
+  battery-r being dumped.
+
+  npthhole-2_1mmm being dumped.
+
+  sop16-50-300a being dumped.
+
+  sc0402 being dumped.
+
+  sc1206 being dumped.
+
+  sc0603 being dumped.
+
+  sop48-20-720a being dumped.
+
+  bga395-26-2222 being dumped.
+
+  sl0402 being dumped.
+
+  sr0402 being dumped.
+
+  sr0603 being dumped.
+
+  bga96-32-1609g being dumped.
+
+  wson8-mx25l12835zn being dumped.
+
+
+  *** Creating mechanical symbols (.dra and .bsm) ***
+
+  ash-bin being dumped.
+
+
+  *** Creating format symbols (.dra and .osm) ***
+
+  notes2 being dumped.
+
+  a4-hisi being dumped.
+
+  esd-0707 being dumped.
+
+  layer8a being dumped.
+
+  notesv2 being dumped.
+
+  pb-0707 being dumped.
+
+
+
+*********************** Summary *********************
+ERRORs reported:                           0
+
+Number of padstacks dumped:               40
+Number of package symbols dumped:         27
+Number of mechanical symbols dumped:       1
+Number of format symbols dumped:           6
+Number of shape symbols dumped:            9
+
+Total number of symbols dumped:           43
+*****************************************************
+
