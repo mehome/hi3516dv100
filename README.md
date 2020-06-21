@@ -2,7 +2,8 @@
 git上传命令
 1.  git add .
 2.  git commit -m "xxxx"
-3.  git push origin master
+3.  git remote add github https://github.com/Jun1172/hi3516dv100.git
+4.  git push origin/github master
 
 #### 介绍
 开源海思学习的过程，分享所有的软件和硬件资料。
